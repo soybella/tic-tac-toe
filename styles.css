@@ -108,6 +108,7 @@ button {
   border-radius: 10px;
   background: var(--Dark-navy);
   transition: var(--On-hover-transition);
+  border: none;
 }
 
 .icon-o {
@@ -181,4 +182,14 @@ button {
   line-height: normal;
   letter-spacing: 1.25px;
   text-transform: uppercase;
+}
+
+.game-board-nav-bar {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-board-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
