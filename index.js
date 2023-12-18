@@ -1,18 +1,27 @@
 let handleClick = (event) => {
   let playerMark = event.target;
   if (playerMark === playerMarkX) {
+    playerPick.style.display = "block";
+    playerPick.innerHTML = "You chose: X";
+    playerMark.style.backgroundColor = "#1f3641";
+
     let playerMarkX = new Image();
     playerMarkX.src = "./images/icon-x.svg";
     playerMarkX.classList.add("playerMarkX");
     playerMarkX.style.width = 60;
     playerMarkX.style.height = 60;
+
     useStoredTarget(playerMarkX);
   } else {
+    playerPick.style.display = "block";
+    playerPick.innerHTML = "You chose: O";
+
     let playerMarkO = new Image();
     playerMarkO.src = "./images/icon-o.svg";
     playerMarkO.classList.add("playerMarkO");
     playerMarkO.width = 60;
     playerMarkO.height = 60;
+
     useStoredTarget(playerMarkO);
   }
 };
@@ -39,6 +48,9 @@ let handleRestartButtonClick = (playerMark) => {
     button.innerHTML = "";
   });
 };
+
+let playerPick = document.getElementById("playerPick");
+playerPick.style.display = "none";
 
 let markGridItems = document.querySelectorAll(".grid-item");
 
