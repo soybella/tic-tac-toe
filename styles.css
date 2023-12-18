@@ -37,6 +37,18 @@ button {
   border: none;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
+.game {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
 .secondary-container {
   display: flex;
   flex-direction: column;
@@ -45,7 +57,7 @@ button {
   align-items: center;
   margin: 0 auto;
   color: white;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   background: var(--Dark-navy);
 }
 
@@ -66,7 +78,7 @@ button {
   border: none;
   padding: 0;
   background: none;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .pick-player-container {
@@ -104,12 +116,18 @@ button {
 }
 
 .icon-x:hover {
-  cursor: pointer;
+  /* cursor: pointer; */
   background: var(--Semi-dark-navy);
 }
 
 .icon-o:hover {
-  cursor: pointer;
+  /* cursor: pointer; */
+}
+
+.playerMarkX,
+.playerMarkO {
+  width: 60px;
+  height: 60px;
 }
 
 .header {
@@ -138,7 +156,7 @@ button {
 }
 
 .button-yellow:hover {
-  cursor: pointer;
+  /* cursor: pointer; */
   background: var(--Light-yellow-hover);
 }
 
@@ -149,7 +167,7 @@ button {
 }
 
 .button-blue:hover {
-  cursor: pointer;
+  /* cursor: pointer; */
   background: var(--Light-blue-hover);
 }
 
@@ -186,6 +204,10 @@ button {
   text-align: center;
   background: var(--Semi-dark-navy);
   box-shadow: 0px -8px 0px 0px #10212a inset;
+}
+
+.grid-item:hover {
+  /* cursor: pointer; */
 }
 
 .navbar-item {
@@ -236,9 +258,17 @@ button {
   background: var(--Dark-navy);
 }
 
+.restart-button:hover {
+  cursor: default;
+}
+
 .restart-button img {
   width: 52px;
   height: 52px;
+}
+
+.restart-button img:hover {
+  cursor: pointer;
 }
 
 button.restart-button {
