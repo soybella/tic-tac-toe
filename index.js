@@ -29,8 +29,15 @@ let handleClick = (event) => {
 let useStoredTarget = (playerMark) => {
   markGridItems.forEach((button) => {
     button.addEventListener("click", () => {
-      console.log(playerMark);
-      button.appendChild(playerMark.cloneNode(true));
+      //   console.log(playerMark);
+      if (
+        !button.querySelector(".playerMarkX") &&
+        !button.querySelector(".playerMarkO")
+      ) {
+        button.appendChild(playerMark.cloneNode(true));
+      } else {
+        alert("This box is already marked! Try another.");
+      }
     });
   });
 };

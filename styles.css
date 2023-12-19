@@ -318,3 +318,9 @@ button.restart-button {
   font-size: 24px;
   letter-spacing: 1.5px;
 }
+
+.grid-item:hover {
+  background-image: url(./images/icon-x-outline.svg);
+  background-repeat: no-repeat;
+  /* background: grey; */
+}
