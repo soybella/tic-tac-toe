@@ -120,7 +120,8 @@ button:hover {
 }
 
 .playerMarkX,
-.playerMarkO {
+.playerMarkO,
+.hoverX {
   width: 60px;
   height: 60px;
 }
@@ -319,8 +320,12 @@ button.restart-button {
   letter-spacing: 1.5px;
 }
 
-.grid-item:hover {
-  background-image: url(./images/icon-x-outline.svg);
+/* .grid-item:hover {
+  background-image: url("");
   background-repeat: no-repeat;
-  /* background: grey; */
+} */
+
+.playerMark {
+  opacity: 0;
+  transition: 150ms ease-in-out;
 }

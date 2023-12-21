@@ -1,5 +1,6 @@
 let handleClick = (event) => {
   let playerMark = event.target;
+
   if (playerMark === playerMarkX) {
     playerPick.style.display = "block";
     playerPick.innerHTML = "You chose: X";
@@ -29,18 +30,37 @@ let handleClick = (event) => {
 let useStoredTarget = (playerMark) => {
   markGridItems.forEach((button) => {
     button.addEventListener("click", () => {
-      //   console.log(playerMark);
       if (
         !button.querySelector(".playerMarkX") &&
         !button.querySelector(".playerMarkO")
       ) {
         button.appendChild(playerMark.cloneNode(true));
+        playerMark.style.opacity = "1";
       } else {
         alert("This box is already marked! Try another.");
       }
     });
   });
 };
+
+// NEXT figure out how to show outline of X or O on hover
+// let hoverX = document.getElementsByClassName("hoverX");
+// let hoverXArray = Array.from(hoverX);
+// console.log(hoverXArray);
+
+// let showPlayerMarkHover = (event) => {
+//   let hoverMark = event.target;
+//   console.log(hoverMark);
+//   hoverXArray.forEach((button) => {
+//     button.style.opacity = "1";
+//   });
+// };
+
+// let hidePlayerMarkHover = () => {
+//   hoverXArray.forEach((button) => {
+//     button.style.opacity = "0";
+//   });
+// };
 
 let handleNewGame = () => {
   let gameBoard = document.getElementById("game-board");
