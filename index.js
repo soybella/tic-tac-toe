@@ -9,8 +9,8 @@ let handleClick = (event) => {
     let playerMarkX = new Image();
     playerMarkX.src = "./images/icon-x.svg";
     playerMarkX.classList.add("playerMarkX");
-    playerMarkX.style.width = 60;
-    playerMarkX.style.height = 60;
+    // playerMarkX.style.width = 60;
+    // playerMarkX.style.height = 60;
 
     useStoredTarget(playerMarkX);
   } else {
@@ -20,16 +20,39 @@ let handleClick = (event) => {
     let playerMarkO = new Image();
     playerMarkO.src = "./images/icon-o.svg";
     playerMarkO.classList.add("playerMarkO");
-    playerMarkO.width = 60;
-    playerMarkO.height = 60;
+    // playerMarkO.width = 60;
+    // playerMarkO.height = 60;
 
     useStoredTarget(playerMarkO);
   }
 };
 
+let markGridItems = document.querySelectorAll(".grid-item");
+
+let hoverX = document.getElementsByClassName("hoverX");
+let hoverXArray = Array.from(hoverX);
+
+let showPlayerMarkHover = () => {
+  hoverXArray.forEach((element) => {
+    element.style.opacity = "1";
+  });
+};
+
+let hidePlayerMarkHover = () => {
+  hoverXArray.forEach((element) => {
+    element.style.opacity = "0";
+  });
+};
+
+markGridItems.forEach((button) => {
+  button.addEventListener("mouseover", showPlayerMarkHover);
+  button.addEventListener("mouseout", hidePlayerMarkHover);
+});
+
 let useStoredTarget = (playerMark) => {
   markGridItems.forEach((button) => {
     button.addEventListener("click", () => {
+      console.log(playerMark);
       if (
         !button.querySelector(".playerMarkX") &&
         !button.querySelector(".playerMarkO")
@@ -79,7 +102,7 @@ let handleRestartButtonClick = (playerMark) => {
 let playerPick = document.getElementById("playerPick");
 playerPick.style.display = "none";
 
-let markGridItems = document.querySelectorAll(".grid-item");
+// let markGridItems = document.querySelectorAll(".grid-item");
 
 let restartButton = document.querySelector("#restart-button");
 restartButton.addEventListener("click", handleRestartButtonClick);
