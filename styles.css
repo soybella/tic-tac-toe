@@ -120,8 +120,7 @@ button:hover {
 }
 
 .playerMarkX,
-.playerMarkO,
-.hoverX {
+.playerMarkO {
   width: 60px;
   height: 60px;
 }
@@ -205,9 +204,9 @@ button:hover {
   box-shadow: 0px -8px 0px 0px #10212a inset;
 }
 
-.grid-item:hover {
-  /* cursor: pointer; */
-}
+/* .grid-item:hover { */
+/* cursor: pointer; */
+/* } */
 
 .navbar-item {
   width: 100%;
@@ -320,12 +319,15 @@ button.restart-button {
   letter-spacing: 1.5px;
 }
 
-/* .grid-item:hover {
-  background-image: url("");
-  background-repeat: no-repeat;
-} */
-
-.hoverX {
+.hoverImage {
+  display: flex;
+  margin: 0 auto;
   opacity: 0;
   transition: 150ms ease-in-out;
+}
+
+.hoverX {
+  opacity: 1;
+  height: 60px;
+  width: 60px;
 }

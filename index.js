@@ -9,8 +9,6 @@ let handleClick = (event) => {
     let playerMarkX = new Image();
     playerMarkX.src = "./images/icon-x.svg";
     playerMarkX.classList.add("playerMarkX");
-    // playerMarkX.style.width = 60;
-    // playerMarkX.style.height = 60;
 
     useStoredTarget(playerMarkX);
   } else {
@@ -20,70 +18,59 @@ let handleClick = (event) => {
     let playerMarkO = new Image();
     playerMarkO.src = "./images/icon-o.svg";
     playerMarkO.classList.add("playerMarkO");
-    // playerMarkO.width = 60;
-    // playerMarkO.height = 60;
 
     useStoredTarget(playerMarkO);
   }
 };
 
-let markGridItems = document.querySelectorAll(".grid-item");
+let hoverImageElement = document.querySelector(".hoverImage");
 
-let hoverX = document.getElementsByClassName("hoverX");
-let hoverXArray = Array.from(hoverX);
-
-let showPlayerMarkHover = () => {
-  hoverXArray.forEach((element) => {
-    element.style.opacity = "1";
+let showHover = () => {
+  markGridItems.forEach((button) => {
+    button.addEventListener("mouseover", () => {
+      if (
+        !button.querySelector(".playerMarkX") &&
+        !button.querySelector(".playerMarkO")
+      ) {
+        if (!button.contains(hoverImageElement)) {
+          button.appendChild(hoverImageElement);
+          // button.removeChild(hoverImageElement);
+        } else {
+          hoverImageElement.classList.add("hoverX");
+        }
+      }
+    });
   });
 };
 
-let hidePlayerMarkHover = () => {
-  hoverXArray.forEach((element) => {
-    element.style.opacity = "0";
+let hideHover = () => {
+  markGridItems.forEach((button) => {
+    button.addEventListener("mouseout", () => {
+      if (
+        !button.querySelector(".playerMarkX") &&
+        !button.querySelector(".playerMarkO")
+      ) {
+        hoverImageElement.classList.remove("hoverX");
+      }
+    });
   });
 };
-
-markGridItems.forEach((button) => {
-  button.addEventListener("mouseover", showPlayerMarkHover);
-  button.addEventListener("mouseout", hidePlayerMarkHover);
-});
 
 let useStoredTarget = (playerMark) => {
   markGridItems.forEach((button) => {
     button.addEventListener("click", () => {
-      console.log(playerMark);
       if (
         !button.querySelector(".playerMarkX") &&
         !button.querySelector(".playerMarkO")
       ) {
         button.appendChild(playerMark.cloneNode(true));
-        playerMark.style.opacity = "1";
+        button.removeChild(hoverImageElement);
       } else {
         alert("This box is already marked! Try another.");
       }
     });
   });
 };
-
-// NEXT figure out how to show outline of X or O on hover
-// let hoverX = document.getElementsByClassName("hoverX");
-// let hoverXArray = Array.from(hoverX);
-// console.log(hoverXArray);
-
-// let showPlayerMarkHover = (event) => {
-//   let hoverMark = event.target;
-//   console.log(hoverMark);
-//   hoverXArray.forEach((button) => {
-//     button.style.opacity = "1";
-//   });
-// };
-
-// let hidePlayerMarkHover = () => {
-//   hoverXArray.forEach((button) => {
-//     button.style.opacity = "0";
-//   });
-// };
 
 let handleNewGame = () => {
   let gameBoard = document.getElementById("game-board");
@@ -95,14 +82,17 @@ let handleNewGame = () => {
 
 let handleRestartButtonClick = (playerMark) => {
   markGridItems.forEach((button) => {
-    button.innerHTML = "";
+    location.reload();
   });
 };
 
+// let markGridItems = document.querySelectorAll(".grid-item");
+let markGridItems = document.querySelectorAll(".grid-item");
+
+// let playerMarkHover = document.querySelector(".hoverImage");
+
 let playerPick = document.getElementById("playerPick");
 playerPick.style.display = "none";
-
-// let markGridItems = document.querySelectorAll(".grid-item");
 
 let restartButton = document.querySelector("#restart-button");
 restartButton.addEventListener("click", handleRestartButtonClick);
