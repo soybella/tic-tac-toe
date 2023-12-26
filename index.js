@@ -23,38 +23,95 @@ let handleClick = (event) => {
   }
 };
 
-let hoverImageElement = document.querySelector(".hoverImage");
+let handleHoverImageSource = (event) => {
+  let hoverImageSource = event.target;
+  console.log(hoverImageSource);
+  if (hoverImageSource === hoverImageSourceX) {
+    // console.log("hover x");
 
-let showHover = () => {
-  markGridItems.forEach((button) => {
-    button.addEventListener("mouseover", () => {
-      if (
-        !button.querySelector(".playerMarkX") &&
-        !button.querySelector(".playerMarkO")
-      ) {
-        if (!button.contains(hoverImageElement)) {
-          button.appendChild(hoverImageElement);
-          // button.removeChild(hoverImageElement);
-        } else {
-          hoverImageElement.classList.add("hoverX");
+    let hoverImageSourceX = new Image();
+    hoverImageSourceX.src = "./images/icon-x-outline.svg";
+    hoverImageSourceX.classList.add("hoverImage");
+
+    markGridItems.forEach((button) => {
+      button.addEventListener("mouseover", () => {
+        if (
+          !button.querySelector(".playerMarkX") &&
+          !button.querySelector(".playerMarkO")
+        ) {
+          if (!button.contains(hoverImageSourceX)) {
+            button.appendChild(hoverImageSourceX);
+          } else {
+            hoverImageSourceX.classList.add("hoverImageSource");
+          }
         }
-      }
+      });
+      button.addEventListener("mouseout", () => {
+        if (
+          !button.querySelector(".playerMarkX") &&
+          !button.querySelector(".playerMarkO")
+        ) {
+          hoverImageSourceX.classList.remove("hoverImageSource");
+        }
+      });
+      button.addEventListener("click", () => {
+        if (
+          !button.querySelector(".playerMarkX") &&
+          !button.querySelector(".playerMarkO")
+        ) {
+          hoverImageSourceX.classList.remove("hoverImageSource");
+          button.removeChild(hoverImageSourceX);
+        }
+      });
     });
-  });
+  } else {
+    if (hoverImageSource === hoverImageSourceO) {
+      // console.log("hover o");
+
+      let hoverImageSourceO = new Image();
+      hoverImageSourceO.src = "./images/icon-o-outline.svg";
+      hoverImageSourceO.classList.add("hoverImage");
+
+      markGridItems.forEach((button) => {
+        button.addEventListener("mouseover", () => {
+          if (
+            !button.querySelector(".playerMarkX") &&
+            !button.querySelector(".playerMarkO")
+          ) {
+            if (!button.contains(hoverImageSourceO)) {
+              button.appendChild(hoverImageSourceO);
+            } else {
+              hoverImageSourceO.classList.add("hoverImageSource");
+            }
+          }
+        });
+        button.addEventListener("mouseout", () => {
+          if (
+            !button.querySelector(".playerMarkX") &&
+            !button.querySelector(".playerMarkO")
+          ) {
+            hoverImageSourceO.classList.remove("hoverImageSource");
+          }
+        });
+        button.addEventListener("click", () => {
+          if (
+            !button.querySelector(".playerMarkX") &&
+            !button.querySelector(".playerMarkO")
+          ) {
+            hoverImageSourceO.classList.remove("hoverImageSource");
+            button.removeChild(hoverImageSourceO);
+          }
+        });
+      });
+    }
+  }
 };
 
-let hideHover = () => {
-  markGridItems.forEach((button) => {
-    button.addEventListener("mouseout", () => {
-      if (
-        !button.querySelector(".playerMarkX") &&
-        !button.querySelector(".playerMarkO")
-      ) {
-        hoverImageElement.classList.remove("hoverX");
-      }
-    });
-  });
-};
+let hoverImageSourceX = document.querySelector(".icon-x");
+hoverImageSourceX.addEventListener("click", handleHoverImageSource);
+
+let hoverImageSourceO = document.querySelector(".icon-o");
+hoverImageSourceO.addEventListener("click", handleHoverImageSource);
 
 let useStoredTarget = (playerMark) => {
   markGridItems.forEach((button) => {
@@ -64,7 +121,6 @@ let useStoredTarget = (playerMark) => {
         !button.querySelector(".playerMarkO")
       ) {
         button.appendChild(playerMark.cloneNode(true));
-        button.removeChild(hoverImageElement);
       } else {
         alert("This box is already marked! Try another.");
       }
@@ -86,10 +142,7 @@ let handleRestartButtonClick = (playerMark) => {
   });
 };
 
-// let markGridItems = document.querySelectorAll(".grid-item");
 let markGridItems = document.querySelectorAll(".grid-item");
-
-// let playerMarkHover = document.querySelector(".hoverImage");
 
 let playerPick = document.getElementById("playerPick");
 playerPick.style.display = "none";
