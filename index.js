@@ -9,6 +9,8 @@ let handleClick = (event) => {
     let playerMarkX = new Image();
     playerMarkX.src = "./images/icon-x.svg";
     playerMarkX.classList.add("playerMarkX");
+    // playerMarkX.classList.add("X");
+    console.log(playerMarkX);
 
     useStoredTarget(playerMarkX);
   } else {
@@ -18,14 +20,30 @@ let handleClick = (event) => {
     let playerMarkO = new Image();
     playerMarkO.src = "./images/icon-o.svg";
     playerMarkO.classList.add("playerMarkO");
+    // playerMarkO.classList.add("O");
+    console.log(playerMarkO);
 
     useStoredTarget(playerMarkO);
   }
 };
 
+let handleNewGame = () => {
+  let gameBoard = document.getElementById("game-board");
+  gameBoard.classList.add("active");
+
+  let gameStartMenu = document.getElementById("game-start-menu");
+  gameStartMenu.classList.remove("active");
+};
+
+let handleRestartButtonClick = (playerMark) => {
+  markGridItems.forEach((button) => {
+    location.reload();
+  });
+};
+
 let handleHoverImageSource = (event) => {
   let hoverImageSource = event.target;
-  console.log(hoverImageSource);
+  // console.log(hoverImageSource);
   if (hoverImageSource === hoverImageSourceX) {
     // console.log("hover x");
 
@@ -107,12 +125,6 @@ let handleHoverImageSource = (event) => {
   }
 };
 
-let hoverImageSourceX = document.querySelector(".icon-x");
-hoverImageSourceX.addEventListener("click", handleHoverImageSource);
-
-let hoverImageSourceO = document.querySelector(".icon-o");
-hoverImageSourceO.addEventListener("click", handleHoverImageSource);
-
 let useStoredTarget = (playerMark) => {
   markGridItems.forEach((button) => {
     button.addEventListener("click", () => {
@@ -121,6 +133,19 @@ let useStoredTarget = (playerMark) => {
         !button.querySelector(".playerMarkO")
       ) {
         button.appendChild(playerMark.cloneNode(true));
+        // button.classList.add("X");
+        // console.log(playerMark);
+        ticTacToeBoard.forEach(() => {
+          if (playerMarkX) {
+            button.classList.add("X");
+          } else {
+            if (playerMarkO) {
+              button.classList.remove("X");
+              button.classList.add("O");
+              console.log(ticTacToeBoard);
+            }
+          }
+        });
       } else {
         alert("This box is already marked! Try another.");
       }
@@ -128,21 +153,23 @@ let useStoredTarget = (playerMark) => {
   });
 };
 
-let handleNewGame = () => {
-  let gameBoard = document.getElementById("game-board");
-  gameBoard.classList.add("active");
+// let checkForWin = (board, player) => {
+//   for (let i = 0; i < 3; i++) {
+//     if (
+//       board[i][0] === player &&
+//       board[i][1] === player &&
+//       board[i][2] === player
+//     ) {
+//       return true;
+//     }
+//   }
+// };
 
-  let gameStartMenu = document.getElementById("game-start-menu");
-  gameStartMenu.classList.remove("active");
-};
+let hoverImageSourceX = document.querySelector(".icon-x");
+hoverImageSourceX.addEventListener("click", handleHoverImageSource);
 
-let handleRestartButtonClick = (playerMark) => {
-  markGridItems.forEach((button) => {
-    location.reload();
-  });
-};
-
-let markGridItems = document.querySelectorAll(".grid-item");
+let hoverImageSourceO = document.querySelector(".icon-o");
+hoverImageSourceO.addEventListener("click", handleHoverImageSource);
 
 let playerPick = document.getElementById("playerPick");
 playerPick.style.display = "none";
@@ -158,3 +185,12 @@ playerMarkX.addEventListener("click", handleClick);
 
 let playerMarkO = document.querySelector(".icon-o");
 playerMarkO.addEventListener("click", handleClick);
+
+let markGridItems = document.querySelectorAll(".grid-item");
+
+let ticTacToeBoard = Array.from(markGridItems);
+console.log(ticTacToeBoard);
+
+// let isXWinner = checkForWin(ticTacToeBoard, useStoredTarget);
+// console.log(isXWinner);
+// console.log(ticTacToeBoard);
