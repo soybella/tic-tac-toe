@@ -135,17 +135,33 @@ let useStoredTarget = (playerMark) => {
         button.appendChild(playerMark.cloneNode(true));
         // button.classList.add("X");
         // console.log(playerMark);
-        ticTacToeBoard.forEach(() => {
-          if (playerMarkX) {
-            button.classList.add("X");
-          } else {
-            if (playerMarkO) {
-              button.classList.remove("X");
-              button.classList.add("O");
-              console.log(ticTacToeBoard);
-            }
-          }
-        });
+        // ticTacToeBoard.forEach((button) => {
+        // let player = playerMark; // Assuming playerMarkX is a string representing a class name
+
+        let player = playerMark;
+
+        switch (player) {
+          case button.classList.contains(playerMarkX):
+            console.log("X");
+            break;
+          case button.classList.contains(playerMarkO):
+            console.log("O");
+            break;
+          default:
+            console.log("no classlist added");
+        }
+        // if (!button.contains(playerMarkX)) {
+        //   console.log(playerMarkX);
+        //   // button.classList.add("X");
+        //   // console.log("O");
+        // } else {
+        //   // if (playerMarkO) {
+        //   // button.classList.remove("X");
+        //   // button.classList.add("O");
+        //   console.log("X");
+        // }
+        // }
+        // });
       } else {
         alert("This box is already marked! Try another.");
       }
@@ -162,6 +178,21 @@ let useStoredTarget = (playerMark) => {
 //     ) {
 //       return true;
 //     }
+//     if (
+//       board[0][0] === player &&
+//       board[1][1] === player &&
+//       board[2][2] === player
+//     ) {
+//       return true; // Diagonal win (top-left to bottom-right)
+//     }
+//     if (
+//       board[0][2] === player &&
+//       board[1][1] === player &&
+//       board[2][0] === player
+//     ) {
+//       return true; // Diagonal win (top-right to bottom-left)
+//     }
+//     return false;
 //   }
 // };
 
@@ -188,9 +219,20 @@ playerMarkO.addEventListener("click", handleClick);
 
 let markGridItems = document.querySelectorAll(".grid-item");
 
-let ticTacToeBoard = Array.from(markGridItems);
-console.log(ticTacToeBoard);
+let gridItem = document.querySelector(".grid-item");
 
-// let isXWinner = checkForWin(ticTacToeBoard, useStoredTarget);
+let ticTacToeBoard = Array.from(markGridItems);
+
+ticTacToeBoard.forEach(() => {
+  let ticTacToeBoardGrid = [
+    [markGridItems[0], markGridItems[1], markGridItems[2]],
+    // [],
+    // [],
+    // console.log("test"),
+  ];
+  // console.log(ticTacToeBoardGrid[0]);
+});
+
+// let isXWinner = checkForWin(ticTacToeBoardGrid, "X");
 // console.log(isXWinner);
-// console.log(ticTacToeBoard);
+// console.log(ticTacToeBoardGrid);
