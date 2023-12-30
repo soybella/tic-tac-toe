@@ -10,7 +10,7 @@ let handleClick = (event) => {
     playerMarkX.src = "./images/icon-x.svg";
     playerMarkX.classList.add("playerMarkX");
     // playerMarkX.classList.add("X");
-    console.log(playerMarkX);
+    // console.log(playerMarkX);
 
     useStoredTarget(playerMarkX);
   } else {
@@ -21,7 +21,7 @@ let handleClick = (event) => {
     playerMarkO.src = "./images/icon-o.svg";
     playerMarkO.classList.add("playerMarkO");
     // playerMarkO.classList.add("O");
-    console.log(playerMarkO);
+    // console.log(playerMarkO);
 
     useStoredTarget(playerMarkO);
   }
@@ -133,68 +133,61 @@ let useStoredTarget = (playerMark) => {
         !button.querySelector(".playerMarkO")
       ) {
         button.appendChild(playerMark.cloneNode(true));
-        // button.classList.add("X");
-        // console.log(playerMark);
-        // ticTacToeBoard.forEach((button) => {
-        // let player = playerMark; // Assuming playerMarkX is a string representing a class name
 
-        let player = playerMark;
-
-        switch (player) {
-          case button.classList.contains(playerMarkX):
-            console.log("X");
-            break;
-          case button.classList.contains(playerMarkO):
-            console.log("O");
-            break;
-          default:
-            console.log("no classlist added");
-        }
-        // if (!button.contains(playerMarkX)) {
-        //   console.log(playerMarkX);
-        //   // button.classList.add("X");
-        //   // console.log("O");
-        // } else {
-        //   // if (playerMarkO) {
-        //   // button.classList.remove("X");
-        //   // button.classList.add("O");
-        //   console.log("X");
-        // }
-        // }
+        let player = button.children;
+        // console.log(player);
+        // markGridItems.forEach(() => {
+        // let checkMark = document.querySelector
+        // console.log("test");
         // });
+
+        // Make grid for each grid item button
+        let ticTacToeBoardGrid = [
+          [playerMark[0], playerMark[1], player[2]],
+          [player[3], player[4], player[5]],
+          [player[6], player[7], player[8]],
+        ];
+
+        markGridItems.forEach(() => {
+          // let checkMark = document.querySelector
+          console.log("test");
+        });
+        console.log(ticTacToeBoardGrid);
+
+        let checkForWin = (board, player) => {
+          for (let i = 0; i < 3; i++) {
+            if (
+              board[i][0] === player &&
+              board[i][1] === player &&
+              board[i][2] === player
+            ) {
+              return true;
+            }
+            if (
+              board[0][0] === player &&
+              board[1][1] === player &&
+              board[2][2] === player
+            ) {
+              return true; // Diagonal win (top-left to bottom-right)
+            }
+            if (
+              board[0][2] === player &&
+              board[1][1] === player &&
+              board[2][0] === player
+            ) {
+              return true; // Diagonal win (top-right to bottom-left)
+            }
+            return false;
+          }
+          let isXWinner = checkForWin(ticTacToeBoardGrid, player);
+          console.log(isXWinner);
+        };
       } else {
         alert("This box is already marked! Try another.");
       }
     });
   });
 };
-
-// let checkForWin = (board, player) => {
-//   for (let i = 0; i < 3; i++) {
-//     if (
-//       board[i][0] === player &&
-//       board[i][1] === player &&
-//       board[i][2] === player
-//     ) {
-//       return true;
-//     }
-//     if (
-//       board[0][0] === player &&
-//       board[1][1] === player &&
-//       board[2][2] === player
-//     ) {
-//       return true; // Diagonal win (top-left to bottom-right)
-//     }
-//     if (
-//       board[0][2] === player &&
-//       board[1][1] === player &&
-//       board[2][0] === player
-//     ) {
-//       return true; // Diagonal win (top-right to bottom-left)
-//     }
-//     return false;
-//   }
-// };
 
 let hoverImageSourceX = document.querySelector(".icon-x");
 hoverImageSourceX.addEventListener("click", handleHoverImageSource);
@@ -221,18 +214,83 @@ let markGridItems = document.querySelectorAll(".grid-item");
 
 let gridItem = document.querySelector(".grid-item");
 
-let ticTacToeBoard = Array.from(markGridItems);
+// let ticTacToeBoard = Array.from(markGridItems);
+// console.log(ticTacToeBoard);
 
-ticTacToeBoard.forEach(() => {
-  let ticTacToeBoardGrid = [
-    [markGridItems[0], markGridItems[1], markGridItems[2]],
-    // [],
-    // [],
-    // console.log("test"),
-  ];
-  // console.log(ticTacToeBoardGrid[0]);
-});
+// let ticTacToeBoardGrid = [
+//   [ticTacToeBoard[0], ticTacToeBoard[1], ticTacToeBoard[2]],
+//   [ticTacToeBoard[3], ticTacToeBoard[4], ticTacToeBoard[5]],
+//   [ticTacToeBoard[6], ticTacToeBoard[7], ticTacToeBoard[8]],
+// ];
+// console.log(ticTacToeBoardGrid);
 
 // let isXWinner = checkForWin(ticTacToeBoardGrid, "X");
 // console.log(isXWinner);
 // console.log(ticTacToeBoardGrid);
+
+// [player, player, player],
+// [player, player, player],
+
+// console.log(ticTacToeBoardGrid[0]);
+// });
+
+// let ticTacToeBoard = Array.from(player);
+// ticTacToeBoard.push(player);
+// ticTacToeBoard.forEach(() => {
+//   console.log("test");
+// });
+// console.log(ticTacToeBoard);
+
+// let playerClassNameCheckX = "playerMarkX";
+// let playerClassNameCheckO = "playerMarkO";
+// let found = false;
+
+// for (let i = 0; i < player.length; i++) {
+//   let child = player[i];
+//   // console.log(child);
+
+//   if (child.classList.contains(playerClassNameCheckX)) {
+//     child.classList.add("X");
+//     // found = true;
+//     // break;
+//   } else if (child.classList.contains(playerClassNameCheckO)) {
+//     child.classList.add("O");
+//     // found = true;
+//   }
+// }
+// console.log(ticTacToeBoard);
+
+//  if (found) {
+//   // console.log(`"${playerClassNameCheckX}" found.`);
+//   // let gridItems = ticTacToeBoard.map(() => {
+//   //   console.log(gridItems);
+//   // });
+// } else {
+//   console.log(`No child with class "${playerClassNameCheckX}" found.`);
+// }
+// let checkForWin = (board, player) => {
+//   for (let i = 0; i < 3; i++) {
+//     if (
+//       board[i][0] === player &&
+//       board[i][1] === player &&
+//       board[i][2] === player
+//     ) {
+//       return true;
+//     }
+//     if (
+//       board[0][0] === player &&
+//       board[1][1] === player &&
+//       board[2][2] === player
+//     ) {
+//       return true; // Diagonal win (top-left to bottom-right)
+//     }
+//     if (
+//       board[0][2] === player &&
+//       board[1][1] === player &&
+//       board[2][0] === player
+//     ) {
+//       return true; // Diagonal win (top-right to bottom-left)
+//     }
+//     return false;
+//   }
+// };
