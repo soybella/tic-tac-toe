@@ -10,117 +10,129 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <script src="index.js" async></script>
+    <script src="index.js" defer></script>
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
       href="./assets/favicon-32x32.png"
     />
-    <title>Frontend Mentor | Tic Tac Toe</title>
+    <title>Isabella Lizarde | Tic Tac Toe Project</title>
   </head>
   <body>
     <!-- New game menu start -->
-    <section class="secondary-container">
-      <div class="game active" id="game-start-menu">
-        <header class="logo">
-          <img src="./images/logo.svg" />
-        </header>
-        <div class="secondary-container pick-player-container">
-          <p class="header font-one">Pick player 1's mark</p>
-          <div class="third-container">
-            <button class="pick-player-button x-button icon-container">
-              <img src="./images/icon-x-menu.svg" class="icon-x" />
-            </button>
-            <button class="pick-player-button o-button icon-container">
-              <img src="./images/icon-o-menu.svg" class="icon-o" />
-            </button>
-          </div>
-          <p class="header font-two">Remember: X goes first</p>
-          <p class="header font-two" id="playerPick"></p>
-        </div>
-        <div class="secondary-container">
-          <button class="button-yellow button-font" id="new-game-solo">
-            New Game (vs CPU)
-          </button>
-          <button class="button-blue button-font" id="new-game-multiplayer">
-            New Game (vs player)
-          </button>
-        </div>
-      </div>
-    </section>
-    <!-- New game menu end -->
-
-    <!-- Game board start -->
-    <section class="secondary-container">
-      <div class="game" id="game-board">
-        <div class="game-board-navbar">
-          <div class="navbar-item navbar-logo">
-            <!-- x/o icon -->
+    <div id="main-content">
+      <section class="secondary-container">
+        <div class="game" id="game-start-menu">
+          <header class="logo">
             <img src="./images/logo.svg" />
-          </div>
-          <div class="navbar-item">
-            <div class="turn-button">
-              <img src="./images/icon-x-silver.svg" class="navbar-icon" />
-              <p>Turn</p>
+          </header>
+          <div class="secondary-container pick-player-container">
+            <p class="header font-one">Pick player 1's mark</p>
+            <div class="third-container">
+              <button class="pick-player-button x-button icon-container">
+                <img src="./images/icon-x-menu.svg" class="icon-x" />
+              </button>
+              <button class="pick-player-button o-button icon-container">
+                <img src="./images/icon-o-menu.svg" class="icon-o" />
+              </button>
             </div>
+            <p class="header font-two">Remember: X goes first</p>
+            <p class="header font-two" id="playerPick"></p>
           </div>
-          <div class="navbar-item">
-            <button class="restart-button">
-              <img src="./images/restart-button.svg" id="restart-button" />
+          <div class="secondary-container">
+            <button class="button-yellow button-font" id="new-game-solo">
+              New Game (vs CPU)
+            </button>
+            <button class="button-blue button-font" id="new-game-multiplayer">
+              New Game (vs player)
             </button>
           </div>
         </div>
+      </section>
+      <!-- New game menu end -->
 
-        <!-- Game board empty slots -->
-        <div class="game-board-grid">
-          <button class="grid-item"></button>
-          <button class="grid-item"></button>
-          <button class="grid-item"></button>
-          <button class="grid-item"></button>
-          <button class="grid-item"></button>
-          <button class="grid-item"></button>
-          <button class="grid-item"></button>
-          <button class="grid-item"></button>
-          <button class="grid-item"></button>
-        </div>
-
-        <section class="secondary-container">
-          <div class="game-board-grid">
-            <div class="score-board-item player-one-container">
-              <div class="score-item">
-                <p id="player-one">X (You)</p>
-                <p id="player-one-score" class="number-score">23</p>
+      <!-- Game board start -->
+      <section class="secondary-container">
+        <div class="game active" id="game-board">
+          <div class="game-board-navbar">
+            <div class="navbar-item navbar-logo">
+              <!-- x/o icon -->
+              <img src="./images/logo.svg" />
+            </div>
+            <div class="navbar-item">
+              <div class="turn-button">
+                <img src="./images/icon-x-silver.svg" class="navbar-icon" />
+                <p>Turn</p>
               </div>
             </div>
-            <div class="score-board-item ties-score-container">
-              <div class="score-item">
-                <p>Ties</p>
-                <p id="ties-score" class="number-score">14</p>
+            <div class="navbar-item">
+              <button class="restart-button">
+                <img src="./images/restart-button.svg" id="restart-button" />
+              </button>
+            </div>
+          </div>
+
+          <!-- Game board empty slots -->
+          <div class="game-board-grid" id="game-board-grid">
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+          </div>
+
+          <section class="secondary-container">
+            <div class="game-board-grid">
+              <div class="score-board-item player-one-container">
+                <div class="score-item">
+                  <p id="player-one">X (You)</p>
+                  <p id="player-one-score" class="number-score">23</p>
+                </div>
+              </div>
+              <div class="score-board-item ties-score-container">
+                <div class="score-item">
+                  <p>Ties</p>
+                  <p id="ties-score" class="number-score">14</p>
+                </div>
+              </div>
+              <div class="score-board-item player-two-container">
+                <div class="score-item">
+                  <p id="player-two">O (CPU)</p>
+                  <p id="player-two-score" class="number-score">24</p>
+                </div>
               </div>
             </div>
-            <div class="score-board-item player-two-container">
-              <div class="score-item">
-                <p id="player-two">O (CPU)</p>
-                <p id="player-two-score" class="number-score">24</p>
+          </section>
+
+          <!-- Game board end -->
+
+          <!-- Winning/Lose message -->
+          <div class="game-end-message" id="game-end-message">
+            <div class="game-end-message-container">
+              <p>Winning/Lose header</p>
+              <h1>O/X takes the win/lose</h1>
+              <div class="game-end-message-buttons">
+                <button class="quit-button">Quit</button>
+                <button class="next-round-button">Next Round</button>
               </div>
             </div>
           </div>
-        </section>
+          <!-- Oh no, you lost You won! Player -->
+          <!-- 1/2 -->
+          <!-- wins! -->
 
-        <!-- Game board end -->
+          <!-- x/o icon -->
+          <!-- takes the round Round tied Restart game? Quit Next round No, cancel -->
+          <!-- Yes, restart -->
 
-        <!-- Game end menu start -->
-        <!-- Oh no, you lost You won! Player -->
-        <!-- 1/2 -->
-        <!-- wins! -->
-
-        <!-- x/o icon -->
-        <!-- takes the round Round tied Restart game? Quit Next round No, cancel -->
-        <!-- Yes, restart -->
-
-        <!-- Game end menu end -->
-      </div>
-    </section>
+          <!-- Winning/Lose message -->
+        </div>
+      </section>
+    </div>
   </body>
 </html>
