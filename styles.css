@@ -417,24 +417,26 @@ button.restart-button {
   text-transform: uppercase;
 }
 
-.cell.x::before,
-.game-board-grid.x .cell::before,
-.cell.x:hover {
+/* .game-board-grid.x,
+.cell:hover {
   background-image: url(./images/icon-x-outline.svg);
   background-repeat: no-repeat;
   background-position: center;
-  /* content: ""; */
+
 }
 
-.cell.circle::before,
-.cell.circle:hover {
+.game-board-grid.circle,
+.cell:hover {
   background-image: var(--Circle-mark-hover);
   background-repeat: no-repeat;
   background-position: center;
+} */
+
+.cell.x,
+.cell.circle {
+  cursor: not-allowed;
 }
 
-/* .cell.x::before, */
-/* .cell.x::after, */
 .cell.x {
   background-image: var(--X-mark);
   background-position: center;
@@ -442,13 +444,23 @@ button.restart-button {
   content: "";
 }
 
-/* .cell.circle::before, */
-/* .cell.circle::after, */
 .cell.circle {
   background-image: var(--Circle-mark);
   background-position: center;
   background-repeat: no-repeat;
   content: "";
+}
+
+.game-board-grid.circle .cell:not(.x):not(.circle):hover {
+  background-image: var(--Circle-mark-hover);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.game-board-grid.x .cell:not(.x):not(.circle):hover {
+  background-image: var(--X-mark-hover);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* .cell.x,
@@ -480,8 +492,3 @@ button.restart-button {
   background-repeat: no-repeat;
   background-position: center;
 } */
-
-.cell.x,
-.cell.circle {
-  cursor: not-allowed;
-}
