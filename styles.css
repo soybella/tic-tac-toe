@@ -48,6 +48,25 @@ button {
   cursor: pointer;
 }
 
+button.restart-button {
+  padding: 0;
+}
+
+#game-end-message.show {
+  display: flex;
+}
+
+#game-tied-message h1 {
+  margin-top: 0;
+}
+
+#main-content {
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-content: center;
+}
+
 .game {
   display: none;
 }
@@ -122,13 +141,6 @@ button {
 .icon-x:hover {
   background: var(--Semi-dark-navy);
 }
-/* 
-.playerMarkX,
-.playerMarkO {
-  width: var(--Mark-size);
-  height: var(--Mark-size);
-  cursor: not-allowed;
-} */
 
 .header {
   color: var(--Silver);
@@ -190,13 +202,6 @@ button {
   justify-content: center;
 }
 
-#main-content {
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-content: center;
-}
-
 .game-board-grid {
   display: grid;
   grid-template-columns: repeat(3, auto);
@@ -215,7 +220,6 @@ button {
   justify-content: center;
   border-radius: 15px;
   align-items: center;
-  /* align-content: center; */
   text-align: center;
   background: var(--Semi-dark-navy);
   box-shadow: 0px -8px 0px 0px #10212a inset;
@@ -242,6 +246,10 @@ button {
 .turn-button p {
   margin: 0;
 }
+
+/* .turn-button.x img {
+  background-image: url(./images/icon-x-silver.svg);
+} */
 
 .turn-button {
   display: inline-flex;
@@ -279,10 +287,6 @@ button {
 
 .restart-button img:hover {
   cursor: pointer;
-}
-
-button.restart-button {
-  padding: 0;
 }
 
 .score-board-item {
@@ -331,22 +335,7 @@ button.restart-button {
   letter-spacing: 1.5px;
 }
 
-.hoverImage {
-  opacity: 0;
-  transition: 175ms ease-in-out;
-}
-
-/* .hoverImageSource {
-  opacity: 1;
-  height: var(--Mark-size);
-  width: var(--Mark-size);
-} */
-
-.winning-message.show {
-  display: flex;
-}
-
-.winning-message {
+.game-end-message {
   display: none;
   position: fixed;
   top: 0;
@@ -359,7 +348,7 @@ button.restart-button {
   flex-direction: column;
 }
 
-.winning-message-container {
+.game-end-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -369,7 +358,7 @@ button.restart-button {
   background: var(--Semi-dark-navy);
 }
 
-.winning-message-container p {
+.game-end-container p {
   font-size: 16px;
   color: var(--Silver);
   text-align: center;
@@ -379,7 +368,7 @@ button.restart-button {
   margin: 0;
 }
 
-.winning-message-container h1 {
+.game-end-container h1 {
   color: var(--Light-yellow);
   font-size: 40px;
   font-weight: 700;
@@ -388,7 +377,7 @@ button.restart-button {
   margin: 23px 0 31px 0;
 }
 
-.winning-message-container .quit-button {
+.game-end-container .quit-button {
   width: 76px;
   height: 52px;
   border-radius: 10px;
@@ -403,7 +392,7 @@ button.restart-button {
   box-shadow: 0px -4px 0px 0px #6b8997 inset;
 }
 
-.winning-message-container .next-round-button {
+.game-end-container .next-round-button {
   width: 146px;
   height: 52px;
   border-radius: 10px;
@@ -416,21 +405,6 @@ button.restart-button {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-
-/* .game-board-grid.x,
-.cell:hover {
-  background-image: url(./images/icon-x-outline.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-
-}
-
-.game-board-grid.circle,
-.cell:hover {
-  background-image: var(--Circle-mark-hover);
-  background-repeat: no-repeat;
-  background-position: center;
-} */
 
 .cell.x,
 .cell.circle {
@@ -460,33 +434,3 @@ button.restart-button {
   background-repeat: no-repeat;
   background-position: center;
 }
-
-/* .cell.x,
-.cell.x::after {
-  background-image: var(--X-mark);
-  background-position: center;
-  background-repeat: no-repeat;
-  /* content: ""; */
-/* }  */
-
-/* .cell.circle,
-.cell.circle::after {
-  background-image: var(--Circle-mark);
-  background-position: center;
-  background-repeat: no-repeat; */
-/* content: ""; */
-/* } */
-
-/* .game-board-grid.x .cell:hover {
-  background-image: var(--X-mark-hover);
-  background-repeat: no-repeat;
-  background-position: center;
-} */
-
-/* .cell.circle::before,
-.cell.circle::after,
-.game-board-grid.circle .cell:hover {
-  background-image: var(--Circle-mark-hover);
-  background-repeat: no-repeat;
-  background-position: center;
-} */

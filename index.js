@@ -12,13 +12,17 @@ const winning_combination = [
 ];
 const cellElements = document.querySelectorAll("[data-cell]");
 const gameBoardGrid = document.getElementById("game-board-grid");
-const winningMessageDisplay = document.querySelector(".winning-message");
+const gameEndMessageDisplay = document.getElementById("game-end-message");
 const quitButton = document.querySelector(".quit-button");
+const restartButton = document.querySelector(".restart-button");
+const turnButton = document.querySelector(".turn-button");
 let circleTurn;
 
 startGame();
 
 quitButton.addEventListener("click", handleQuit);
+restartButton.addEventListener("click", handleQuit);
+turnButton.addEventListener("click", handleTurnButton);
 
 function handleQuit() {
   location.reload();
@@ -43,7 +47,15 @@ function handleClick(event) {
   } else {
     switchTurns();
     setBoardHoverClass();
+    handleTurnButton();
   }
+}
+
+function handleTurnButton() {
+  let x_icon = new Image();
+  x_icon.src = "./images/icon-x-silver.svg";
+  console.log(x_icon);
+  turnButton.innerHTML = circleTurn ? "O turn" : "X turn";
 }
 
 let placeMark = (cell, currentClass) => {
@@ -82,17 +94,18 @@ function isDraw() {
 }
 
 function endGame(draw) {
-  let headerLarge = document.querySelector(".winning-message-header-large");
-  let headerSmall = document.querySelector(".winning-message-header-small");
+  let headerLarge = document.querySelector(".game-end-header-large");
+  let headerSmall = document.querySelector(".game-end-header-small");
 
   if (draw) {
     headerSmall.style.display = "none";
     headerLarge.innerHTML = "Round Tied";
     headerLarge.style.color = "#A8BFC9";
-    winningMessageDisplay.classList.add("show");
+    headerLarge.style.marginTop = "0";
+    gameEndMessageDisplay.classList.add("show");
   } else {
     headerSmall.innerHTML = `${circleTurn ? "You won!" : "Oh no, you lost..."}`;
     headerLarge.innerHTML = `${circleTurn ? "O" : "X"} takes the win!`;
-    winningMessageDisplay.classList.add("show");
+    gameEndMessageDisplay.classList.add("show");
   }
 }
