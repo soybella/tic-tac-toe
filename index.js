@@ -16,6 +16,7 @@ const gameEndMessageDisplay = document.getElementById("game-end-message");
 const quitButton = document.querySelector(".quit-button");
 const restartButton = document.querySelector(".restart-button");
 const turnButton = document.querySelector(".turn-button");
+const playerOne = document.getElementById("player-one");
 let circleTurn;
 
 startGame();
@@ -23,6 +24,7 @@ startGame();
 quitButton.addEventListener("click", handleQuit);
 restartButton.addEventListener("click", handleQuit);
 turnButton.addEventListener("click", handleTurnButton);
+playerOne.innerHTML = "test";
 
 function handleQuit() {
   location.reload();
@@ -34,6 +36,7 @@ function startGame() {
     cell.addEventListener("click", handleClick, { once: true });
   });
   setBoardHoverClass();
+  handleTurnButton();
 }
 
 function handleClick(event) {
@@ -52,9 +55,6 @@ function handleClick(event) {
 }
 
 function handleTurnButton() {
-  let x_icon = new Image();
-  x_icon.src = "./images/icon-x-silver.svg";
-  console.log(x_icon);
   turnButton.innerHTML = circleTurn ? "O turn" : "X turn";
 }
 

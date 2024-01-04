@@ -237,7 +237,8 @@ button.restart-button {
   align-items: center;
 }
 
-.navbar-icon {
+.turn-icon {
+  /* background-image: url(./images/icon-x-silver.svg); */
   width: 16px;
   height: 16px;
   margin-right: 10px;
@@ -247,8 +248,8 @@ button.restart-button {
   margin: 0;
 }
 
-/* .turn-button.x img {
-  background-image: url(./images/icon-x-silver.svg);
+/* .turn-icon {
+  ;
 } */
 
 .turn-button {
