@@ -23,7 +23,7 @@
     <!-- New game menu start -->
     <div id="main-content">
       <section class="secondary-container">
-        <div class="game" id="game-start-menu">
+        <div class="game active" id="game-start-menu">
           <header class="logo">
             <img src="./images/logo.svg" />
           </header>
@@ -31,10 +31,18 @@
             <p class="header font-one">Pick player 1's mark</p>
             <div class="third-container">
               <button class="pick-player-button x-button icon-container">
-                <img src="./images/icon-x-menu.svg" class="icon-x" />
+                <img
+                  src="./images/icon-x-menu.svg"
+                  class="player-icon icon-x"
+                  id="icon-x"
+                />
               </button>
               <button class="pick-player-button o-button icon-container">
-                <img src="./images/icon-o-menu.svg" class="icon-o" />
+                <img
+                  src="./images/icon-o-menu.svg"
+                  class="player-icon icon-o"
+                  id="icon-o"
+                />
               </button>
             </div>
             <p class="header font-two">Remember: X goes first</p>
@@ -54,7 +62,7 @@
 
       <!-- Game board start -->
       <section class="secondary-container">
-        <div class="game active" id="game-board">
+        <div class="game" id="game-board">
           <div class="game-board-navbar">
             <div class="navbar-item navbar-logo">
               <img src="./images/logo.svg" />

@@ -17,6 +17,10 @@ const quitButton = document.querySelector(".quit-button");
 const restartButton = document.querySelector(".restart-button");
 const turnButton = document.querySelector(".turn-button");
 const playerOne = document.getElementById("player-one");
+const playerX = document.querySelector(".icon-x");
+const playerO = document.querySelector(".icon-o");
+// console.log(playerO);
+// console.log(playerX);
 let circleTurn;
 
 startGame();
@@ -24,7 +28,13 @@ startGame();
 quitButton.addEventListener("click", handleQuit);
 restartButton.addEventListener("click", handleQuit);
 turnButton.addEventListener("click", handleTurnButton);
-playerOne.innerHTML = "test";
+// playerIcons.forEach((icon) => {
+//   icon.addEventListener("click", playerSelection);
+// });
+playerX.addEventListener("click", playerSelection);
+playerO.addEventListener("click", playerSelection);
+
+// playerOne.innerHTML = "test";
 
 function handleQuit() {
   location.reload();
@@ -41,7 +51,9 @@ function startGame() {
 
 function handleClick(event) {
   const cell = event.target;
+  // const player = event.target;
   const currentClass = circleTurn ? playerCircle_class : playerX_class;
+  playerSelection();
   placeMark(cell, currentClass);
   if (checkForWin(currentClass)) {
     endGame(false);
@@ -51,6 +63,23 @@ function handleClick(event) {
     switchTurns();
     setBoardHoverClass();
     handleTurnButton();
+    setPlayers();
+    // playerPick();
+  }
+}
+
+function playerSelection(event) {
+  let player = event.target;
+  let setPlayer = player === playerO ? playerCircle_class : playerX_class;
+
+  console.log(setPlayer);
+}
+
+function setPlayers() {
+  if (circleTurn) {
+    playerOne.innerHTML = "O (You)";
+  } else {
+    playerOne.innerHTML = "X (You)";
   }
 }
 
