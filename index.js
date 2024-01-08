@@ -11,6 +11,10 @@ const winning_combination = [
   [2, 4, 6],
 ];
 const cellElements = document.querySelectorAll("[data-cell]");
+const pickPlayerElements = document.querySelectorAll(".player-icon");
+const newGameButton = document.querySelector("#new-game-solo");
+const gameMenu = document.querySelector(".game-start-menu");
+const gameBoard = document.querySelector(".game-board");
 const gameBoardGrid = document.getElementById("game-board-grid");
 const gameEndMessageDisplay = document.getElementById("game-end-message");
 const quitButton = document.querySelector(".quit-button");
@@ -18,9 +22,7 @@ const restartButton = document.querySelector(".restart-button");
 const turnButton = document.querySelector(".turn-button");
 const playerOne = document.getElementById("player-one");
 const playerX = document.querySelector(".icon-x");
-const playerO = document.querySelector(".icon-o");
-// console.log(playerO);
-// console.log(playerX);
+const playerCircle = document.querySelector(".icon-o");
 let circleTurn;
 
 startGame();
@@ -28,20 +30,42 @@ startGame();
 quitButton.addEventListener("click", handleQuit);
 restartButton.addEventListener("click", handleQuit);
 turnButton.addEventListener("click", handleTurnButton);
-// playerIcons.forEach((icon) => {
-//   icon.addEventListener("click", playerSelection);
-// });
-playerX.addEventListener("click", playerSelection);
-playerO.addEventListener("click", playerSelection);
+newGameButton.addEventListener("click", handleNewGame);
+playerX.addEventListener("click", playerSelect_X);
+playerCircle.addEventListener("click", playerSelect_Circle);
+gameBoard.style.display = "none";
 
-// playerOne.innerHTML = "test";
+function playerSelect_X(event) {
+  let player = event.target;
+  if (player === playerX) {
+    console.log(playerX_class);
+    console.log(player);
+  }
+}
+
+function playerSelect_Circle(event) {
+  let player = event.target;
+  if (player === playerCircle) {
+    console.log(playerCircle_class);
+    console.log(player);
+  }
+}
 
 function handleQuit() {
   location.reload();
 }
 
+function handleNewGame() {
+  gameMenu.style.display = "none";
+  gameMenu.classList.remove("active");
+  gameBoard.style.display = "block";
+}
+
 function startGame() {
-  circleTurn = false;
+  // circleTurn = false;
+  // let player =  event.target;
+  // circleTurn = player === playerO ? playerCircle_class : playerX_class;
+
   cellElements.forEach((cell) => {
     cell.addEventListener("click", handleClick, { once: true });
   });
@@ -51,9 +75,7 @@ function startGame() {
 
 function handleClick(event) {
   const cell = event.target;
-  // const player = event.target;
   const currentClass = circleTurn ? playerCircle_class : playerX_class;
-  playerSelection();
   placeMark(cell, currentClass);
   if (checkForWin(currentClass)) {
     endGame(false);
@@ -64,15 +86,11 @@ function handleClick(event) {
     setBoardHoverClass();
     handleTurnButton();
     setPlayers();
-    // playerPick();
   }
 }
 
-function playerSelection(event) {
-  let player = event.target;
-  let setPlayer = player === playerO ? playerCircle_class : playerX_class;
-
-  console.log(setPlayer);
+function handleTurnButton() {
+  turnButton.innerHTML = circleTurn ? "O turn" : "X turn";
 }
 
 function setPlayers() {
@@ -81,10 +99,6 @@ function setPlayers() {
   } else {
     playerOne.innerHTML = "X (You)";
   }
-}
-
-function handleTurnButton() {
-  turnButton.innerHTML = circleTurn ? "O turn" : "X turn";
 }
 
 let placeMark = (cell, currentClass) => {
