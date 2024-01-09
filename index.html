@@ -11,6 +11,11 @@
       rel="stylesheet"
     />
     <script src="index.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/89300977dc.js"
+      crossorigin="anonymous"
+    ></script>
+
     <link
       rel="icon"
       type="image/png"
@@ -30,23 +35,25 @@
           <div class="secondary-container pick-player-container">
             <p class="header font-one">Pick player 1's mark</p>
             <div class="third-container">
-              <button class="pick-player-button x-button icon-container">
-                <img
+              <button class="pick-player-button icon-container">
+                <!-- <img
                   src="./images/icon-x-menu.svg"
                   class="player-icon icon-x"
                   id="icon-x"
-                />
+                /> -->
+                <i class="fa-solid fa-x player-icon icon-x"></i>
               </button>
-              <button class="pick-player-button o-button icon-container">
-                <img
+              <button class="pick-player-button icon-container">
+                <!-- <img
                   src="./images/icon-o-menu.svg"
                   class="player-icon icon-o"
                   id="icon-o"
-                />
+                /> -->
+                <i class="fa-regular fa-circle player-icon icon-o"></i>
               </button>
             </div>
             <p class="header font-two">Remember: X goes first</p>
-            <p class="header font-two" id="playerPick"></p>
+            <p class="header font-two" id="playerDisplay"></p>
           </div>
           <div class="secondary-container">
             <button class="button-yellow button-font" id="new-game-solo">
@@ -62,7 +69,7 @@
 
       <!-- Game board start -->
       <section class="secondary-container">
-        <div class="game-board" id="game-board">
+        <div class="game-board hide" id="game-board">
           <div class="game-board-navbar">
             <div class="navbar-item navbar-logo">
               <img src="./images/logo.svg" />

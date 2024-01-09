@@ -21,9 +21,10 @@ const quitButton = document.querySelector(".quit-button");
 const restartButton = document.querySelector(".restart-button");
 const turnButton = document.querySelector(".turn-button");
 const playerOne = document.getElementById("player-one");
-const playerX = document.querySelector(".icon-x");
-const playerCircle = document.querySelector(".icon-o");
-let circleTurn;
+const playerDisplay = document.getElementById("playerDisplay");
+const iconX = document.querySelector(".icon-x");
+const iconCircle = document.querySelector(".icon-o");
+let playerCircle;
 
 startGame();
 
@@ -31,23 +32,34 @@ quitButton.addEventListener("click", handleQuit);
 restartButton.addEventListener("click", handleQuit);
 turnButton.addEventListener("click", handleTurnButton);
 newGameButton.addEventListener("click", handleNewGame);
-playerX.addEventListener("click", playerSelect_X);
-playerCircle.addEventListener("click", playerSelect_Circle);
-gameBoard.style.display = "none";
+iconX.addEventListener("click", playerSelect_X);
+playerDisplay.classList.add("hide");
+iconCircle.addEventListener("click", function (event) {
+  storePlayerSelect_Circle(event.target);
+  usePlayerSelect_Circle();
+});
 
-function playerSelect_X(event) {
-  let player = event.target;
-  if (player === playerX) {
-    console.log(playerX_class);
-    console.log(player);
+function storePlayerSelect_Circle(target) {
+  playerCircle = target;
+  playerCircle.classList.add(playerCircle_class);
+}
+
+function usePlayerSelect_Circle() {
+  if (playerCircle) {
+    playerDisplay.style.display = "block";
+    playerDisplay.innerHTML = "You chose O.";
+    gameBoardGrid.classList.add(playerCircle_class);
+    gameBoardGrid.classList.remove(playerX_class);
+  } else {
+    console.log("playerCircle not found");
   }
 }
 
-function playerSelect_Circle(event) {
-  let player = event.target;
-  if (player === playerCircle) {
-    console.log(playerCircle_class);
-    console.log(player);
+function playerSelect_X(event) {
+  let playerX = event.target;
+  if (playerX) {
+    playerDisplay.style.display = "block";
+    playerDisplay.innerHTML = "You chose X.";
   }
 }
 
@@ -56,16 +68,11 @@ function handleQuit() {
 }
 
 function handleNewGame() {
-  gameMenu.style.display = "none";
-  gameMenu.classList.remove("active");
-  gameBoard.style.display = "block";
+  gameMenu.classList.add("hide");
+  gameBoard.classList.remove("hide");
 }
 
 function startGame() {
-  // circleTurn = false;
-  // let player =  event.target;
-  // circleTurn = player === playerO ? playerCircle_class : playerX_class;
-
   cellElements.forEach((cell) => {
     cell.addEventListener("click", handleClick, { once: true });
   });
@@ -75,7 +82,8 @@ function startGame() {
 
 function handleClick(event) {
   const cell = event.target;
-  const currentClass = circleTurn ? playerCircle_class : playerX_class;
+  const currentClass = playerCircle ? playerCircle_class : playerX_class;
+
   placeMark(cell, currentClass);
   if (checkForWin(currentClass)) {
     endGame(false);
@@ -90,11 +98,11 @@ function handleClick(event) {
 }
 
 function handleTurnButton() {
-  turnButton.innerHTML = circleTurn ? "O turn" : "X turn";
+  turnButton.innerHTML = playerCircle ? "O turn" : "X turn";
 }
 
 function setPlayers() {
-  if (circleTurn) {
+  if (playerCircle) {
     playerOne.innerHTML = "O (You)";
   } else {
     playerOne.innerHTML = "X (You)";
@@ -106,13 +114,13 @@ let placeMark = (cell, currentClass) => {
 };
 
 let switchTurns = () => {
-  circleTurn = !circleTurn;
+  playerCircle = !playerCircle;
 };
 
 function setBoardHoverClass() {
   gameBoardGrid.classList.remove(playerX_class);
   gameBoardGrid.classList.remove(playerCircle_class);
-  if (circleTurn) {
+  if (playerCircle) {
     gameBoardGrid.classList.add(playerCircle_class);
   } else {
     gameBoardGrid.classList.add(playerX_class);
@@ -147,8 +155,10 @@ function endGame(draw) {
     headerLarge.style.marginTop = "0";
     gameEndMessageDisplay.classList.add("show");
   } else {
-    headerSmall.innerHTML = `${circleTurn ? "You won!" : "Oh no, you lost..."}`;
-    headerLarge.innerHTML = `${circleTurn ? "O" : "X"} takes the win!`;
+    headerSmall.innerHTML = `${
+      playerCircle ? "You won!" : "Oh no, you lost..."
+    }`;
+    headerLarge.innerHTML = `${playerCircle ? "O" : "X"} takes the win!`;
     gameEndMessageDisplay.classList.add("show");
   }
 }
