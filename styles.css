@@ -14,6 +14,7 @@
   --Circle-mark: url(./images/icon-o.svg);
   --Circle-mark-hover: url(./images/icon-o-outline.svg);
 }
+
 *,
 *::after,
 *::before {
@@ -67,10 +68,6 @@ button.restart-button {
   align-content: center;
 }
 
-/* .game {
-  display: none;
-} */
-
 .show {
   display: block;
 }
@@ -108,7 +105,6 @@ button.restart-button {
   border: none;
   padding: 0;
   background: none;
-  /* border: 1px solid blue; */
   justify-content: center;
   align-items: center;
 }
@@ -121,14 +117,9 @@ button.restart-button {
   box-shadow: 0px -8px 0px 0px #10212a inset;
 }
 
-/* .menu-icon {
-  display: grid;
-  grid-template-columns: repeat(2, 2fr);
-  margin: 0 auto;
-} */
-
 .icon-x,
 .icon-o {
+  width: 198px;
   border-radius: 10px;
   height: 54px;
   font-family: "Mochiy Pop One", sans-serif;
@@ -137,22 +128,6 @@ button.restart-button {
   font-size: 40px;
   color: var(--Silver);
   transition: var(--On-hover-transition);
-}
-
-.icon-x {
-  width: 198px;
-  /* background: var(--Dark-navy); */
-  /* color: var(--Silver); */
-  /* transition: var(--On-hover-transition); */
-  /* border: 1px solid white; */
-}
-
-.icon-o {
-  width: 198px;
-  /* color: var(--Dark-navy); */
-  /* background: var(--Silver); */
-  /* transition: var(--On-hover-transition); */
-  /* border: 1px solid white; */
 }
 
 .light-background {
@@ -165,17 +140,10 @@ button.restart-button {
   color: var(--Silver);
 }
 
-.hover {
+.icon-x:hover:not(.light-background),
+.icon-o:hover:not(.light-background) {
   background: var(--Semi-dark-navy);
 }
-
-/* .icon-x:hover {
-  background: var(--Semi-dark-navy);
-} */
-
-/* .icon-o:hover {
-  background: var(--Semi-dark-navy);
-}  */
 
 .header {
   color: var(--Silver);
@@ -273,7 +241,6 @@ button.restart-button {
 }
 
 .turn-icon {
-  /* background-image: url(./images/icon-x-silver.svg); */
   width: 16px;
   height: 16px;
   margin-right: 10px;
