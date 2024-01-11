@@ -50,6 +50,9 @@ function usePlayerSelect_Circle() {
     playerDisplay.innerHTML = "You chose O.";
     gameBoardGrid.classList.add(playerCircle_class);
     gameBoardGrid.classList.remove(playerX_class);
+    iconCircle.classList.add("light-background");
+    iconCircle.classList.remove("hover");
+    iconX.classList.remove("light-background");
   } else {
     console.log("playerCircle not found");
   }
@@ -60,22 +63,14 @@ function playerSelect_X(event) {
   if (playerX) {
     playerDisplay.style.display = "block";
     playerDisplay.innerHTML = "You chose X.";
-    pickPlayerToggleButton();
-  }
-}
-
-function pickPlayerToggleButton() {
-  if (iconX) {
-    iconX.style.background = "#a8bfc9";
-    iconX.style.color = "#1a2a33";
-    iconCircle.style.background = "#1a2a33";
-    iconCircle.style.color = "#a8bfc9";
-    iconCircle.addEventListener("click", function () {
-      iconCircle.style.background = "#a8bfc9";
-      iconCircle.style.color = "#1a2a33";
-      iconX.style.background = "#1a2a33";
-      iconX.style.color = "#a8bfc9";
+    iconX.classList.add("light-background");
+    iconCircle.addEventListener("mouseover", () => {
+      iconCircle.classList.add("hover");
     });
+    iconCircle.addEventListener("mouseout", () => {
+      iconCircle.classList.remove("hover");
+    });
+    iconCircle.classList.remove("light-background");
   }
 }
 

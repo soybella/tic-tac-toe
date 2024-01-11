@@ -136,29 +136,46 @@ button.restart-button {
   padding-bottom: 15px;
   font-size: 40px;
   color: var(--Silver);
+  transition: var(--On-hover-transition);
 }
 
 .icon-x {
   width: 198px;
-  transition: var(--On-hover-transition);
+  /* background: var(--Dark-navy); */
+  /* color: var(--Silver); */
+  /* transition: var(--On-hover-transition); */
   /* border: 1px solid white; */
 }
 
 .icon-o {
   width: 198px;
-  color: var(--Dark-navy);
-  background: var(--Silver);
-  transition: var(--On-hover-transition);
+  /* color: var(--Dark-navy); */
+  /* background: var(--Silver); */
+  /* transition: var(--On-hover-transition); */
   /* border: 1px solid white; */
 }
 
-.icon-x:hover {
+.light-background {
+  background: var(--Silver);
+  color: var(--Dark-navy);
+}
+
+.dark-background {
+  background: var(--Dark-navy);
+  color: var(--Silver);
+}
+
+.hover {
   background: var(--Semi-dark-navy);
 }
 
-.icon-o:hover {
+/* .icon-x:hover {
   background: var(--Semi-dark-navy);
-}
+} */
+
+/* .icon-o:hover {
+  background: var(--Semi-dark-navy);
+}  */
 
 .header {
   color: var(--Silver);
