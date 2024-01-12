@@ -11,7 +11,7 @@ const winning_combination = [
   [2, 4, 6],
 ];
 const cellElements = document.querySelectorAll("[data-cell]");
-const pickPlayerElements = document.querySelectorAll(".player-icon");
+const pickPlayerElements = document.querySelector(".pick-player-button");
 const newGameButton = document.querySelector("#new-game-solo");
 const gameMenu = document.querySelector(".game-start-menu");
 const gameBoard = document.querySelector(".game-board");
@@ -21,12 +21,16 @@ const quitButton = document.querySelector(".quit-button");
 const restartButton = document.querySelector(".restart-button");
 const turnButton = document.querySelector(".turn-button");
 const playerOne = document.getElementById("player-one");
-const playerDisplay = document.getElementById("playerDisplay");
+let playerDisplay = document.getElementById("playerDisplay");
 const iconX = document.querySelector(".icon-x");
 const iconCircle = document.querySelector(".icon-o");
 let playerCircle;
 
 startGame();
+
+// NEXT create ai player with minimax algorithm
+// AFTER work on scores to update and show wins/ties/loses
+// THEN update main menu if player does not choose a mark and tries to click new game, alert "player must choose mark"
 
 quitButton.addEventListener("click", handleQuit);
 restartButton.addEventListener("click", handleQuit);
@@ -64,16 +68,6 @@ function playerSelect_X(event) {
     playerDisplay.innerHTML = "You chose X.";
     iconX.classList.add("light-background");
     iconCircle.classList.remove("light-background");
-
-    // iconCircle.addEventListener("mouseover", () => {
-    //   if (!iconCircle.classList.contains("light-background")) {
-    //     iconCircle.classList.add("hover");
-    //   }
-    // });
-    // iconCircle.addEventListener("mouseout", () => {
-    //   iconCircle.classList.remove("hover");
-    // });
-    // iconCircle.classList.remove("light-background");
   }
 }
 
@@ -82,8 +76,12 @@ function handleQuit() {
 }
 
 function handleNewGame() {
-  gameMenu.classList.add("hide");
-  gameBoard.classList.remove("hide");
+  if (playerDisplay.style.display === "block") {
+    gameMenu.classList.add("hide");
+    gameBoard.classList.remove("hide");
+  } else {
+    alert("Player 1 must pick a mark.");
+  }
 }
 
 function startGame() {
