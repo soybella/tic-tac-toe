@@ -11,7 +11,7 @@ const winning_combination = [
   [2, 4, 6],
 ];
 const cellElements = document.querySelectorAll("[data-cell]");
-const pickPlayerElements = document.querySelector(".pick-player-button");
+const pickPlayers = document.querySelector(".pick-players");
 const newGameButton = document.querySelector("#new-game-solo");
 const gameMenu = document.querySelector(".game-start-menu");
 const gameBoard = document.querySelector(".game-board");
@@ -24,13 +24,14 @@ const playerOne = document.getElementById("player-one");
 let playerDisplay = document.getElementById("playerDisplay");
 const iconX = document.querySelector(".icon-x");
 const iconCircle = document.querySelector(".icon-o");
+let aiPlayer = true;
 let playerCircle;
+let playerSign;
 
 startGame();
 
 // NEXT create ai player with minimax algorithm
 // AFTER work on scores to update and show wins/ties/loses
-// THEN update main menu if player does not choose a mark and tries to click new game, alert "player must choose mark"
 
 quitButton.addEventListener("click", handleQuit);
 restartButton.addEventListener("click", handleQuit);
@@ -56,6 +57,9 @@ function usePlayerSelect_Circle() {
     gameBoardGrid.classList.remove(playerX_class);
     iconCircle.classList.add("light-background");
     iconX.classList.remove("light-background");
+    // aiPlayer = iconX;
+    // console.log(aiPlayer);
+    aiPlayerMove();
   } else {
     console.log("playerCircle not found");
   }
@@ -68,6 +72,44 @@ function playerSelect_X(event) {
     playerDisplay.innerHTML = "You chose X.";
     iconX.classList.add("light-background");
     iconCircle.classList.remove("light-background");
+    // aiPlayer = iconCircle;
+    // if (pickPlayers.classList.contains("pick-players")) {
+    //   console.log("pick player clicked");
+    // }
+    // console.log(aiPlayer);
+    aiPlayerMove();
+  }
+}
+
+function aiPlayerMove() {
+  let array = [];
+  if (aiPlayer) {
+    // aiPlayer = iconX;
+    // aiPlayer.classList.add(playerX_class);
+    // console.log(aiPlayer);
+    for (let i = 0; i < cellElements.length; i++) {
+      if (cellElements[i].childElementCount == 0) {
+        array.push(i);
+        // console.log(array.push(i));
+      }
+    }
+    let randomBox = array[Math.floor(Math.random() * array.length)];
+    // console.log(randomBox);
+    if (array.length > 0) {
+      if (pickPlayers.classList.contains("pick-players")) {
+        if (
+          cellElements[randomBox].addEventListener(
+            "click",
+            () => {
+              cellElements[randomBox].classList.add(playerCircle_class);
+            },
+            { once: true }
+          )
+        );
+      } else {
+        console.log("cell has no child node");
+      }
+    }
   }
 }
 
@@ -76,6 +118,7 @@ function handleQuit() {
 }
 
 function handleNewGame() {
+  aiPlayer === true;
   if (playerDisplay.style.display === "block") {
     gameMenu.classList.add("hide");
     gameBoard.classList.remove("hide");
@@ -90,11 +133,13 @@ function startGame() {
   });
   setBoardHoverClass();
   handleTurnButton();
+  // aiPlayerMove();
 }
 
 function handleClick(event) {
   const cell = event.target;
   const currentClass = playerCircle ? playerCircle_class : playerX_class;
+  // const currentClass = aiPlayer ? true : false;
 
   placeMark(cell, currentClass);
   if (checkForWin(currentClass)) {
@@ -102,10 +147,11 @@ function handleClick(event) {
   } else if (isDraw()) {
     endGame(true);
   } else {
-    switchTurns();
+    // switchTurns();
     setBoardHoverClass();
     handleTurnButton();
     setPlayers();
+    aiPlayerMove();
   }
 }
 
@@ -125,9 +171,9 @@ let placeMark = (cell, currentClass) => {
   cell.classList.add(currentClass);
 };
 
-let switchTurns = () => {
-  playerCircle = !playerCircle;
-};
+// let switchTurns = () => {
+//   playerCircle = !playerCircle;
+// };
 
 function setBoardHoverClass() {
   gameBoardGrid.classList.remove(playerX_class);
