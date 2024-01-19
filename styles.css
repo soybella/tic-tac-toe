@@ -229,6 +229,19 @@ button.restart-button {
   cursor: pointer;
 }
 
+/* .game-board-grid span {
+  display: flex;
+  width: var(--Cell-size);
+  height: var(--Cell-size);
+  justify-content: center;
+  border-radius: 15px;
+  align-items: center;
+  text-align: center;
+  background: var(--Semi-dark-navy);
+  box-shadow: 0px -8px 0px 0px #10212a inset;
+  cursor: pointer;
+} */
+
 .navbar-item {
   width: 100%;
   text-align: center;
