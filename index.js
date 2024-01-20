@@ -4,46 +4,57 @@ const selectBox = document.querySelector(".game-start-menu"),
   selectPlayerO = selectBox.querySelector(".pick-players .icon-o"),
   gameBoard = document.querySelector("#game-board"),
   players = document.querySelector(".pick-players"),
-  cellElements = document.querySelectorAll("#game-board-grid span"),
+  cellElements = document.querySelectorAll("#game-board-grid section span"),
   gameEndMessage = document.querySelector(".game-end-message"),
-  restartButton = document.querySelector(".restart-button");
-// console.log(cellElements);
+  restartButton = document.querySelector(".restart-button"),
+  playerDisplay = document.querySelector("#playerDisplay"),
+  newGameButton = document.querySelector("#new-game-solo");
+newGameButton.addEventListener("click", startGame);
 
 window.onload = () => {
   //make sure all boxes in board are clickable
   for (let i = 0; i < cellElements.length; i++) {
     cellElements[i].setAttribute("onclick", "clickedBox(this)");
   }
+  playerDisplay.style.display = "none";
 };
 
 selectPlayerX.onclick = () => {
-  selectBox.classList.add("hide");
-  gameBoard.classList.remove("hide");
+  playerDisplay.innerHTML = "You chose X.";
+  playerDisplay.style.display = "block";
 };
 
 selectPlayerO.onclick = () => {
-  selectBox.classList.add("hide");
-  gameBoard.classList.remove("hide");
-  players.setAttribute("class", "players active player");
+  playerDisplay.innerHTML = "You chose O.";
+  playerDisplay.style.display = "block";
+  players.setAttribute(
+    "class",
+    "third-container pick-players players active player"
+  );
+  aiPlayer();
 };
 
+function startGame() {
+  selectBox.classList.add("hide");
+  gameBoard.classList.remove("hide");
+}
+
 let iconX = document.querySelector(".icon-x");
-// iconX.classList.add("x");
 let iconO = document.querySelector(".icon-o");
-// iconO.classList.add("circle");
 playerSign = "x";
 runAi = true;
 
 // user interaction with board
 function clickedBox(element) {
   if (players.classList.contains("players")) {
+    // element.innerHTML = "";
     playerSign = "circle";
-    // element.innerHTML = iconO;
     element.classList.add("circle");
     players.classList.remove("active");
     element.setAttribute("id", playerSign);
   } else {
-    // element.innerHTML = iconX;
+    // element.innerHTML = "";
+    playerSign = "x";
     element.classList.add("x");
     players.classList.add("active");
     element.setAttribute("id", playerSign);
@@ -64,28 +75,32 @@ function aiPlayer() {
   let emptyBoxes = [];
   if (runAi) {
     playerSign = "circle";
-    // find remaining boxes that has not been mark
     for (let i = 0; i < cellElements.length; i++) {
-      if (!cellElements[i].classList.contains(playerSign)) {
+      if (
+        !cellElements[i].classList.contains("x") &&
+        !cellElements[i].classList.contains("circle")
+      ) {
         emptyBoxes.push(i);
-        // console.log(cellElements.length);
       }
     }
+
     //get random box from remaining tiles
     let randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     console.log(randomBox);
     if (emptyBoxes.length > 0) {
+      // cellElements[randomBox].innerHTML = "";
       if (players.classList.contains("player")) {
         playerSign = "x";
+        // cellElements[randomBox].innerHTML = "x";
         cellElements[randomBox].classList.add("x");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.add("active");
       } else {
+        // cellElements[randomBox].innerHTML = "circle";
         cellElements[randomBox].classList.add("circle");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.remove("active");
       }
-      // console.log(cellElements[randomBox]);
       selectWinner();
     }
     cellElements[randomBox].style.pointerEvents = "none";
@@ -100,44 +115,40 @@ function getIdValue(className) {
 }
 
 //check 3 tiles if they are the same sign
-function checkIdSign(val0, val1, val2, sign) {
+function checkIdSign(val1, val2, val3, sign) {
   if (
-    getIdValue(val0) == sign &&
     getIdValue(val1) == sign &&
-    getIdValue(val2) == sign
+    getIdValue(val2) == sign &&
+    getIdValue(val3) == sign
   ) {
     return true;
   }
-  // return false;
 }
 
 // check winner
 function selectWinner() {
   if (
-    checkIdSign(0, 1, 2, playerSign) ||
-    checkIdSign(3, 4, 5, playerSign) ||
-    checkIdSign(6, 7, 8, playerSign) ||
-    checkIdSign(0, 3, 6, playerSign) ||
+    checkIdSign(1, 2, 3, playerSign) ||
+    checkIdSign(4, 5, 6, playerSign) ||
+    checkIdSign(7, 8, 9, playerSign) ||
     checkIdSign(1, 4, 7, playerSign) ||
     checkIdSign(2, 5, 8, playerSign) ||
-    checkIdSign(0, 4, 8, playerSign) ||
-    checkIdSign(2, 4, 6, playerSign)
+    checkIdSign(3, 6, 9, playerSign) ||
+    checkIdSign(1, 5, 9, playerSign) ||
+    checkIdSign(3, 5, 7, playerSign)
   ) {
     runAi = false;
     aiPlayer(runAi);
 
     //buffer time to show winner
     setTimeout(() => {
-      // gameEndMessage.classList.add("show");
+      gameEndMessage.classList.add("show");
       gameEndMessage.innerHTML = `Player <p>${playerSign}</p> won the game!`;
       gameBoard.classList.remove("show");
     }, 700);
     // won text?
   } else {
-    //if draw
-    // isDraw();
     if (
-      getIdValue(0) != "" &&
       getIdValue(1) != "" &&
       getIdValue(2) != "" &&
       getIdValue(3) != "" &&
@@ -145,14 +156,15 @@ function selectWinner() {
       getIdValue(5) != "" &&
       getIdValue(6) != "" &&
       getIdValue(7) != "" &&
-      getIdValue(8) != ""
+      getIdValue(8) != "" &&
+      getIdValue(9) != ""
     ) {
       runAi = false;
       aiPlayer(runAi);
 
       // buffer time to show match as a draw
       setTimeout(() => {
-        // gameEndMessage.classList.add("show");
+        gameEndMessage.classList.add("show");
         gameEndMessage.innerHTML = "Game tied!";
         gameBoard.classList.remove("show");
       }, 700);
@@ -345,14 +357,14 @@ function selectWinner() {
 //   });
 // }
 
-function isDraw() {
-  return [...cellElements].every((cell) => {
-    return (
-      cell.classList.contains(playerX_class) ||
-      cell.classList.contains(playerCircle_class)
-    );
-  });
-}
+// function isDraw() {
+//   return [...cellElements].every((cell) => {
+//     return (
+//       cell.classList.contains(playerX_class) ||
+//       cell.classList.contains(playerCircle_class)
+//     );
+//   });
+// }
 
 // function endGame(draw) {
 //   let headerLarge = document.querySelector(".game-end-header-large");
