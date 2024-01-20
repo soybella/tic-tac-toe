@@ -216,20 +216,7 @@ button.restart-button {
   align-items: center;
 }
 
-.cell {
-  display: flex;
-  width: var(--Cell-size);
-  height: var(--Cell-size);
-  justify-content: center;
-  border-radius: 15px;
-  align-items: center;
-  text-align: center;
-  background: var(--Semi-dark-navy);
-  box-shadow: 0px -8px 0px 0px #10212a inset;
-  cursor: pointer;
-}
-
-/* .game-board-grid span {
+/* .cell {
   display: flex;
   width: var(--Cell-size);
   height: var(--Cell-size);
@@ -241,6 +228,19 @@ button.restart-button {
   box-shadow: 0px -8px 0px 0px #10212a inset;
   cursor: pointer;
 } */
+
+.game-board-grid span {
+  display: flex;
+  width: var(--Cell-size);
+  height: var(--Cell-size);
+  justify-content: center;
+  border-radius: 15px;
+  align-items: center;
+  text-align: center;
+  background: var(--Semi-dark-navy);
+  box-shadow: 0px -8px 0px 0px #10212a inset;
+  cursor: pointer;
+}
 
 .navbar-item {
   width: 100%;
@@ -418,18 +418,24 @@ button.restart-button {
   text-transform: uppercase;
 }
 
-.cell.x,
+/* .cell.x,
 .cell.circle {
   cursor: not-allowed;
-}
+} */
 
-.cell.x {
+/* #game-board-grid span .x {
+  background-image: var(--X-mark);
+  background-position: center;
+  background-repeat: no-repeat;
+} */
+
+#x {
   background-image: var(--X-mark);
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.cell.circle {
+#circle {
   background-image: var(--Circle-mark);
   background-position: center;
   background-repeat: no-repeat;

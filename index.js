@@ -2,11 +2,12 @@
 const selectBox = document.querySelector(".game-start-menu"),
   selectPlayerX = selectBox.querySelector(".pick-players .icon-x"),
   selectPlayerO = selectBox.querySelector(".pick-players .icon-o"),
-  gameBoard = document.querySelector(".game-board"),
+  gameBoard = document.querySelector("#game-board"),
   players = document.querySelector(".pick-players"),
-  cellElements = document.querySelectorAll("section span"),
+  cellElements = document.querySelectorAll("#game-board-grid span"),
   gameEndMessage = document.querySelector(".game-end-message"),
   restartButton = document.querySelector(".restart-button");
+// console.log(cellElements);
 
 window.onload = () => {
   //make sure all boxes in board are clickable
@@ -35,7 +36,7 @@ runAi = true;
 
 // user interaction with board
 function clickedBox(element) {
-  if (players.classList.contains("player")) {
+  if (players.classList.contains("players")) {
     playerSign = "circle";
     // element.innerHTML = iconO;
     element.classList.add("circle");
@@ -44,8 +45,8 @@ function clickedBox(element) {
   } else {
     // element.innerHTML = iconX;
     element.classList.add("x");
-    element.setAttribute("id", playerSign);
     players.classList.add("active");
+    element.setAttribute("id", playerSign);
   }
   selectWinner();
   element.style.pointerEvents = "none";
@@ -60,18 +61,20 @@ function clickedBox(element) {
 
 // computer interaction with board
 function aiPlayer() {
-  let array = [];
+  let emptyBoxes = [];
   if (runAi) {
     playerSign = "circle";
     // find remaining boxes that has not been mark
     for (let i = 0; i < cellElements.length; i++) {
-      if (cellElements[i].childElementCount == 0) {
-        array.push[i];
+      if (!cellElements[i].classList.contains(playerSign)) {
+        emptyBoxes.push(i);
+        // console.log(cellElements.length);
       }
     }
     //get random box from remaining tiles
-    let randomBox = array[Math.floor(Math.random() * array.length)];
-    if (array.length > 0) {
+    let randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+    console.log(randomBox);
+    if (emptyBoxes.length > 0) {
       if (players.classList.contains("player")) {
         playerSign = "x";
         cellElements[randomBox].classList.add("x");
@@ -80,11 +83,12 @@ function aiPlayer() {
       } else {
         cellElements[randomBox].classList.add("circle");
         cellElements[randomBox].setAttribute("id", playerSign);
-        players.classList.add("active");
+        players.classList.remove("active");
       }
+      // console.log(cellElements[randomBox]);
       selectWinner();
     }
-    // cellElements[randomBox].style.pointerEvents = "none";
+    cellElements[randomBox].style.pointerEvents = "none";
     gameBoard.style.pointerEvents = "auto";
     playerSign = "x";
   }
@@ -104,7 +108,7 @@ function checkIdSign(val0, val1, val2, sign) {
   ) {
     return true;
   }
-  return false;
+  // return false;
 }
 
 // check winner
