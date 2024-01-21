@@ -4,12 +4,20 @@ const selectBox = document.querySelector(".game-start-menu"),
   selectPlayerO = selectBox.querySelector(".pick-players .icon-o"),
   gameBoard = document.querySelector("#game-board"),
   players = document.querySelector(".pick-players"),
+  playerButton = document.querySelectorAll(".pick-player-button"),
   cellElements = document.querySelectorAll("#game-board-grid section span"),
   gameEndMessage = document.querySelector(".game-end-message"),
   restartButton = document.querySelector(".restart-button"),
   playerDisplay = document.querySelector("#playerDisplay"),
   newGameButton = document.querySelector("#new-game-solo");
 newGameButton.addEventListener("click", startGame);
+let playerButtonClicked = false;
+
+playerButton.forEach((button) => {
+  button.addEventListener("click", function () {
+    playerButtonClicked = true;
+  });
+});
 
 window.onload = () => {
   //make sure all boxes in board are clickable
@@ -35,8 +43,12 @@ selectPlayerO.onclick = () => {
 };
 
 function startGame() {
-  selectBox.classList.add("hide");
-  gameBoard.classList.remove("hide");
+  if (!playerButtonClicked) {
+    alert("Player must choose a mark!");
+  } else {
+    selectBox.classList.add("hide");
+    gameBoard.classList.remove("hide");
+  }
 }
 
 let iconX = document.querySelector(".icon-x");
