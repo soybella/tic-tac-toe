@@ -68,6 +68,7 @@ function clickedBox(element) {
     // element.innerHTML = "";
     playerSign = "x";
     element.classList.add("x");
+    // element.style.add("#game-board-grid span:not(.x):hover");
     players.classList.add("active");
     element.setAttribute("id", playerSign);
   }

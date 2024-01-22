@@ -441,14 +441,33 @@ button.restart-button {
   background-repeat: no-repeat;
 }
 
-.game-board-grid.circle .cell:not(.x):not(.circle):hover {
+#game-board-grid section span#circle:hover {
   background-image: var(--Circle-mark-hover);
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.game-board-grid.x .cell:not(.x):not(.circle):hover {
+/* .element.style:hover {
+  background-image: var(--Circle-mark-hover);
+  background-repeat: no-repeat;
+  background-position: center;
+} */
+
+/* 
+#game-board-grid span:not(#circle):hover {
   background-image: var(--X-mark-hover);
   background-repeat: no-repeat;
   background-position: center;
-}
+} */
+
+/* .game-board-grid.circle .cell:not(.x):not(.circle):hover {
+  background-image: var(--Circle-mark-hover);
+  background-repeat: no-repeat;
+  background-position: center;
+} */
+
+/* .game-board-grid.x .cell:not(.x):not(.circle):hover {
+  background-image: var(--X-mark-hover);
+  background-repeat: no-repeat;
+  background-position: center;
+} */
