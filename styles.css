@@ -440,12 +440,12 @@ button.restart-button {
   background-position: center;
   background-repeat: no-repeat;
 }
-
+/* 
 #game-board-grid section span#circle:hover {
   background-image: var(--Circle-mark-hover);
   background-repeat: no-repeat;
   background-position: center;
-}
+} */
 
 /* .element.style:hover {
   background-image: var(--Circle-mark-hover);

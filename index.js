@@ -25,11 +25,15 @@ window.onload = () => {
     cellElements[i].setAttribute("onclick", "clickedBox(this)");
   }
   playerDisplay.style.display = "none";
+  // element.removeEventListener("mouseover", handleMouseOver_Circle);
+  // element.removeEventListener("mouseover", handleMouseOver_X);
 };
 
 selectPlayerX.onclick = () => {
   playerDisplay.innerHTML = "You chose X.";
   playerDisplay.style.display = "block";
+  // handleMouseOver();
+  // playerSign = "x";
 };
 
 selectPlayerO.onclick = () => {
@@ -39,6 +43,8 @@ selectPlayerO.onclick = () => {
     "class",
     "third-container pick-players players active player"
   );
+  // handleMouseOver();
+  // playerSign = "circle";
   aiPlayer();
 };
 
@@ -59,18 +65,23 @@ runAi = true;
 // user interaction with board
 function clickedBox(element) {
   if (players.classList.contains("players")) {
-    // element.innerHTML = "";
     playerSign = "circle";
     element.classList.add("circle");
     players.classList.remove("active");
     element.setAttribute("id", playerSign);
+    // cellElements.forEach((element) =>
+    //   element.removeEventListener("mouseover", handleMouseOver)
+    // );
+    // element.removeEventListener("mouseover", handleMouseOver);
   } else {
-    // element.innerHTML = "";
     playerSign = "x";
     element.classList.add("x");
-    // element.style.add("#game-board-grid span:not(.x):hover");
     players.classList.add("active");
     element.setAttribute("id", playerSign);
+    // cellElements.forEach((element) =>
+    //   element.removeEventListener("mouseover", handleMouseOver)
+    // );
+    // element.removeEventListener("mouseover", handleMouseOver);
   }
   selectWinner();
   element.style.pointerEvents = "none";
@@ -82,6 +93,60 @@ function clickedBox(element) {
     aiPlayer(runAi);
   }, randomTimeDelay);
 }
+
+function handleMouseOver() {
+  if (iconO) {
+    console.log(playerSign);
+    this.style.backgroundImage = "url('./images/icon-o-outline.svg')";
+  } else if (iconX) {
+    console.log(playerSign);
+    this.style.backgroundImage = "url('./images/icon-x-outline.svg')";
+  }
+  this.style.backgroundRepeat = "no-repeat";
+  this.style.backgroundPosition = "center";
+}
+
+function handleMouseOut() {
+  this.style = "none";
+}
+
+cellElements.forEach((element) =>
+  element.addEventListener("mouseover", handleMouseOver)
+);
+cellElements.forEach((element) =>
+  element.addEventListener("mouseout", handleMouseOut)
+);
+
+// function handleHover_Circle() {
+//   if ((playerSign = "circle")) {
+//     this.style.backgroundImage = "url('./images/icon-o-outline.svg')";
+//     this.style.backgroundRepeat = "no-repeat";
+//     this.style.backgroundPosition = "center";
+
+//     this.addEventListener("mouseout", () => {
+//       this.style = "none";
+//     });
+//   }
+// }
+
+// function handleHover_X() {
+//   if ((playerSign = "x")) {
+//     this.style.backgroundImage = "url('./images/icon-x-outline.svg')";
+//     this.style.backgroundRepeat = "no-repeat";
+//     this.style.backgroundPosition = "center";
+
+//     this.addEventListener("mouseout", () => {
+//       this.style = "none";
+//     });
+//   }
+// }
+
+// cellElements.forEach((element) => {
+//   element.addEventListener(
+//     "mouseover",
+//     (playerSign = "circle" ? handleHover_Circle : handleHover_X)
+//   );
+// });
 
 // computer interaction with board
 function aiPlayer() {
@@ -104,12 +169,10 @@ function aiPlayer() {
       // cellElements[randomBox].innerHTML = "";
       if (players.classList.contains("player")) {
         playerSign = "x";
-        // cellElements[randomBox].innerHTML = "x";
         cellElements[randomBox].classList.add("x");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.add("active");
       } else {
-        // cellElements[randomBox].innerHTML = "circle";
         cellElements[randomBox].classList.add("circle");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.remove("active");
