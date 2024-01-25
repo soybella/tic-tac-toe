@@ -49,10 +49,12 @@ function handleMouseOver() {
     this.style.backgroundImage = "url('./images/icon-o-outline.svg')";
     this.style.backgroundRepeat = "no-repeat";
     this.style.backgroundPosition = "center";
-  } else if ((playerSign = "x")) {
+    // this.style.pointerEvents = "none";
+  } else {
     this.style.backgroundImage = "url('./images/icon-x-outline.svg')";
     this.style.backgroundRepeat = "no-repeat";
     this.style.backgroundPosition = "center";
+    // this.style.pointerEvents = "none";
   }
 }
 
@@ -60,6 +62,14 @@ function handleMouseOver() {
 cellElements.forEach((element) => {
   element.addEventListener("mouseover", handleMouseOver);
 });
+
+function handleMouseOut() {
+  this.style = "none";
+}
+
+cellElements.forEach((element) =>
+  element.addEventListener("mouseout", handleMouseOut)
+);
 
 function startGame() {
   if (!playerButtonClicked) {
@@ -86,7 +96,8 @@ function clickedBox(element) {
     element.removeEventListener("mouseover", handleMouseOver);
   }
   selectWinner();
-  element.style.pointerEvents = "none";
+  console.log(element);
+  // element.style.pointerEvents = "none";
   gameBoard.style.pointerEvents = "none";
 
   // buffer time to pretend computer is thinking
@@ -95,14 +106,6 @@ function clickedBox(element) {
     aiPlayer(runAi);
   }, randomTimeDelay);
 }
-
-function handleMouseOut() {
-  this.style = "none";
-}
-
-cellElements.forEach((element) =>
-  element.addEventListener("mouseout", handleMouseOut)
-);
 
 // computer interaction with board
 function aiPlayer() {
