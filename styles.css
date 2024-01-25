@@ -418,16 +418,9 @@ button.restart-button {
   text-transform: uppercase;
 }
 
-/* .cell.x,
-.cell.circle {
-  cursor: not-allowed;
-} */
-
-/* #game-board-grid span .x {
-  background-image: var(--X-mark);
-  background-position: center;
-  background-repeat: no-repeat;
-} */
+.circle-hover {
+  background-image: var(--Circle-mark);
+}
 
 #x {
   background-image: var(--X-mark);
