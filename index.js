@@ -128,11 +128,11 @@ function aiPlayer() {
       // cellElements[randomBox].innerHTML = "";
       if (players.classList.contains("player")) {
         playerSign = "x";
-        cellElements[randomBox].classList.add("x");
+        cellElements[randomBox].classList.add("x", "aiPlayer");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.add("active");
       } else {
-        cellElements[randomBox].classList.add("circle");
+        cellElements[randomBox].classList.add("circle", "aiPlayer");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.remove("active");
       }
@@ -162,6 +162,8 @@ function checkIdSign(val1, val2, val3, sign) {
 
 // check winner
 function selectWinner() {
+  let headerLarge = document.querySelector(".game-end-header-large");
+  let headerSmall = document.querySelector(".game-end-header-small");
   if (
     checkIdSign(1, 2, 3, playerSign) ||
     checkIdSign(4, 5, 6, playerSign) ||
@@ -178,11 +180,18 @@ function selectWinner() {
     //buffer time to show winner
     setTimeout(() => {
       gameEndMessage.classList.add("show");
-      gameEndMessage.innerHTML = `Player <p>${playerSign}</p> won the game!`;
-      gameBoard.classList.remove("show");
+      if (playerSign) {
+        headerSmall.innerHTML = "Oh no, you lost...";
+        // headerSmall.innerHTML = "You won!";
+      }
+      headerLarge.innerHTML = `
+        ${playerSign} takes the round!
+      `;
+      // gameEndMessage.innerHTML = `Player <p>${playerSign}</p> won the game!`;
+      // gameBoard.classList.remove("show");
     }, 700);
-    // won text?
   } else {
+    // headerSmall.innerHTML = "Oh no, you lost...";
     if (
       getIdValue(1) != "" &&
       getIdValue(2) != "" &&
@@ -199,9 +208,14 @@ function selectWinner() {
 
       // buffer time to show match as a draw
       setTimeout(() => {
+        let headerLarge = document.querySelector(".game-end-header-large");
+        let headerSmall = document.querySelector(".game-end-header-small");
+
         gameEndMessage.classList.add("show");
-        gameEndMessage.innerHTML = "Game tied!";
-        gameBoard.classList.remove("show");
+        headerSmall.style.display = "none";
+        headerLarge.innerHTML = "Round Tied";
+        headerLarge.style.color = "#A8BFC9";
+        headerLarge.style.marginTop = "0";
       }, 700);
       // won text?
     }
