@@ -31,11 +31,15 @@ playerButton.forEach((button) => {
 selectPlayerX.onclick = () => {
   playerDisplay.innerHTML = "You chose X.";
   playerDisplay.style.display = "block";
+  selectPlayerX.classList.add("light-background");
+  selectPlayerO.classList.remove("light-background");
 };
 
 selectPlayerO.onclick = () => {
   playerDisplay.innerHTML = "You chose O.";
   playerDisplay.style.display = "block";
+  selectPlayerX.classList.remove("light-background");
+  selectPlayerO.classList.add("light-background");
   players.setAttribute(
     "class",
     "third-container pick-players players active player"
@@ -49,12 +53,10 @@ function handleMouseOver() {
     this.style.backgroundImage = "url('./images/icon-o-outline.svg')";
     this.style.backgroundRepeat = "no-repeat";
     this.style.backgroundPosition = "center";
-    // this.style.pointerEvents = "none";
   } else {
     this.style.backgroundImage = "url('./images/icon-x-outline.svg')";
     this.style.backgroundRepeat = "no-repeat";
     this.style.backgroundPosition = "center";
-    // this.style.pointerEvents = "none";
   }
 }
 
@@ -96,8 +98,6 @@ function clickedBox(element) {
     element.removeEventListener("mouseover", handleMouseOver);
   }
   selectWinner();
-  console.log(element);
-  // element.style.pointerEvents = "none";
   gameBoard.style.pointerEvents = "none";
 
   // buffer time to pretend computer is thinking
@@ -123,9 +123,8 @@ function aiPlayer() {
 
     //get random box from remaining tiles
     let randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
-    console.log(randomBox);
+    // console.log(randomBox);
     if (emptyBoxes.length > 0) {
-      // cellElements[randomBox].innerHTML = "";
       if (players.classList.contains("player")) {
         playerSign = "x-aiPlayer";
         cellElements[randomBox].classList.add("x");
@@ -159,7 +158,6 @@ function checkIdSign(val1, val2, val3, sign) {
   ) {
     return true;
   }
-  // console.log(getIdValue(sign));
 }
 
 // check winner
@@ -187,25 +185,15 @@ function selectWinner() {
       headerLarge.innerHTML = "O takes the round!";
     }
 
-    console.log(playerSign);
+    // console.log(playerSign);
     runAi = false;
     aiPlayer(runAi);
 
     //buffer time to show winner
     setTimeout(() => {
       gameEndMessage.classList.add("show");
-      // if (playerSign == "x-aiPlayer" || playerSign == "circle-aiPlayer") {
-      //   headerSmall.innerHTML = "Oh no, you lost...";
-      //   // headerSmall.innerHTML = "You won!";
-      // }
-      // headerLarge.innerHTML = `
-      //   ${playerSign} takes the round!
-      // `;
-      // gameEndMessage.innerHTML = `Player <p>${playerSign}</p> won the game!`;
-      // gameBoard.classList.remove("show");
     }, 700);
   } else {
-    // headerSmall.innerHTML = "Oh no, you lost...";
     if (
       getIdValue(1) != "" &&
       getIdValue(2) != "" &&
@@ -231,7 +219,6 @@ function selectWinner() {
         headerLarge.style.color = "#A8BFC9";
         headerLarge.style.marginTop = "0";
       }, 700);
-      // won text?
     }
   }
 }
