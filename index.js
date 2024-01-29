@@ -83,13 +83,13 @@ function startGame() {
 // user interaction with board
 function clickedBox(element) {
   if (players.classList.contains("players")) {
-    playerSign = "circle";
+    playerSign = "circle-humanPlayer";
     element.classList.add("circle");
     players.classList.remove("active");
     element.setAttribute("id", playerSign);
     element.removeEventListener("mouseover", handleMouseOver);
   } else {
-    playerSign = "x";
+    playerSign = "x-humanPlayer";
     element.classList.add("x");
     players.classList.add("active");
     element.setAttribute("id", playerSign);
@@ -111,7 +111,7 @@ function clickedBox(element) {
 function aiPlayer() {
   let emptyBoxes = [];
   if (runAi) {
-    playerSign = "circle";
+    playerSign = "circle-aiPlayer";
     for (let i = 0; i < cellElements.length; i++) {
       if (
         !cellElements[i].classList.contains("x") &&
@@ -127,12 +127,12 @@ function aiPlayer() {
     if (emptyBoxes.length > 0) {
       // cellElements[randomBox].innerHTML = "";
       if (players.classList.contains("player")) {
-        playerSign = "x";
-        cellElements[randomBox].classList.add("x", "aiPlayer");
+        playerSign = "x-aiPlayer";
+        cellElements[randomBox].classList.add("x");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.add("active");
       } else {
-        cellElements[randomBox].classList.add("circle", "aiPlayer");
+        cellElements[randomBox].classList.add("circle");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.remove("active");
       }
@@ -147,6 +147,7 @@ function aiPlayer() {
 // get the sign of a certain box
 function getIdValue(className) {
   return document.querySelector(".box" + className).id;
+  // console.log(document.querySelector(".box" + className).id);
 }
 
 //check 3 tiles if they are the same sign
@@ -158,6 +159,7 @@ function checkIdSign(val1, val2, val3, sign) {
   ) {
     return true;
   }
+  // console.log(getIdValue(sign));
 }
 
 // check winner
@@ -174,19 +176,31 @@ function selectWinner() {
     checkIdSign(1, 5, 9, playerSign) ||
     checkIdSign(3, 5, 7, playerSign)
   ) {
+    if (playerSign == "x-aiPlayer" || playerSign == "circle-aiPlayer") {
+      headerSmall.innerHTML = "Oh no, you lost...";
+    } else {
+      headerSmall.innerHTML = "You won!";
+    }
+    if (playerSign == "x-humanPlayer" || playerSign == "x-aiPlayer") {
+      headerLarge.innerHTML = "X takes the round!";
+    } else {
+      headerLarge.innerHTML = "O takes the round!";
+    }
+
+    console.log(playerSign);
     runAi = false;
     aiPlayer(runAi);
 
     //buffer time to show winner
     setTimeout(() => {
       gameEndMessage.classList.add("show");
-      if (playerSign) {
-        headerSmall.innerHTML = "Oh no, you lost...";
-        // headerSmall.innerHTML = "You won!";
-      }
-      headerLarge.innerHTML = `
-        ${playerSign} takes the round!
-      `;
+      // if (playerSign == "x-aiPlayer" || playerSign == "circle-aiPlayer") {
+      //   headerSmall.innerHTML = "Oh no, you lost...";
+      //   // headerSmall.innerHTML = "You won!";
+      // }
+      // headerLarge.innerHTML = `
+      //   ${playerSign} takes the round!
+      // `;
       // gameEndMessage.innerHTML = `Player <p>${playerSign}</p> won the game!`;
       // gameBoard.classList.remove("show");
     }, 700);

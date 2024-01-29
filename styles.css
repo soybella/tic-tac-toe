@@ -422,14 +422,16 @@ button.restart-button {
   cursor: not-allowed;
 } */
 
-#x {
+#x-aiPlayer,
+#x-humanPlayer {
   background-image: var(--X-mark);
   background-position: center;
   background-repeat: no-repeat;
   pointer-events: none;
 }
 
-#circle {
+#circle-aiPlayer,
+#circle-humanPlayer {
   background-image: var(--Circle-mark);
   background-position: center;
   background-repeat: no-repeat;
