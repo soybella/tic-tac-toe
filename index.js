@@ -8,9 +8,17 @@ const selectBox = document.querySelector(".game-start-menu"),
   cellElements = document.querySelectorAll("#game-board-grid section span"),
   gameEndMessage = document.querySelector(".game-end-message"),
   restartButton = document.querySelector(".restart-button"),
+  quitButton = document.querySelector(".quit-button"),
+  nextRoundButton = document.querySelector(".next-round-button"),
   playerDisplay = document.querySelector("#playerDisplay"),
-  newGameButton = document.querySelector("#new-game-solo");
+  newGameButton = document.querySelector("#new-game-solo"),
+  headerLarge = document.querySelector(".game-end-header-large"),
+  headerSmall = document.querySelector(".game-end-header-small"),
+  turnButton = document.querySelector(".turn-button");
 newGameButton.addEventListener("click", startGame);
+quitButton.addEventListener("click", quitGame);
+nextRoundButton.addEventListener("click", nextRoundGame);
+
 let playerButtonClicked = false;
 runAi = true;
 
@@ -82,6 +90,14 @@ function startGame() {
   }
 }
 
+function quitGame() {
+  location.reload();
+}
+
+function nextRoundGame() {
+  console.log("next round");
+}
+
 // user interaction with board
 function clickedBox(element) {
   if (players.classList.contains("players")) {
@@ -123,7 +139,6 @@ function aiPlayer() {
 
     //get random box from remaining tiles
     let randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
-    // console.log(randomBox);
     if (emptyBoxes.length > 0) {
       if (players.classList.contains("player")) {
         playerSign = "x-aiPlayer";
@@ -146,7 +161,6 @@ function aiPlayer() {
 // get the sign of a certain box
 function getIdValue(className) {
   return document.querySelector(".box" + className).id;
-  // console.log(document.querySelector(".box" + className).id);
 }
 
 //check 3 tiles if they are the same sign
@@ -162,8 +176,6 @@ function checkIdSign(val1, val2, val3, sign) {
 
 // check winner
 function selectWinner() {
-  let headerLarge = document.querySelector(".game-end-header-large");
-  let headerSmall = document.querySelector(".game-end-header-small");
   if (
     checkIdSign(1, 2, 3, playerSign) ||
     checkIdSign(4, 5, 6, playerSign) ||
@@ -185,13 +197,13 @@ function selectWinner() {
       headerLarge.innerHTML = "O takes the round!";
     }
 
-    // console.log(playerSign);
     runAi = false;
     aiPlayer(runAi);
 
     //buffer time to show winner
     setTimeout(() => {
       gameEndMessage.classList.add("show");
+      gameEndMessage.style.pointerEvents = "auto";
     }, 700);
   } else {
     if (
@@ -210,9 +222,6 @@ function selectWinner() {
 
       // buffer time to show match as a draw
       setTimeout(() => {
-        let headerLarge = document.querySelector(".game-end-header-large");
-        let headerSmall = document.querySelector(".game-end-header-small");
-
         gameEndMessage.classList.add("show");
         headerSmall.style.display = "none";
         headerLarge.innerHTML = "Round Tied";
@@ -223,9 +232,13 @@ function selectWinner() {
   }
 }
 
-// function handleTurnButton() {
-//   turnButton.innerHTML = playerCircle ? "O turn" : "X turn";
-// }
+function handleTurnButton() {
+  if (playerSign == "x-aiPlayer" || playerSign == "x-humanPlayer") {
+    turnButton.innerHTML = "X Turn";
+  } else {
+    turnButton.innerHTML = "O Turn";
+  }
+}
 
 // function isDraw() {
 //   return [...cellElements].every((cell) => {

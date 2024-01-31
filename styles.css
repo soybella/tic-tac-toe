@@ -205,7 +205,8 @@ button.restart-button {
   justify-content: center;
 }
 
-.game-board-grid {
+.game-board-grid > *,
+.score-board {
   display: grid;
   grid-template-columns: repeat(3, auto);
   grid-gap: 20px;
@@ -215,6 +216,11 @@ button.restart-button {
   justify-items: center;
   align-items: center;
 }
+
+/* .score-board {
+  display: flex;
+  flex-direction: row;
+} */
 
 /* .cell {
   display: flex;
@@ -389,7 +395,7 @@ button.restart-button {
   margin: 23px 0 31px 0;
 }
 
-.game-end-container .quit-button {
+button.quit-button {
   width: 76px;
   height: 52px;
   border-radius: 10px;
@@ -402,6 +408,10 @@ button.restart-button {
   text-transform: uppercase;
   margin-right: 16px;
   box-shadow: 0px -4px 0px 0px #6b8997 inset;
+}
+
+button.quit-button:hover {
+  cursor: pointer;
 }
 
 .game-end-container .next-round-button {
@@ -417,10 +427,6 @@ button.restart-button {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-
-/* .not-allowed {
-  cursor: not-allowed;
-} */
 
 #x-aiPlayer,
 #x-humanPlayer {
