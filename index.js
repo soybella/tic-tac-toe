@@ -41,6 +41,7 @@ selectPlayerX.onclick = () => {
   playerDisplay.style.display = "block";
   selectPlayerX.classList.add("light-background");
   selectPlayerO.classList.remove("light-background");
+  turnButton.innerHTML = "O Turn";
 };
 
 selectPlayerO.onclick = () => {
@@ -52,6 +53,7 @@ selectPlayerO.onclick = () => {
     "class",
     "third-container pick-players players active player"
   );
+  turnButton.innerHTML = "X Turn";
   aiPlayer();
 };
 
@@ -106,13 +108,16 @@ function clickedBox(element) {
     players.classList.remove("active");
     element.setAttribute("id", playerSign);
     element.removeEventListener("mouseover", handleMouseOver);
+    // handleTurnButton();
   } else {
     playerSign = "x-humanPlayer";
     element.classList.add("x");
     players.classList.add("active");
     element.setAttribute("id", playerSign);
     element.removeEventListener("mouseover", handleMouseOver);
+    // handleTurnButton();
   }
+  handleTurnButton();
   selectWinner();
   gameBoard.style.pointerEvents = "none";
 
@@ -135,6 +140,7 @@ function aiPlayer() {
       ) {
         emptyBoxes.push(i);
       }
+      // handleTurnButton();
     }
 
     //get random box from remaining tiles
@@ -150,6 +156,7 @@ function aiPlayer() {
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.remove("active");
       }
+      handleTurnButton();
       selectWinner();
     }
     cellElements[randomBox].style.pointerEvents = "none";
@@ -234,9 +241,9 @@ function selectWinner() {
 
 function handleTurnButton() {
   if (playerSign == "x-aiPlayer" || playerSign == "x-humanPlayer") {
-    turnButton.innerHTML = "X Turn";
-  } else {
     turnButton.innerHTML = "O Turn";
+  } else {
+    turnButton.innerHTML = "X Turn";
   }
 }
 
