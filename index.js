@@ -17,8 +17,10 @@ const selectBox = document.querySelector(".game-start-menu"),
   turnButton = document.querySelector(".turn-button");
 newGameButton.addEventListener("click", startGame);
 quitButton.addEventListener("click", quitGame);
-nextRoundButton.addEventListener("click", nextRoundGame);
-
+nextRoundButton.addEventListener("click", nextRound);
+let playerXScore = 0;
+let playerOScore = 0;
+let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
@@ -96,8 +98,12 @@ function quitGame() {
   location.reload();
 }
 
-function nextRoundGame() {
-  console.log("next round");
+function handleTurnButton() {
+  if (playerSign == "x-aiPlayer" || playerSign == "x-humanPlayer") {
+    turnButton.innerHTML = "O Turn";
+  } else {
+    turnButton.innerHTML = "X Turn";
+  }
 }
 
 // user interaction with board
@@ -108,14 +114,12 @@ function clickedBox(element) {
     players.classList.remove("active");
     element.setAttribute("id", playerSign);
     element.removeEventListener("mouseover", handleMouseOver);
-    // handleTurnButton();
   } else {
     playerSign = "x-humanPlayer";
     element.classList.add("x");
     players.classList.add("active");
     element.setAttribute("id", playerSign);
     element.removeEventListener("mouseover", handleMouseOver);
-    // handleTurnButton();
   }
   handleTurnButton();
   selectWinner();
@@ -140,7 +144,6 @@ function aiPlayer() {
       ) {
         emptyBoxes.push(i);
       }
-      // handleTurnButton();
     }
 
     //get random box from remaining tiles
@@ -163,6 +166,32 @@ function aiPlayer() {
     gameBoard.style.pointerEvents = "auto";
     playerSign = "x";
   }
+}
+
+function nextRound() {
+  gameEndMessage.classList.remove("show");
+  cellElements.forEach((element) => {
+    element.innerHTML = "";
+    element.classList.remove("x", "circle");
+    element.removeAttribute("id", playerSign);
+    // updateScores(playerSign);
+    // element.style.pointerEvents = "auto";
+    // gameBoard.style.pointerEvents = "auto";
+
+    // clickedBox(playerSign);
+    // aiPlayer();
+  });
+}
+
+function updateScores(winner) {
+  if (winner === "x-humanPlayer") {
+    playerXScore++;
+    document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
+  } else if (winner === "circle-humanPlayer") {
+    playerOScore++;
+    document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
+  }
+  // nextRound();
 }
 
 // get the sign of a certain box
@@ -203,6 +232,8 @@ function selectWinner() {
     } else {
       headerLarge.innerHTML = "O takes the round!";
     }
+    updateScores(playerSign);
+    // nextRound();
 
     runAi = false;
     aiPlayer(runAi);
@@ -238,39 +269,3 @@ function selectWinner() {
     }
   }
 }
-
-function handleTurnButton() {
-  if (playerSign == "x-aiPlayer" || playerSign == "x-humanPlayer") {
-    turnButton.innerHTML = "O Turn";
-  } else {
-    turnButton.innerHTML = "X Turn";
-  }
-}
-
-// function isDraw() {
-//   return [...cellElements].every((cell) => {
-//     return (
-//       cell.classList.contains(playerX_class) ||
-//       cell.classList.contains(playerCircle_class)
-//     );
-//   });
-// }
-
-// function endGame(draw) {
-//   let headerLarge = document.querySelector(".game-end-header-large");
-//   let headerSmall = document.querySelector(".game-end-header-small");
-
-//   if (draw) {
-//     headerSmall.style.display = "none";
-//     headerLarge.innerHTML = "Round Tied";
-//     headerLarge.style.color = "#A8BFC9";
-//     headerLarge.style.marginTop = "0";
-//     gameEndMessageDisplay.classList.add("show");
-//   } else {
-//     headerSmall.innerHTML = `${
-//       playerCircle ? "You won!" : "Oh no, you lost..."
-//     }`;
-//     headerLarge.innerHTML = `${playerCircle ? "O" : "X"} takes the win!`;
-//     gameEndMessageDisplay.classList.add("show");
-//   }
-// }
