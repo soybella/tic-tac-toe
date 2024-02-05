@@ -21,16 +21,30 @@ nextRoundButton.addEventListener("click", nextRound);
 let playerXScore = 0;
 let playerOScore = 0;
 let tiesScore = 0;
+let gameOver = false;
 let playerButtonClicked = false;
 runAi = true;
 
-window.onload = () => {
-  //make sure all boxes in board are clickable
+function setClickableBoxes() {
   for (let i = 0; i < cellElements.length; i++) {
     cellElements[i].setAttribute("onclick", "clickedBox(this)");
   }
+}
+// playerDisplay.style.display = "none";
+// gameBoard.style.pointerEvents = "auto";
+
+window.onload = () => {
+  setClickableBoxes();
   playerDisplay.style.display = "none";
 };
+
+// window.onload = () => {
+//   //make sure all boxes in board are clickable
+//   for (let i = 0; i < cellElements.length; i++) {
+//     cellElements[i].setAttribute("onclick", "clickedBox(this)");
+//   }
+//   playerDisplay.style.display = "none";
+// };
 
 playerButton.forEach((button) => {
   button.addEventListener("click", function () {
@@ -168,30 +182,32 @@ function aiPlayer() {
   }
 }
 
-function nextRound() {
+function nextRound(winner) {
+  // gameOver = true;
   gameEndMessage.classList.remove("show");
-  cellElements.forEach((element) => {
-    element.innerHTML = "";
-    element.classList.remove("x", "circle");
-    element.removeAttribute("id", playerSign);
-    // updateScores(playerSign);
-    // element.style.pointerEvents = "auto";
-    // gameBoard.style.pointerEvents = "auto";
-
-    // clickedBox(playerSign);
-    // aiPlayer();
-  });
+  if (winner) {
+    console.log(winner);
+  }
+  // updateScores();
 }
 
 function updateScores(winner) {
   if (winner === "x-humanPlayer") {
     playerXScore++;
+    // nextRound(winner);
     document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
   } else if (winner === "circle-humanPlayer") {
     playerOScore++;
+    // nextRound(winner);
     document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
   }
-  // nextRound();
+  nextRound(winner);
+  // cellElements.forEach((element) => {
+  //   element.removeAttribute("id");
+  //   element.classList.remove("x", "circle");
+  //   element.style.pointerEvents = "auto";
+  //   gameBoard.style.pointerEvents = "auto";
+  // });
 }
 
 // get the sign of a certain box
@@ -232,7 +248,6 @@ function selectWinner() {
     } else {
       headerLarge.innerHTML = "O takes the round!";
     }
-    updateScores(playerSign);
     // nextRound();
 
     runAi = false;
@@ -242,6 +257,7 @@ function selectWinner() {
     setTimeout(() => {
       gameEndMessage.classList.add("show");
       gameEndMessage.style.pointerEvents = "auto";
+      updateScores(playerSign);
     }, 700);
   } else {
     if (

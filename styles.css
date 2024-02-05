@@ -444,6 +444,20 @@ button.quit-button:hover {
   pointer-events: none;
 }
 /* 
+.x {
+  background-image: var(--X-mark);
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.circle {
+  background-image: var(--Circle-mark);
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+} */
+/* 
 #game-board-grid section span#circle:hover {
   background-image: var(--Circle-mark-hover);
   background-repeat: no-repeat;
