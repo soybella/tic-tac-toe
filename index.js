@@ -58,6 +58,8 @@ selectPlayerX.onclick = () => {
   selectPlayerX.classList.add("light-background");
   selectPlayerO.classList.remove("light-background");
   turnButton.innerHTML = "O Turn";
+  document.getElementById("player-one").innerHTML = "X (You)";
+  document.getElementById("player-two").innerHTML = "O (CPU)";
 };
 
 selectPlayerO.onclick = () => {
@@ -69,6 +71,8 @@ selectPlayerO.onclick = () => {
     "class",
     "third-container pick-players players active player"
   );
+  document.getElementById("player-two").innerHTML = "O (You)";
+  document.getElementById("player-one").innerHTML = "X (CPU)";
   turnButton.innerHTML = "X Turn";
   aiPlayer();
 };
@@ -182,32 +186,48 @@ function aiPlayer() {
   }
 }
 
-function nextRound(winner) {
+function nextRound() {
   // gameOver = true;
+  runAi = true;
   gameEndMessage.classList.remove("show");
-  if (winner) {
-    console.log(winner);
-  }
-  // updateScores();
+
+  cellElements.forEach((element) => {
+    element.addEventListener("click", () => {
+      if (playerSign == "x-humanPlayer") {
+        element.setAttribute("id", playerSign);
+        element.classList.add("x");
+      }
+    });
+  });
+  console.log(playerSign);
 }
 
-function updateScores(winner) {
-  if (winner === "x-humanPlayer") {
+function updateScores() {
+  if (playerSign === "x-humanPlayer") {
     playerXScore++;
-    // nextRound(winner);
+    // document.getElementById("player-one").innerHTML = "X (You)";
     document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
-  } else if (winner === "circle-humanPlayer") {
+  } else if (playerSign === "circle-humanPlayer") {
     playerOScore++;
-    // nextRound(winner);
+    // document.querySelector(".player-two").innerHTML = "O (You)";
     document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
   }
-  nextRound(winner);
-  // cellElements.forEach((element) => {
-  //   element.removeAttribute("id");
-  //   element.classList.remove("x", "circle");
-  //   element.style.pointerEvents = "auto";
-  //   gameBoard.style.pointerEvents = "auto";
-  // });
+
+  if (playerSign === "x-aiPlayer") {
+    playerXScore++;
+    // document.getElementById("player-one").innerHTML = "X (CPU)";
+    document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
+  } else if (playerSign === "circle-aiPlayer") {
+    playerOScore++;
+    // document.querySelector(".player-one").innerHTML = " O (CPU)";
+    document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
+  }
+  cellElements.forEach((element) => {
+    element.removeAttribute("id");
+    element.classList.remove("x", "circle");
+    element.style.pointerEvents = "auto";
+    gameBoard.style.pointerEvents = "auto";
+  });
 }
 
 // get the sign of a certain box
@@ -248,7 +268,6 @@ function selectWinner() {
     } else {
       headerLarge.innerHTML = "O takes the round!";
     }
-    // nextRound();
 
     runAi = false;
     aiPlayer(runAi);
@@ -257,7 +276,7 @@ function selectWinner() {
     setTimeout(() => {
       gameEndMessage.classList.add("show");
       gameEndMessage.style.pointerEvents = "auto";
-      updateScores(playerSign);
+      updateScores();
     }, 700);
   } else {
     if (
