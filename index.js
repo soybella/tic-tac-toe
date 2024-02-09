@@ -21,7 +21,6 @@ nextRoundButton.addEventListener("click", nextRound);
 let playerXScore = 0;
 let playerOScore = 0;
 let tiesScore = 0;
-let gameOver = false;
 let playerButtonClicked = false;
 runAi = true;
 
@@ -57,7 +56,7 @@ selectPlayerX.onclick = () => {
   playerDisplay.style.display = "block";
   selectPlayerX.classList.add("light-background");
   selectPlayerO.classList.remove("light-background");
-  turnButton.innerHTML = "O Turn";
+  turnButton.innerHTML = "X Turn";
   document.getElementById("player-one").innerHTML = "X (You)";
   document.getElementById("player-two").innerHTML = "O (CPU)";
 };
@@ -73,7 +72,7 @@ selectPlayerO.onclick = () => {
   );
   document.getElementById("player-two").innerHTML = "O (You)";
   document.getElementById("player-one").innerHTML = "X (CPU)";
-  turnButton.innerHTML = "X Turn";
+  turnButton.innerHTML = "O Turn";
   aiPlayer();
 };
 
@@ -117,7 +116,7 @@ function quitGame() {
 }
 
 function handleTurnButton() {
-  if (playerSign == "x-aiPlayer" || playerSign == "x-humanPlayer") {
+  if (playerSign === "x-aiPlayer" || playerSign === "x-humanPlayer") {
     turnButton.innerHTML = "O Turn";
   } else {
     turnButton.innerHTML = "X Turn";
@@ -131,16 +130,18 @@ function clickedBox(element) {
     element.classList.add("circle");
     players.classList.remove("active");
     element.setAttribute("id", playerSign);
+    element.innerHTML = "clicked o original";
     element.removeEventListener("mouseover", handleMouseOver);
   } else {
     playerSign = "x-humanPlayer";
     element.classList.add("x");
-    players.classList.add("active");
     element.setAttribute("id", playerSign);
+    element.innerHTML = "clicked x original";
     element.removeEventListener("mouseover", handleMouseOver);
   }
   handleTurnButton();
   selectWinner();
+  // nextRound();
   gameBoard.style.pointerEvents = "none";
 
   // buffer time to pretend computer is thinking
@@ -182,52 +183,61 @@ function aiPlayer() {
     }
     cellElements[randomBox].style.pointerEvents = "none";
     gameBoard.style.pointerEvents = "auto";
-    playerSign = "x";
+    // playerSign = "x";
   }
 }
 
 function nextRound() {
-  // gameOver = true;
   runAi = true;
   gameEndMessage.classList.remove("show");
-
   cellElements.forEach((element) => {
-    element.addEventListener("click", () => {
-      if (playerSign == "x-humanPlayer") {
-        element.setAttribute("id", playerSign);
-        element.classList.add("x");
-      }
-    });
-  });
-  console.log(playerSign);
-}
-
-function updateScores() {
-  if (playerSign === "x-humanPlayer") {
-    playerXScore++;
-    // document.getElementById("player-one").innerHTML = "X (You)";
-    document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
-  } else if (playerSign === "circle-humanPlayer") {
-    playerOScore++;
-    // document.querySelector(".player-two").innerHTML = "O (You)";
-    document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
-  }
-
-  if (playerSign === "x-aiPlayer") {
-    playerXScore++;
-    // document.getElementById("player-one").innerHTML = "X (CPU)";
-    document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
-  } else if (playerSign === "circle-aiPlayer") {
-    playerOScore++;
-    // document.querySelector(".player-one").innerHTML = " O (CPU)";
-    document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
-  }
-  cellElements.forEach((element) => {
+    // element.style.backgroundImage = "";
     element.removeAttribute("id");
     element.classList.remove("x", "circle");
     element.style.pointerEvents = "auto";
-    gameBoard.style.pointerEvents = "auto";
+    element.innerHTML = "";
+    element.addEventListener("mouseover", () => {
+      if (playerSign === "x-humanPlayer") {
+        element.style.backgroundImage = "url('./images/icon-x-outline.svg')";
+        element.style.backgroundRepeat = "no-repeat";
+        element.style.backgroundPosition = "center";
+      } else {
+        if (playerSign === "circle-humanPlayer") {
+          element.style.backgroundImage = "url('./images/icon-o-outline.svg')";
+          element.style.backgroundRepeat = "no-repeat";
+          element.style.backgroundPosition = "center";
+        }
+      }
+    });
+    element.addEventListener("click", () => {
+      if (playerSign === "x-humanPlayer") {
+        // element.setAttribute("id", playerSign);
+        element.classList.add("x");
+      } else if (playerSign === "circle-humanPlayer") {
+        // element.setAttribute("id", playerSign);
+        element.classList.add("circle");
+      }
+    });
   });
+  gameBoard.style.pointerEvents = "auto";
+  console.log(playerSign);
+}
+
+function updateScores(playerSign) {
+  if (playerSign === "x-humanPlayer") {
+    playerXScore++;
+    turnButton.innerHTML = "X turn";
+    document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
+  } else if (playerSign === "circle-humanPlayer") {
+    playerOScore++;
+    document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
+  } else if (playerSign === "x-aiPlayer") {
+    playerXScore++;
+    document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
+  } else if (playerSign === "circle-aiPlayer") {
+    playerOScore++;
+    document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
+  }
 }
 
 // get the sign of a certain box
@@ -258,12 +268,12 @@ function selectWinner() {
     checkIdSign(1, 5, 9, playerSign) ||
     checkIdSign(3, 5, 7, playerSign)
   ) {
-    if (playerSign == "x-aiPlayer" || playerSign == "circle-aiPlayer") {
+    if (playerSign === "x-aiPlayer" || playerSign === "circle-aiPlayer") {
       headerSmall.innerHTML = "Oh no, you lost...";
     } else {
       headerSmall.innerHTML = "You won!";
     }
-    if (playerSign == "x-humanPlayer" || playerSign == "x-aiPlayer") {
+    if (playerSign === "x-humanPlayer" || playerSign === "x-aiPlayer") {
       headerLarge.innerHTML = "X takes the round!";
     } else {
       headerLarge.innerHTML = "O takes the round!";
@@ -276,7 +286,7 @@ function selectWinner() {
     setTimeout(() => {
       gameEndMessage.classList.add("show");
       gameEndMessage.style.pointerEvents = "auto";
-      updateScores();
+      updateScores(playerSign);
     }, 700);
   } else {
     if (

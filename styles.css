@@ -433,7 +433,7 @@ button.quit-button:hover {
   background-image: var(--X-mark);
   background-position: center;
   background-repeat: no-repeat;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 #circle-aiPlayer,
@@ -441,7 +441,7 @@ button.quit-button:hover {
   background-image: var(--Circle-mark);
   background-position: center;
   background-repeat: no-repeat;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 /* 
 .x {
