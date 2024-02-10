@@ -24,26 +24,26 @@ let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
-function setClickableBoxes() {
-  for (let i = 0; i < cellElements.length; i++) {
-    cellElements[i].setAttribute("onclick", "clickedBox(this)");
-  }
-}
-// playerDisplay.style.display = "none";
-// gameBoard.style.pointerEvents = "auto";
-
-window.onload = () => {
-  setClickableBoxes();
-  playerDisplay.style.display = "none";
-};
-
-// window.onload = () => {
-//   //make sure all boxes in board are clickable
+// function setClickableBoxes() {
 //   for (let i = 0; i < cellElements.length; i++) {
 //     cellElements[i].setAttribute("onclick", "clickedBox(this)");
 //   }
+// }
+// playerDisplay.style.display = "none";
+// gameBoard.style.pointerEvents = "auto";
+
+// window.onload = () => {
+//   setClickableBoxes();
 //   playerDisplay.style.display = "none";
 // };
+
+window.onload = () => {
+  //make sure all boxes in board are clickable
+  for (let i = 0; i < cellElements.length; i++) {
+    cellElements[i].setAttribute("onclick", "clickedBox(this)");
+  }
+  playerDisplay.style.display = "none";
+};
 
 playerButton.forEach((button) => {
   button.addEventListener("click", function () {
@@ -73,7 +73,7 @@ selectPlayerO.onclick = () => {
   document.getElementById("player-two").innerHTML = "O (You)";
   document.getElementById("player-one").innerHTML = "X (CPU)";
   turnButton.innerHTML = "O Turn";
-  aiPlayer();
+  aiPlayer(runAi);
 };
 
 // Define the event listener function
@@ -130,13 +130,13 @@ function clickedBox(element) {
     element.classList.add("circle");
     players.classList.remove("active");
     element.setAttribute("id", playerSign);
-    element.innerHTML = "clicked o original";
+    // element.innerHTML = "clicked o original";
     element.removeEventListener("mouseover", handleMouseOver);
   } else {
     playerSign = "x-humanPlayer";
     element.classList.add("x");
     element.setAttribute("id", playerSign);
-    element.innerHTML = "clicked x original";
+    // element.innerHTML = "clicked x original";
     element.removeEventListener("mouseover", handleMouseOver);
   }
   handleTurnButton();
@@ -188,48 +188,38 @@ function aiPlayer() {
 }
 
 function nextRound() {
+  // aiPlayer(runAi);
   runAi = true;
   gameEndMessage.classList.remove("show");
+  // element.style.pointerEvents = "auto";
   cellElements.forEach((element) => {
-    // element.style.backgroundImage = "";
     element.removeAttribute("id");
     element.classList.remove("x", "circle");
     element.style.pointerEvents = "auto";
-    element.innerHTML = "";
-    element.addEventListener("mouseover", () => {
-      if (playerSign === "x-humanPlayer") {
-        element.style.backgroundImage = "url('./images/icon-x-outline.svg')";
-        element.style.backgroundRepeat = "no-repeat";
-        element.style.backgroundPosition = "center";
-      } else {
-        if (playerSign === "circle-humanPlayer") {
-          element.style.backgroundImage = "url('./images/icon-o-outline.svg')";
-          element.style.backgroundRepeat = "no-repeat";
-          element.style.backgroundPosition = "center";
-        }
-      }
-    });
-    element.addEventListener("click", () => {
-      if (playerSign === "x-humanPlayer") {
-        // element.setAttribute("id", playerSign);
-        element.classList.add("x");
-      } else if (playerSign === "circle-humanPlayer") {
-        // element.setAttribute("id", playerSign);
-        element.classList.add("circle");
-      }
-    });
+    element.addEventListener("mouseover", handleMouseOver);
   });
+  if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
+    aiPlayer();
+    gameBoard.style.pointerEvents = "none";
+  }
+  // handleMouseOver(playerSign);
+  // for (let i = 0; i < cellElements.length; i++) {
+  //   cellElements[i].setAttribute("onclick", "clickedBox(this)");
+  // }
+  // handleMouseOver();
   gameBoard.style.pointerEvents = "auto";
   console.log(playerSign);
 }
 
 function updateScores(playerSign) {
+  // runAi = true;
   if (playerSign === "x-humanPlayer") {
     playerXScore++;
     turnButton.innerHTML = "X turn";
     document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
   } else if (playerSign === "circle-humanPlayer") {
     playerOScore++;
+    turnButton.innerHTML = "X Turn";
     document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
   } else if (playerSign === "x-aiPlayer") {
     playerXScore++;
@@ -287,6 +277,7 @@ function selectWinner() {
       gameEndMessage.classList.add("show");
       gameEndMessage.style.pointerEvents = "auto";
       updateScores(playerSign);
+      // handleMouseOver(playerSign);
     }, 700);
   } else {
     if (
