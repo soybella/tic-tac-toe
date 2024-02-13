@@ -65,8 +65,8 @@ button.restart-button {
   margin-top: 0;
 }
 
-#main-content {
-  /* display: flex; */
+#main-content,
+#game-board {
   justify-content: center;
   align-content: center;
 }
@@ -200,52 +200,24 @@ button.restart-button {
   text-transform: uppercase;
 }
 
-.game-board-navbar {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 52px;
-  justify-content: center;
-}
-
 .game-board-grid > *,
-.score-board {
+.score-board,
+.game-board-navbar {
   display: grid;
-  grid-template-columns: repeat(3, auto);
-  grid-gap: 20px;
-  margin: 20px auto;
-  justify-content: center;
-  align-content: center;
-  justify-items: center;
-  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 20px;
+  gap: 20px;
 }
 
-/* .score-board {
-  display: flex;
-  flex-direction: row;
-} */
-
-/* .cell {
-  display: flex;
-  width: var(--Cell-size);
-  height: var(--Cell-size);
-  justify-content: center;
-  border-radius: 15px;
-  align-items: center;
-  text-align: center;
-  background: var(--Semi-dark-navy);
-  box-shadow: 0px -8px 0px 0px #10212a inset;
-  cursor: pointer;
-} */
+.score-board {
+  margin: 0 0 20px 0;
+}
 
 .game-board-grid span {
   display: flex;
   width: var(--Cell-size);
   height: var(--Cell-size);
-  justify-content: center;
   border-radius: 15px;
-  align-items: center;
-  text-align: center;
   background: var(--Semi-dark-navy);
   box-shadow: 0px -8px 0px 0px #10212a inset;
   cursor: pointer;
@@ -464,7 +436,6 @@ button.cancel-restart-button {
   background-image: var(--X-mark);
   background-position: center;
   background-repeat: no-repeat;
-  /* pointer-events: none; */
 }
 
 #circle-aiPlayer,
@@ -472,50 +443,4 @@ button.cancel-restart-button {
   background-image: var(--Circle-mark);
   background-position: center;
   background-repeat: no-repeat;
-  /* pointer-events: none; */
 }
-/* 
-.x {
-  background-image: var(--X-mark);
-  background-position: center;
-  background-repeat: no-repeat;
-  pointer-events: none;
-}
-
-.circle {
-  background-image: var(--Circle-mark);
-  background-position: center;
-  background-repeat: no-repeat;
-  pointer-events: none;
-} */
-/* 
-#game-board-grid section span#circle:hover {
-  background-image: var(--Circle-mark-hover);
-  background-repeat: no-repeat;
-  background-position: center;
-} */
-
-/* .element.style:hover {
-  background-image: var(--Circle-mark-hover);
-  background-repeat: no-repeat;
-  background-position: center;
-} */
-
-/* 
-#game-board-grid span:not(#circle):hover {
-  background-image: var(--X-mark-hover);
-  background-repeat: no-repeat;
-  background-position: center;
-} */
-
-/* .game-board-grid.circle .cell:not(.x):not(.circle):hover {
-  background-image: var(--Circle-mark-hover);
-  background-repeat: no-repeat;
-  background-position: center;
-} */
-
-/* .game-board-grid.x .cell:not(.x):not(.circle):hover {
-  background-image: var(--X-mark-hover);
-  background-repeat: no-repeat;
-  background-position: center;
-} */
