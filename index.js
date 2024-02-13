@@ -7,8 +7,11 @@ const selectBox = document.querySelector(".game-start-menu"),
   playerButton = document.querySelectorAll(".pick-player-button"),
   cellElements = document.querySelectorAll("#game-board-grid section span"),
   gameEndMessage = document.querySelector(".game-end-message"),
+  restartGameMessage = document.querySelector(".restart-game-message"),
   restartButton = document.querySelector(".restart-button"),
   quitButton = document.querySelector(".quit-button"),
+  cancelRestartButton = document.querySelector(".cancel-restart-button"),
+  confirmRestartButton = document.querySelector(".confirm-restart-button"),
   nextRoundButton = document.querySelector(".next-round-button"),
   playerDisplay = document.querySelector("#playerDisplay"),
   newGameButton = document.querySelector("#new-game-solo"),
@@ -18,7 +21,8 @@ const selectBox = document.querySelector(".game-start-menu"),
 newGameButton.addEventListener("click", startGame);
 quitButton.addEventListener("click", quitGame);
 nextRoundButton.addEventListener("click", nextRound);
-restartButton.addEventListener("click", nextRound);
+confirmRestartButton.addEventListener("click", nextRound);
+restartButton.addEventListener("click", restartGame);
 let playerXScore = 0;
 let playerOScore = 0;
 let tiesScore = 0;
@@ -170,9 +174,38 @@ function aiPlayer() {
   }
 }
 
+function restartGame() {
+  // console.log("test restart button");
+  // alert("restart game");
+  restartGameMessage.classList.add("show");
+  cancelRestartButton.addEventListener("click", () => {
+    restartGameMessage.classList.remove("show");
+  });
+  // restartGameMessage.style.display = "block";
+  // headerSmall.style.display = "none";
+  // headerLarge.innerHTML = "Restart Game?";
+  // headerLarge.style.color = "#A8BFC9";
+  // headerLarge.style.marginTop = "0";
+
+  // runAi = true;
+  // gameEndMessage.classList.remove("show");
+  // cellElements.forEach((element) => {
+  //   element.removeAttribute("id");
+  //   element.classList.remove("x", "circle");
+  //   element.style.pointerEvents = "auto";
+  //   element.addEventListener("mouseover", handleMouseOver);
+  // });
+  // if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
+  //   aiPlayer();
+  //   gameBoard.style.pointerEvents = "none";
+  // }
+  // gameBoard.style.pointerEvents = "auto";
+}
+
 function nextRound() {
   runAi = true;
   gameEndMessage.classList.remove("show");
+  restartGameMessage.classList.remove("show");
   cellElements.forEach((element) => {
     element.removeAttribute("id");
     element.classList.remove("x", "circle");

@@ -53,7 +53,8 @@ button.restart-button {
   padding: 0;
 }
 
-#game-end-message.show {
+#game-end-message.show,
+#restart-game-message.show {
   display: flex;
 }
 
@@ -353,7 +354,8 @@ button.restart-button {
   letter-spacing: 1.5px;
 }
 
-.game-end-message {
+.game-end-message,
+.restart-game-message {
   display: none;
   position: fixed;
   top: 0;
@@ -366,7 +368,8 @@ button.restart-button {
   flex-direction: column;
 }
 
-.game-end-container {
+.game-end-container,
+.restart-game-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -376,7 +379,8 @@ button.restart-button {
   background: var(--Semi-dark-navy);
 }
 
-.game-end-container p {
+.game-end-container p,
+.restart-game-container p {
   font-size: 16px;
   color: var(--Silver);
   text-align: center;
@@ -388,6 +392,15 @@ button.restart-button {
 
 .game-end-container h1 {
   color: var(--Light-yellow);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin: 23px 0 31px 0;
+}
+
+.restart-game-container h1 {
+  color: var(--Silver);
   font-size: 40px;
   font-weight: 700;
   letter-spacing: 2.5px;
@@ -414,7 +427,23 @@ button.quit-button:hover {
   cursor: pointer;
 }
 
-.game-end-container .next-round-button {
+button.cancel-restart-button {
+  width: 139px;
+  height: 52px;
+  border-radius: 10px;
+  background: var(--Silver);
+  color: var(--Dark-navy);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-right: 16px;
+  box-shadow: 0px -4px 0px 0px #6b8997 inset;
+}
+
+.game-end-container .next-round-button,
+.restart-game-container .confirm-restart-button {
   width: 146px;
   height: 52px;
   border-radius: 10px;
