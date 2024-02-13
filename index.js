@@ -167,6 +167,7 @@ function aiPlayer() {
         cellElements[randomBox].classList.add("x");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.add("active");
+        gameBoard.style.pointerEvents = "none";
       } else {
         cellElements[randomBox].classList.add("circle");
         cellElements[randomBox].setAttribute("id", playerSign);
