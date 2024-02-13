@@ -23,19 +23,30 @@ quitButton.addEventListener("click", quitGame);
 nextRoundButton.addEventListener("click", nextRound);
 confirmRestartButton.addEventListener("click", nextRound);
 restartButton.addEventListener("click", restartGame);
+window.addEventListener("resize", centerMainContent);
 let playerXScore = 0;
 let playerOScore = 0;
 let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
-//make sure all boxes in board are clickable
 window.onload = () => {
   for (let i = 0; i < cellElements.length; i++) {
     cellElements[i].setAttribute("onclick", "clickedBox(this)");
   }
   playerDisplay.style.display = "none";
 };
+
+function centerMainContent() {
+  let centeredContent = document.querySelector("body");
+  let windowHeight = window.innerHeight;
+  let contentHeight = centeredContent.offsetHeight;
+
+  let marginTop = (windowHeight - contentHeight) / 2;
+
+  centeredContent.style.marginTop = marginTop + "px";
+}
+centerMainContent();
 
 playerButton.forEach((button) => {
   button.addEventListener("click", function () {
@@ -68,7 +79,6 @@ selectPlayerO.onclick = () => {
   aiPlayer(runAi);
 };
 
-// Define the event listener function
 function handleMouseOver() {
   if (players.classList.contains("active")) {
     this.style.backgroundImage = "url('./images/icon-o-outline.svg')";
@@ -81,7 +91,6 @@ function handleMouseOver() {
   }
 }
 
-// Attach the event listener to each cell element
 cellElements.forEach((element) => {
   element.addEventListener("mouseover", handleMouseOver);
 });
@@ -115,7 +124,6 @@ function handleTurnButton() {
   }
 }
 
-// user interaction with board
 function clickedBox(element) {
   if (players.classList.contains("players")) {
     playerSign = "circle-humanPlayer";
@@ -139,7 +147,6 @@ function clickedBox(element) {
   }, randomTimeDelay);
 }
 
-// computer interaction with board
 function aiPlayer() {
   let emptyBoxes = [];
   if (runAi) {
@@ -153,7 +160,6 @@ function aiPlayer() {
       }
     }
 
-    //get random box from remaining tiles
     let randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     if (emptyBoxes.length > 0) {
       if (players.classList.contains("player")) {
@@ -175,31 +181,10 @@ function aiPlayer() {
 }
 
 function restartGame() {
-  // console.log("test restart button");
-  // alert("restart game");
   restartGameMessage.classList.add("show");
   cancelRestartButton.addEventListener("click", () => {
     restartGameMessage.classList.remove("show");
   });
-  // restartGameMessage.style.display = "block";
-  // headerSmall.style.display = "none";
-  // headerLarge.innerHTML = "Restart Game?";
-  // headerLarge.style.color = "#A8BFC9";
-  // headerLarge.style.marginTop = "0";
-
-  // runAi = true;
-  // gameEndMessage.classList.remove("show");
-  // cellElements.forEach((element) => {
-  //   element.removeAttribute("id");
-  //   element.classList.remove("x", "circle");
-  //   element.style.pointerEvents = "auto";
-  //   element.addEventListener("mouseover", handleMouseOver);
-  // });
-  // if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
-  //   aiPlayer();
-  //   gameBoard.style.pointerEvents = "none";
-  // }
-  // gameBoard.style.pointerEvents = "auto";
 }
 
 function nextRound() {
@@ -237,12 +222,10 @@ function updateScores(playerSign) {
   }
 }
 
-// get the sign of a certain box
 function getIdValue(className) {
   return document.querySelector(".box" + className).id;
 }
 
-//check 3 tiles if they are the same sign
 function checkIdSign(val1, val2, val3, sign) {
   if (
     getIdValue(val1) == sign &&
@@ -253,7 +236,6 @@ function checkIdSign(val1, val2, val3, sign) {
   }
 }
 
-// check winner
 function selectWinner() {
   if (
     checkIdSign(1, 2, 3, playerSign) ||
@@ -279,7 +261,6 @@ function selectWinner() {
     runAi = false;
     aiPlayer(runAi);
 
-    //buffer time to show winner
     setTimeout(() => {
       gameEndMessage.classList.add("show");
       gameEndMessage.style.pointerEvents = "auto";
@@ -300,7 +281,6 @@ function selectWinner() {
       runAi = false;
       aiPlayer(runAi);
 
-      // buffer time to show match as a draw
       setTimeout(() => {
         gameEndMessage.classList.add("show");
         headerSmall.style.display = "none";
