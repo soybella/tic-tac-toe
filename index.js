@@ -18,27 +18,15 @@ const selectBox = document.querySelector(".game-start-menu"),
 newGameButton.addEventListener("click", startGame);
 quitButton.addEventListener("click", quitGame);
 nextRoundButton.addEventListener("click", nextRound);
+restartButton.addEventListener("click", nextRound);
 let playerXScore = 0;
 let playerOScore = 0;
 let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
-// function setClickableBoxes() {
-//   for (let i = 0; i < cellElements.length; i++) {
-//     cellElements[i].setAttribute("onclick", "clickedBox(this)");
-//   }
-// }
-// playerDisplay.style.display = "none";
-// gameBoard.style.pointerEvents = "auto";
-
-// window.onload = () => {
-//   setClickableBoxes();
-//   playerDisplay.style.display = "none";
-// };
-
+//make sure all boxes in board are clickable
 window.onload = () => {
-  //make sure all boxes in board are clickable
   for (let i = 0; i < cellElements.length; i++) {
     cellElements[i].setAttribute("onclick", "clickedBox(this)");
   }
@@ -130,22 +118,18 @@ function clickedBox(element) {
     element.classList.add("circle");
     players.classList.remove("active");
     element.setAttribute("id", playerSign);
-    // element.innerHTML = "clicked o original";
     element.removeEventListener("mouseover", handleMouseOver);
   } else {
     playerSign = "x-humanPlayer";
     element.classList.add("x");
     element.setAttribute("id", playerSign);
-    // element.innerHTML = "clicked x original";
     element.removeEventListener("mouseover", handleMouseOver);
   }
   handleTurnButton();
   selectWinner();
-  // nextRound();
   gameBoard.style.pointerEvents = "none";
 
-  // buffer time to pretend computer is thinking
-  let randomTimeDelay = (Math.random() * 1000 + 200).toFixed();
+  let randomTimeDelay = Math.floor(Math.random() * 1000 + 200); // Use Math.floor to get an integer
   setTimeout(() => {
     aiPlayer(runAi);
   }, randomTimeDelay);
@@ -183,15 +167,12 @@ function aiPlayer() {
     }
     cellElements[randomBox].style.pointerEvents = "none";
     gameBoard.style.pointerEvents = "auto";
-    // playerSign = "x";
   }
 }
 
 function nextRound() {
-  // aiPlayer(runAi);
   runAi = true;
   gameEndMessage.classList.remove("show");
-  // element.style.pointerEvents = "auto";
   cellElements.forEach((element) => {
     element.removeAttribute("id");
     element.classList.remove("x", "circle");
@@ -202,17 +183,10 @@ function nextRound() {
     aiPlayer();
     gameBoard.style.pointerEvents = "none";
   }
-  // handleMouseOver(playerSign);
-  // for (let i = 0; i < cellElements.length; i++) {
-  //   cellElements[i].setAttribute("onclick", "clickedBox(this)");
-  // }
-  // handleMouseOver();
   gameBoard.style.pointerEvents = "auto";
-  console.log(playerSign);
 }
 
 function updateScores(playerSign) {
-  // runAi = true;
   if (playerSign === "x-humanPlayer") {
     playerXScore++;
     turnButton.innerHTML = "X turn";
@@ -277,7 +251,6 @@ function selectWinner() {
       gameEndMessage.classList.add("show");
       gameEndMessage.style.pointerEvents = "auto";
       updateScores(playerSign);
-      // handleMouseOver(playerSign);
     }, 700);
   } else {
     if (
@@ -301,6 +274,8 @@ function selectWinner() {
         headerLarge.innerHTML = "Round Tied";
         headerLarge.style.color = "#A8BFC9";
         headerLarge.style.marginTop = "0";
+        tiesScore++;
+        document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
       }, 700);
     }
   }
