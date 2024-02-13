@@ -21,7 +21,6 @@ const selectBox = document.querySelector(".game-start-menu"),
 newGameButton.addEventListener("click", startGame);
 quitButton.addEventListener("click", quitGame);
 nextRoundButton.addEventListener("click", nextRound);
-confirmRestartButton.addEventListener("click", nextRound);
 restartButton.addEventListener("click", restartGame);
 window.addEventListener("resize", centerMainContent);
 let playerXScore = 0;
@@ -157,6 +156,7 @@ function aiPlayer() {
         !cellElements[i].classList.contains("circle")
       ) {
         emptyBoxes.push(i);
+        gameBoard.style.pointerEvents = "none";
       }
     }
 
@@ -185,6 +185,15 @@ function restartGame() {
   cancelRestartButton.addEventListener("click", () => {
     restartGameMessage.classList.remove("show");
   });
+  confirmRestartButton.addEventListener("click", () => {
+    restartGameMessage.classList.remove("show");
+    playerXScore = 0;
+    playerOScore = 0;
+    tiesScore = 0;
+    document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
+    document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
+    document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
+  });
 }
 
 function nextRound() {
@@ -197,6 +206,7 @@ function nextRound() {
     element.style.pointerEvents = "auto";
     element.addEventListener("mouseover", handleMouseOver);
   });
+  // fix why hover is being allowed on circle ai player
   if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
     aiPlayer();
     gameBoard.style.pointerEvents = "none";
