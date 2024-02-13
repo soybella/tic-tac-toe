@@ -22,11 +22,14 @@
 }
 
 body {
+  display: flex;
+  margin: 0;
   background: var(--Dark-navy);
   justify-content: center;
   align-items: center;
   font-family: "Outfit", sans-serif;
   font-feature-settings: "clig" off, "liga" off;
+  height: 100vh;
 }
 
 img {
@@ -63,8 +66,7 @@ button.restart-button {
 }
 
 #main-content {
-  width: 100vw;
-  height: 100vh;
+  /* display: flex; */
   justify-content: center;
   align-content: center;
 }
