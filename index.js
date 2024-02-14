@@ -130,14 +130,20 @@ function clickedBox(element) {
     players.classList.remove("active");
     element.setAttribute("id", playerSign);
     element.removeEventListener("mouseover", handleMouseOver);
+    // element.style.pointerEvents = "none";
+    // gameBoard.style.pointerEvents = "none";
   } else {
     playerSign = "x-humanPlayer";
     element.classList.add("x");
     element.setAttribute("id", playerSign);
     element.removeEventListener("mouseover", handleMouseOver);
+    // element.style.pointerEvents = "none";
+
+    // gameBoard.style.pointerEvents = "none";
   }
   handleTurnButton();
   selectWinner();
+  // element.style.pointerEvents = "none";
   gameBoard.style.pointerEvents = "none";
 
   let randomTimeDelay = Math.floor(Math.random() * 1000 + 200); // Use Math.floor to get an integer
@@ -156,7 +162,7 @@ function aiPlayer() {
         !cellElements[i].classList.contains("circle")
       ) {
         emptyBoxes.push(i);
-        gameBoard.style.pointerEvents = "none";
+        // gameBoard.style.pointerEvents = "none";
       }
     }
 
@@ -167,7 +173,7 @@ function aiPlayer() {
         cellElements[randomBox].classList.add("x");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.add("active");
-        gameBoard.style.pointerEvents = "none";
+        // gameBoard.style.pointerEvents = "none";
       } else {
         cellElements[randomBox].classList.add("circle");
         cellElements[randomBox].setAttribute("id", playerSign);
@@ -206,11 +212,14 @@ function nextRound() {
     element.classList.remove("x", "circle");
     element.style.pointerEvents = "auto";
     element.addEventListener("mouseover", handleMouseOver);
+    element.addEventListener("click", () => {
+      element.style.pointerEvents = "none";
+    });
   });
   // fix why hover is being allowed on circle ai player
   if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
     aiPlayer();
-    gameBoard.style.pointerEvents = "none";
+    // gameBoard.style.pointerEvents = "none";
   }
   gameBoard.style.pointerEvents = "auto";
 }
@@ -292,12 +301,14 @@ function selectWinner() {
       runAi = false;
       aiPlayer(runAi);
 
+      //create new round tied game end message
+
       setTimeout(() => {
         gameEndMessage.classList.add("show");
-        headerSmall.style.display = "none";
+        headerSmall.innerHTML = "";
         headerLarge.innerHTML = "Round Tied";
         headerLarge.style.color = "#A8BFC9";
-        headerLarge.style.marginTop = "0";
+        // headerLarge.style.marginTop = "0";
         tiesScore++;
         document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
       }, 700);

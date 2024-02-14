@@ -431,11 +431,16 @@ button.cancel-restart-button {
   text-transform: uppercase;
 }
 
+/* .no-hover {
+  cursor: not-allowed;
+} */
+
 #x-aiPlayer,
 #x-humanPlayer {
   background-image: var(--X-mark);
   background-position: center;
   background-repeat: no-repeat;
+  pointer-events: none;
 }
 
 #circle-aiPlayer,
@@ -443,4 +448,5 @@ button.cancel-restart-button {
   background-image: var(--Circle-mark);
   background-position: center;
   background-repeat: no-repeat;
+  pointer-events: none;
 }
