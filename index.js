@@ -8,6 +8,7 @@ const selectBox = document.querySelector(".game-start-menu"),
   cellElements = document.querySelectorAll("#game-board-grid section span"),
   gameEndMessage = document.querySelector(".game-end-message"),
   restartGameMessage = document.querySelector(".restart-game-message"),
+  gameTiedMessage = document.querySelector(".game-tied-message"),
   restartButton = document.querySelector(".restart-button"),
   quitButton = document.querySelector(".quit-button"),
   cancelRestartButton = document.querySelector(".cancel-restart-button"),
@@ -205,8 +206,10 @@ function restartGame() {
 
 function nextRound() {
   runAi = true;
+  // console.log("test");
   gameEndMessage.classList.remove("show");
   restartGameMessage.classList.remove("show");
+  gameTiedMessage.classList.remove("show");
   cellElements.forEach((element) => {
     element.removeAttribute("id");
     element.classList.remove("x", "circle");
@@ -301,15 +304,17 @@ function selectWinner() {
       runAi = false;
       aiPlayer(runAi);
 
-      //create new round tied game end message
+      //figure out why next round button on tied games is not working
 
       setTimeout(() => {
-        gameEndMessage.classList.add("show");
-        headerSmall.innerHTML = "";
-        headerLarge.innerHTML = "Round Tied";
+        gameTiedMessage.classList.add("show");
+        gameTiedMessage.style.pointerEvents = "auto";
+        // headerSmall.innerHTML = "";
+        // headerLarge.innerHTML = "Round Tied";
         headerLarge.style.color = "#A8BFC9";
         // headerLarge.style.marginTop = "0";
         tiesScore++;
+        // nextRound();
         document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
       }, 700);
     }

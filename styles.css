@@ -57,7 +57,8 @@ button.restart-button {
 }
 
 #game-end-message.show,
-#restart-game-message.show {
+#restart-game-message.show,
+#game-tied-message.show {
   display: flex;
 }
 
@@ -329,7 +330,8 @@ button.restart-button {
 }
 
 .game-end-message,
-.restart-game-message {
+.restart-game-message,
+.game-tied-message {
   display: none;
   position: fixed;
   top: 0;
@@ -343,7 +345,8 @@ button.restart-button {
 }
 
 .game-end-container,
-.restart-game-container {
+.restart-game-container,
+.game-tied-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -354,7 +357,8 @@ button.restart-button {
 }
 
 .game-end-container p,
-.restart-game-container p {
+.restart-game-container p,
+.game-tied-container p {
   font-size: 16px;
   color: var(--Silver);
   text-align: center;
@@ -374,6 +378,15 @@ button.restart-button {
 }
 
 .restart-game-container h1 {
+  color: var(--Silver);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin: 23px 0 31px 0;
+}
+
+.game-tied-container h1 {
   color: var(--Silver);
   font-size: 40px;
   font-weight: 700;
@@ -417,6 +430,7 @@ button.cancel-restart-button {
 }
 
 .game-end-container .next-round-button,
+.game-tied-container .next-round-button,
 .restart-game-container .confirm-restart-button {
   width: 146px;
   height: 52px;
