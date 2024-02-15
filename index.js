@@ -1,4 +1,3 @@
-// specify variables based on css classes
 const selectBox = document.querySelector(".game-start-menu"),
   selectPlayerX = selectBox.querySelector(".pick-players .icon-x"),
   selectPlayerO = selectBox.querySelector(".pick-players .icon-o"),
@@ -6,14 +5,16 @@ const selectBox = document.querySelector(".game-start-menu"),
   players = document.querySelector(".pick-players"),
   playerButton = document.querySelectorAll(".pick-player-button"),
   cellElements = document.querySelectorAll("#game-board-grid section span"),
-  gameEndMessage = document.querySelector(".game-end-message"),
+  gameEndMessage = document.querySelector("#game-end-message"),
   restartGameMessage = document.querySelector(".restart-game-message"),
-  gameTiedMessage = document.querySelector(".game-tied-message"),
+  gameTiedMessage = document.querySelector("#game-tied-message"),
   restartButton = document.querySelector(".restart-button"),
   quitButton = document.querySelector(".quit-button"),
+  quitTiedButton = document.querySelector(".quit-tied-button"),
   cancelRestartButton = document.querySelector(".cancel-restart-button"),
   confirmRestartButton = document.querySelector(".confirm-restart-button"),
   nextRoundButton = document.querySelector(".next-round-button"),
+  nextRoundTiedButton = document.querySelector(".next-round-tied-button"),
   playerDisplay = document.querySelector("#playerDisplay"),
   newGameButton = document.querySelector("#new-game-solo"),
   headerLarge = document.querySelector(".game-end-header-large"),
@@ -21,7 +22,9 @@ const selectBox = document.querySelector(".game-start-menu"),
   turnButton = document.querySelector(".turn-button");
 newGameButton.addEventListener("click", startGame);
 quitButton.addEventListener("click", quitGame);
+quitTiedButton.addEventListener("click", quitGame);
 nextRoundButton.addEventListener("click", nextRound);
+nextRoundTiedButton.addEventListener("click", nextRound);
 restartButton.addEventListener("click", restartGame);
 window.addEventListener("resize", centerMainContent);
 let playerXScore = 0;
@@ -131,23 +134,17 @@ function clickedBox(element) {
     players.classList.remove("active");
     element.setAttribute("id", playerSign);
     element.removeEventListener("mouseover", handleMouseOver);
-    // element.style.pointerEvents = "none";
-    // gameBoard.style.pointerEvents = "none";
   } else {
     playerSign = "x-humanPlayer";
     element.classList.add("x");
     element.setAttribute("id", playerSign);
     element.removeEventListener("mouseover", handleMouseOver);
-    // element.style.pointerEvents = "none";
-
-    // gameBoard.style.pointerEvents = "none";
   }
   handleTurnButton();
   selectWinner();
-  // element.style.pointerEvents = "none";
   gameBoard.style.pointerEvents = "none";
 
-  let randomTimeDelay = Math.floor(Math.random() * 1000 + 200); // Use Math.floor to get an integer
+  let randomTimeDelay = Math.floor(Math.random() * 300 + 200); // Use Math.floor to get an integer
   setTimeout(() => {
     aiPlayer(runAi);
   }, randomTimeDelay);
@@ -163,7 +160,6 @@ function aiPlayer() {
         !cellElements[i].classList.contains("circle")
       ) {
         emptyBoxes.push(i);
-        // gameBoard.style.pointerEvents = "none";
       }
     }
 
@@ -174,7 +170,6 @@ function aiPlayer() {
         cellElements[randomBox].classList.add("x");
         cellElements[randomBox].setAttribute("id", playerSign);
         players.classList.add("active");
-        // gameBoard.style.pointerEvents = "none";
       } else {
         cellElements[randomBox].classList.add("circle");
         cellElements[randomBox].setAttribute("id", playerSign);
@@ -206,7 +201,6 @@ function restartGame() {
 
 function nextRound() {
   runAi = true;
-  // console.log("test");
   gameEndMessage.classList.remove("show");
   restartGameMessage.classList.remove("show");
   gameTiedMessage.classList.remove("show");
@@ -219,10 +213,8 @@ function nextRound() {
       element.style.pointerEvents = "none";
     });
   });
-  // fix why hover is being allowed on circle ai player
   if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
     aiPlayer();
-    // gameBoard.style.pointerEvents = "none";
   }
   gameBoard.style.pointerEvents = "auto";
 }
@@ -304,17 +296,11 @@ function selectWinner() {
       runAi = false;
       aiPlayer(runAi);
 
-      //figure out why next round button on tied games is not working
-
       setTimeout(() => {
         gameTiedMessage.classList.add("show");
         gameTiedMessage.style.pointerEvents = "auto";
-        // headerSmall.innerHTML = "";
-        // headerLarge.innerHTML = "Round Tied";
         headerLarge.style.color = "#A8BFC9";
-        // headerLarge.style.marginTop = "0";
         tiesScore++;
-        // nextRound();
         document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
       }, 700);
     }
