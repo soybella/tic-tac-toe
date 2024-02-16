@@ -33,6 +33,21 @@ let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
+// Create a new image element
+const iconX = new Image();
+iconX.src = "./images/icon-x.svg";
+iconX.alt = "icon-x";
+iconX.width = 40;
+iconX.height = 40;
+
+const iconXElement = document.createElement("img");
+iconXElement.src = iconX.src;
+iconXElement.alt = iconX.alt;
+iconXElement.style.cssText = "";
+iconXElement.style.verticalAlign = "center";
+iconXElement.style.height = iconX.height + "px";
+iconXElement.style.width = iconX.width + "px";
+
 window.onload = () => {
   for (let i = 0; i < cellElements.length; i++) {
     cellElements[i].setAttribute("onclick", "clickedBox(this)");
@@ -268,7 +283,11 @@ function selectWinner() {
       headerSmall.innerHTML = "You won!";
     }
     if (playerSign === "x-humanPlayer" || playerSign === "x-aiPlayer") {
-      headerLarge.innerHTML = "X takes the round!";
+      headerLarge.innerHTML = "";
+      headerLarge.appendChild(iconXElement);
+      headerLarge.innerHTML += " takes the round!";
+      // Update to show the player mark as an image when win/lose
+      headerLarge.style.color = "#31c3bd";
     } else {
       headerLarge.innerHTML = "O takes the round!";
     }
