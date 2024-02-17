@@ -49,6 +49,21 @@ iconXElement.style.marginRight = "10px";
 iconXElement.style.height = iconX.height + "px";
 iconXElement.style.width = iconX.width + "px";
 
+const iconCircle = new Image();
+iconCircle.src = "./images/icon-o.svg";
+iconCircle.alt = "icon-circle";
+iconCircle.width = 64;
+iconCircle.height = 64;
+
+const iconCircleElement = document.createElement("img");
+iconCircleElement.src = iconCircle.src;
+iconCircleElement.alt = iconCircle.alt;
+iconCircleElement.style.cssText = "";
+iconCircleElement.style.verticalAlign = "middle";
+iconCircleElement.style.marginRight = "10px";
+iconCircleElement.style.height = iconCircle.height + "px";
+iconCircleElement.style.width = iconCircle.width + "px";
+
 window.onload = () => {
   for (let i = 0; i < cellElements.length; i++) {
     cellElements[i].setAttribute("onclick", "clickedBox(this)");
@@ -212,6 +227,7 @@ function restartGame() {
     document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
     document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
     document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
+    nextRound();
   });
 }
 
@@ -289,7 +305,11 @@ function selectWinner() {
       headerLarge.innerHTML += " takes the round!";
       headerLarge.style.color = "#31c3bd";
     } else {
-      headerLarge.innerHTML = "O takes the round!";
+      // headerLarge.innerHTML = "O takes the round!";
+      headerLarge.innerHTML = "";
+      headerLarge.appendChild(iconCircleElement);
+      headerLarge.innerHTML += " takes the round!";
+      headerLarge.style.color = "#f2b137";
     }
 
     runAi = false;
