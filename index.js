@@ -33,12 +33,9 @@ let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
-// Create a new image element
 const iconX = new Image();
 iconX.src = "./images/icon-x.svg";
 iconX.alt = "icon-x";
-iconX.width = 64;
-iconX.height = 64;
 
 const iconXElement = document.createElement("img");
 iconXElement.src = iconX.src;
@@ -52,8 +49,6 @@ iconXElement.style.width = iconX.width + "px";
 const iconCircle = new Image();
 iconCircle.src = "./images/icon-o.svg";
 iconCircle.alt = "icon-circle";
-iconCircle.width = 64;
-iconCircle.height = 64;
 
 const iconCircleElement = document.createElement("img");
 iconCircleElement.src = iconCircle.src;
@@ -93,7 +88,15 @@ selectPlayerX.onclick = () => {
   playerDisplay.style.display = "block";
   selectPlayerX.classList.add("light-background");
   selectPlayerO.classList.remove("light-background");
-  turnButton.innerHTML = "X Turn";
+  iconX.height = 20;
+  iconX.width = 20;
+  iconXElement.className = "turnButton-color";
+  iconXElement.style.height = iconX.height + "px";
+  iconXElement.style.width = iconX.width + "px";
+  turnButton.innerHTML = "";
+  turnButton.appendChild(iconXElement);
+  turnButton.innerHTML += " Turn";
+  turnButton.style.color = "#a8bfc9";
   document.getElementById("player-one").innerHTML = "X (You)";
   document.getElementById("player-two").innerHTML = "O (CPU)";
 };
@@ -109,7 +112,6 @@ selectPlayerO.onclick = () => {
   );
   document.getElementById("player-two").innerHTML = "O (You)";
   document.getElementById("player-one").innerHTML = "X (CPU)";
-  turnButton.innerHTML = "O Turn";
   aiPlayer(runAi);
 };
 
@@ -152,9 +154,25 @@ function quitGame() {
 
 function handleTurnButton() {
   if (playerSign === "x-aiPlayer" || playerSign === "x-humanPlayer") {
-    turnButton.innerHTML = "O Turn";
+    iconCircle.height = 20;
+    iconCircle.width = 20;
+    iconCircleElement.className = "turnButton-color";
+    iconCircleElement.style.height = iconCircle.height + "px";
+    iconCircleElement.style.width = iconCircle.width + "px";
+    turnButton.innerHTML = "";
+    turnButton.appendChild(iconCircleElement);
+    turnButton.innerHTML += " Turn";
+    turnButton.style.color = "#a8bfc9";
   } else {
-    turnButton.innerHTML = "X Turn";
+    iconX.height = 20;
+    iconX.width = 20;
+    iconXElement.className = "turnButton-color";
+    iconXElement.style.height = iconX.height + "px";
+    iconXElement.style.width = iconX.width + "px";
+    turnButton.innerHTML = "";
+    turnButton.appendChild(iconXElement);
+    turnButton.innerHTML += " Turn";
+    turnButton.style.color = "#a8bfc9";
   }
 }
 
@@ -254,11 +272,27 @@ function nextRound() {
 function updateScores(playerSign) {
   if (playerSign === "x-humanPlayer") {
     playerXScore++;
-    turnButton.innerHTML = "X turn";
+    iconX.height = 20;
+    iconX.width = 20;
+    iconXElement.className = "turnButton-color";
+    iconXElement.style.height = iconX.height + "px";
+    iconXElement.style.width = iconX.width + "px";
+    turnButton.innerHTML = "";
+    turnButton.appendChild(iconXElement);
+    turnButton.innerHTML += " Turn";
+    turnButton.style.color = "#a8bfc9";
     document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
   } else if (playerSign === "circle-humanPlayer") {
     playerOScore++;
-    turnButton.innerHTML = "X Turn";
+    iconCircle.height = 20;
+    iconCircle.width = 20;
+    iconCircleElement.className = "turnButton-color";
+    iconCircleElement.style.height = iconCircle.height + "px";
+    iconCircleElement.style.width = iconCircle.width + "px";
+    turnButton.innerHTML = "";
+    turnButton.appendChild(iconCircleElement);
+    turnButton.innerHTML += " Turn";
+    turnButton.style.color = "#a8bfc9";
     document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
   } else if (playerSign === "x-aiPlayer") {
     playerXScore++;
@@ -284,6 +318,10 @@ function checkIdSign(val1, val2, val3, sign) {
 }
 
 function selectWinner() {
+  iconCircle.width = 64;
+  iconCircle.height = 64;
+  iconX.width = 64;
+  iconX.height = 64;
   if (
     checkIdSign(1, 2, 3, playerSign) ||
     checkIdSign(4, 5, 6, playerSign) ||
@@ -300,12 +338,21 @@ function selectWinner() {
       headerSmall.innerHTML = "You won!";
     }
     if (playerSign === "x-humanPlayer" || playerSign === "x-aiPlayer") {
+      iconXElement.classList.remove("turnButton-color");
+      iconX.width = 64;
+      iconX.height = 64;
+      iconXElement.style.height = iconX.height + "px";
+      iconXElement.style.width = iconX.width + "px";
       headerLarge.innerHTML = "";
       headerLarge.appendChild(iconXElement);
       headerLarge.innerHTML += " takes the round!";
       headerLarge.style.color = "#31c3bd";
     } else {
-      // headerLarge.innerHTML = "O takes the round!";
+      iconCircle.width = 64;
+      iconCircle.height = 64;
+      iconCircleElement.classList.remove("turnButton-color");
+      iconCircleElement.style.height = iconCircle.height + "px";
+      iconCircleElement.style.width = iconCircle.width + "px";
       headerLarge.innerHTML = "";
       headerLarge.appendChild(iconCircleElement);
       headerLarge.innerHTML += " takes the round!";

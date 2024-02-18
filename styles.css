@@ -144,6 +144,11 @@ button.restart-button {
   color: var(--Silver);
 }
 
+.turnButton-color {
+  filter: brightness(0) saturate(100%) invert(80%) sepia(17%) saturate(264%)
+    hue-rotate(153deg) brightness(91%) contrast(92%);
+}
+
 .icon-x:hover:not(.light-background),
 .icon-o:hover:not(.light-background) {
   background: var(--Semi-dark-navy);
