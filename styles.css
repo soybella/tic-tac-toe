@@ -462,3 +462,9 @@ button.restart-button {
   background-repeat: no-repeat;
   pointer-events: none;
 }
+
+@media only screen and (max-width: 600px) {
+  .secondary-container .pick-player-container {
+    width: fit-content;
+  }
+}

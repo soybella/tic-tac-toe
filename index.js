@@ -33,6 +33,8 @@ let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
+// TO DO NEXT : MOBILE RESPONSIVE take off hover effect and fix container sizes to fit screen
+
 const iconX = new Image();
 iconX.src = "./images/icon-x.svg";
 iconX.alt = "icon-x";
@@ -65,6 +67,8 @@ window.onload = () => {
   }
   playerDisplay.style.display = "none";
 };
+
+const isSmallScreen = window.innerWidth <= 600;
 
 function centerMainContent() {
   let centeredContent = document.querySelector("body");
@@ -262,11 +266,22 @@ function nextRound() {
     element.addEventListener("click", () => {
       element.style.pointerEvents = "none";
     });
+    if (isSmallScreen) {
+      cellElements.forEach((element) => {
+        element.removeEventListener("mouseover", handleMouseOver);
+      });
+    }
   });
   if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
     aiPlayer();
   }
   gameBoard.style.pointerEvents = "auto";
+}
+
+if (isSmallScreen) {
+  cellElements.forEach((element) => {
+    element.removeEventListener("mouseover", handleMouseOver);
+  });
 }
 
 function updateScores(playerSign) {
