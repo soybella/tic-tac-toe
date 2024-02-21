@@ -463,8 +463,62 @@ button.restart-button {
   pointer-events: none;
 }
 
-@media only screen and (max-width: 600px) {
-  .secondary-container .pick-player-container {
+@media only screen and (max-width: 576px) {
+  .secondary-container {
     width: fit-content;
   }
+
+  .pick-player-container {
+    width: 327px;
+    height: fit-content;
+    position: relative;
+  }
+
+  .pick-players {
+    width: 279px;
+    height: 72px;
+  }
+
+  .pick-player-button {
+    width: 100%;
+  }
+
+  .button-yellow,
+  .button-blue {
+    height: 56px;
+    width: 327px;
+  }
+
+  .game-board > * {
+    width: 327px;
+    position: relative;
+  }
+
+  .game-board-grid section {
+    width: fit-content;
+  }
+
+  .game-board-grid span {
+    width: 96px;
+    height: 96px;
+  }
+
+  .score-board-item {
+    width: 96px;
+    height: 64px;
+  }
+
+  /* #x-aiPlayer,
+  #x-humanPlayer,
+  #circle-aiPlayer,
+  #circle-humanPlayer {
+    height: 40px;
+    width: 40px;
+  } */
 }
+
+/* @media screen and (min-width: 600px) and (orientation: landscape) {
+  body {
+    color: blue;
+  }
+} */
