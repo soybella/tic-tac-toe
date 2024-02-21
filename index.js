@@ -33,7 +33,14 @@ let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
-// TO DO NEXT : MOBILE RESPONSIVE take off hover effect and fix container sizes to fit screen
+const isSmallScreen = window.innerWidth <= 600;
+
+window.onload = () => {
+  for (let i = 0; i < cellElements.length; i++) {
+    cellElements[i].setAttribute("onclick", "clickedBox(this)");
+  }
+  playerDisplay.style.display = "none";
+};
 
 const iconX = new Image();
 iconX.src = "./images/icon-x.svg";
@@ -45,8 +52,6 @@ iconXElement.alt = iconX.alt;
 iconXElement.style.cssText = "";
 iconXElement.style.verticalAlign = "middle";
 iconXElement.style.marginRight = "10px";
-iconXElement.style.height = iconX.height + "px";
-iconXElement.style.width = iconX.width + "px";
 
 const iconCircle = new Image();
 iconCircle.src = "./images/icon-o.svg";
@@ -58,17 +63,6 @@ iconCircleElement.alt = iconCircle.alt;
 iconCircleElement.style.cssText = "";
 iconCircleElement.style.verticalAlign = "middle";
 iconCircleElement.style.marginRight = "10px";
-iconCircleElement.style.height = iconCircle.height + "px";
-iconCircleElement.style.width = iconCircle.width + "px";
-
-window.onload = () => {
-  for (let i = 0; i < cellElements.length; i++) {
-    cellElements[i].setAttribute("onclick", "clickedBox(this)");
-  }
-  playerDisplay.style.display = "none";
-};
-
-const isSmallScreen = window.innerWidth <= 600;
 
 function centerMainContent() {
   let centeredContent = document.querySelector("body");
@@ -92,17 +86,23 @@ selectPlayerX.onclick = () => {
   playerDisplay.style.display = "block";
   selectPlayerX.classList.add("light-background");
   selectPlayerO.classList.remove("light-background");
-  iconX.height = 20;
-  iconX.width = 20;
   iconXElement.className = "turnButton-color";
-  iconXElement.style.height = iconX.height + "px";
-  iconXElement.style.width = iconX.width + "px";
+  iconXElement.style.height = "20px";
+  iconXElement.style.width = "20px";
   turnButton.innerHTML = "";
   turnButton.appendChild(iconXElement);
   turnButton.innerHTML += " Turn";
   turnButton.style.color = "#a8bfc9";
   document.getElementById("player-one").innerHTML = "X (You)";
   document.getElementById("player-two").innerHTML = "O (CPU)";
+  if (isSmallScreen) {
+    iconXElement.style.height = "16px";
+    iconXElement.style.width = "16px";
+    turnButton.innerHTML = "";
+    turnButton.appendChild(iconXElement);
+    turnButton.innerHTML += " Turn";
+    turnButton.style.color = "#a8bfc9";
+  }
 };
 
 selectPlayerO.onclick = () => {
@@ -116,6 +116,14 @@ selectPlayerO.onclick = () => {
   );
   document.getElementById("player-two").innerHTML = "O (You)";
   document.getElementById("player-one").innerHTML = "X (CPU)";
+  if (isSmallScreen) {
+    iconCircleElement.style.height = "16px";
+    iconCircleElement.style.width = "16px";
+    turnButton.innerHTML = "";
+    turnButton.appendChild(iconCircleElement);
+    turnButton.innerHTML += " Turn";
+    turnButton.style.color = "#a8bfc9";
+  }
   aiPlayer(runAi);
 };
 
@@ -158,21 +166,17 @@ function quitGame() {
 
 function handleTurnButton() {
   if (playerSign === "x-aiPlayer" || playerSign === "x-humanPlayer") {
-    iconCircle.height = 20;
-    iconCircle.width = 20;
     iconCircleElement.className = "turnButton-color";
-    iconCircleElement.style.height = iconCircle.height + "px";
-    iconCircleElement.style.width = iconCircle.width + "px";
+    iconCircleElement.style.height = "20px";
+    iconCircleElement.style.width = "20px";
     turnButton.innerHTML = "";
     turnButton.appendChild(iconCircleElement);
     turnButton.innerHTML += " Turn";
     turnButton.style.color = "#a8bfc9";
   } else {
-    iconX.height = 20;
-    iconX.width = 20;
     iconXElement.className = "turnButton-color";
-    iconXElement.style.height = iconX.height + "px";
-    iconXElement.style.width = iconX.width + "px";
+    iconXElement.style.height = "20px";
+    iconXElement.style.width = "20px";
     turnButton.innerHTML = "";
     turnButton.appendChild(iconXElement);
     turnButton.innerHTML += " Turn";
@@ -284,14 +288,14 @@ if (isSmallScreen) {
   });
 }
 
+//figure out how to make img 16x16 after next rounds
+
 function updateScores(playerSign) {
   if (playerSign === "x-humanPlayer") {
     playerXScore++;
-    iconX.height = 20;
-    iconX.width = 20;
     iconXElement.className = "turnButton-color";
-    iconXElement.style.height = iconX.height + "px";
-    iconXElement.style.width = iconX.width + "px";
+    iconXElement.style.height = "20px";
+    iconXElement.style.width = "20px";
     turnButton.innerHTML = "";
     turnButton.appendChild(iconXElement);
     turnButton.innerHTML += " Turn";
@@ -299,11 +303,9 @@ function updateScores(playerSign) {
     document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
   } else if (playerSign === "circle-humanPlayer") {
     playerOScore++;
-    iconCircle.height = 20;
-    iconCircle.width = 20;
     iconCircleElement.className = "turnButton-color";
-    iconCircleElement.style.height = iconCircle.height + "px";
-    iconCircleElement.style.width = iconCircle.width + "px";
+    iconCircleElement.style.height = "20px";
+    iconCircleElement.style.width = "20px";
     turnButton.innerHTML = "";
     turnButton.appendChild(iconCircleElement);
     turnButton.innerHTML += " Turn";
@@ -333,10 +335,6 @@ function checkIdSign(val1, val2, val3, sign) {
 }
 
 function selectWinner() {
-  iconCircle.width = 64;
-  iconCircle.height = 64;
-  iconX.width = 64;
-  iconX.height = 64;
   if (
     checkIdSign(1, 2, 3, playerSign) ||
     checkIdSign(4, 5, 6, playerSign) ||
@@ -354,24 +352,40 @@ function selectWinner() {
     }
     if (playerSign === "x-humanPlayer" || playerSign === "x-aiPlayer") {
       iconXElement.classList.remove("turnButton-color");
-      iconX.width = 64;
-      iconX.height = 64;
-      iconXElement.style.height = iconX.height + "px";
-      iconXElement.style.width = iconX.width + "px";
+      iconXElement.style.height = "64px";
+      iconXElement.style.width = "64px";
+      iconXElement.style.verticalAlign = "middle";
       headerLarge.innerHTML = "";
       headerLarge.appendChild(iconXElement);
-      headerLarge.innerHTML += " takes the round!";
+      headerLarge.innerHTML += " takes the round";
       headerLarge.style.color = "#31c3bd";
+      if (isSmallScreen) {
+        iconXElement.style.height = "32px";
+        iconXElement.style.width = "32px";
+        iconXElement.style.verticalAlign = "sub";
+        headerLarge.innerHTML = "";
+        headerLarge.appendChild(iconXElement);
+        headerLarge.innerHTML += " takes the round";
+        headerLarge.style.color = "#31c3bd";
+      }
     } else {
-      iconCircle.width = 64;
-      iconCircle.height = 64;
       iconCircleElement.classList.remove("turnButton-color");
-      iconCircleElement.style.height = iconCircle.height + "px";
-      iconCircleElement.style.width = iconCircle.width + "px";
+      iconCircleElement.style.height = "64px";
+      iconCircleElement.style.width = "64px";
+      iconCircleElement.style.verticalAlign = "middle";
       headerLarge.innerHTML = "";
       headerLarge.appendChild(iconCircleElement);
-      headerLarge.innerHTML += " takes the round!";
+      headerLarge.innerHTML += " takes the round";
       headerLarge.style.color = "#f2b137";
+      if (isSmallScreen) {
+        iconCircleElement.style.height = "32px";
+        iconCircleElement.style.width = "32px";
+        iconCircleElement.style.verticalAlign = "sub";
+        headerLarge.innerHTML = "";
+        headerLarge.appendChild(iconCircleElement);
+        headerLarge.innerHTML += " takes the round";
+        headerLarge.style.color = "#f2b137";
+      }
     }
 
     runAi = false;

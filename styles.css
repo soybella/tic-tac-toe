@@ -355,6 +355,7 @@ button.restart-button {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   width: 100%;
   height: 266px;
   flex-direction: column;
@@ -379,7 +380,6 @@ button.restart-button {
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  margin: 23px 0 31px 0;
 }
 
 .restart-game-container h1 {
@@ -489,13 +489,18 @@ button.restart-button {
     width: 327px;
   }
 
-  .game-board > * {
-    width: 327px;
-    position: relative;
+  .game-board-grid {
+    margin-top: 70px;
   }
 
-  .game-board-grid section {
-    width: fit-content;
+  .game-board-navbar .navbar-item {
+    width: 96px;
+    height: 40px;
+  }
+
+  .turn-button {
+    width: 96px;
+    font-weight: normal;
   }
 
   .game-board-grid span {
@@ -508,15 +513,27 @@ button.restart-button {
     height: 64px;
   }
 
-  /* #x-aiPlayer,
+  .game-end-container h1 {
+    font-size: 1.7em;
+    margin: 25px 25px;
+  }
+
+  .game-end-buttons {
+    margin-top: 10px;
+  }
+
+  #x-aiPlayer,
   #x-humanPlayer,
   #circle-aiPlayer,
   #circle-humanPlayer {
-    height: 40px;
-    width: 40px;
-  } */
-}
+    background-size: 40px 40px;
+  }
 
+  .restart-button img {
+    width: 40px;
+    height: 40px;
+  }
+}
 /* @media screen and (min-width: 600px) and (orientation: landscape) {
   body {
     color: blue;
