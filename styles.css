@@ -147,6 +147,8 @@ button.restart-button {
 .turnButton-color {
   filter: brightness(0) saturate(100%) invert(80%) sepia(17%) saturate(264%)
     hue-rotate(153deg) brightness(91%) contrast(92%);
+  width: 20px;
+  height: 20px;
 }
 
 .icon-x:hover:not(.light-background),
@@ -463,6 +465,10 @@ button.restart-button {
   pointer-events: none;
 }
 
+.game-end-header-large img {
+  width: 64px;
+  height: 64px;
+}
 @media only screen and (max-width: 576px) {
   .secondary-container {
     width: fit-content;
@@ -532,6 +538,16 @@ button.restart-button {
   .restart-button img {
     width: 40px;
     height: 40px;
+  }
+
+  .turnButton-color {
+    width: 16px;
+    height: 16px;
+  }
+
+  .game-end-header-large img {
+    width: 32px;
+    height: 32px;
   }
 }
 /* @media screen and (min-width: 600px) and (orientation: landscape) {

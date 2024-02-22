@@ -87,22 +87,12 @@ selectPlayerX.onclick = () => {
   selectPlayerX.classList.add("light-background");
   selectPlayerO.classList.remove("light-background");
   iconXElement.className = "turnButton-color";
-  iconXElement.style.height = "20px";
-  iconXElement.style.width = "20px";
   turnButton.innerHTML = "";
   turnButton.appendChild(iconXElement);
   turnButton.innerHTML += " Turn";
   turnButton.style.color = "#a8bfc9";
   document.getElementById("player-one").innerHTML = "X (You)";
   document.getElementById("player-two").innerHTML = "O (CPU)";
-  if (isSmallScreen) {
-    iconXElement.style.height = "16px";
-    iconXElement.style.width = "16px";
-    turnButton.innerHTML = "";
-    turnButton.appendChild(iconXElement);
-    turnButton.innerHTML += " Turn";
-    turnButton.style.color = "#a8bfc9";
-  }
 };
 
 selectPlayerO.onclick = () => {
@@ -116,14 +106,6 @@ selectPlayerO.onclick = () => {
   );
   document.getElementById("player-two").innerHTML = "O (You)";
   document.getElementById("player-one").innerHTML = "X (CPU)";
-  if (isSmallScreen) {
-    iconCircleElement.style.height = "16px";
-    iconCircleElement.style.width = "16px";
-    turnButton.innerHTML = "";
-    turnButton.appendChild(iconCircleElement);
-    turnButton.innerHTML += " Turn";
-    turnButton.style.color = "#a8bfc9";
-  }
   aiPlayer(runAi);
 };
 
@@ -167,16 +149,12 @@ function quitGame() {
 function handleTurnButton() {
   if (playerSign === "x-aiPlayer" || playerSign === "x-humanPlayer") {
     iconCircleElement.className = "turnButton-color";
-    iconCircleElement.style.height = "20px";
-    iconCircleElement.style.width = "20px";
     turnButton.innerHTML = "";
     turnButton.appendChild(iconCircleElement);
     turnButton.innerHTML += " Turn";
     turnButton.style.color = "#a8bfc9";
   } else {
     iconXElement.className = "turnButton-color";
-    iconXElement.style.height = "20px";
-    iconXElement.style.width = "20px";
     turnButton.innerHTML = "";
     turnButton.appendChild(iconXElement);
     turnButton.innerHTML += " Turn";
@@ -294,8 +272,6 @@ function updateScores(playerSign) {
   if (playerSign === "x-humanPlayer") {
     playerXScore++;
     iconXElement.className = "turnButton-color";
-    iconXElement.style.height = "20px";
-    iconXElement.style.width = "20px";
     turnButton.innerHTML = "";
     turnButton.appendChild(iconXElement);
     turnButton.innerHTML += " Turn";
@@ -304,8 +280,6 @@ function updateScores(playerSign) {
   } else if (playerSign === "circle-humanPlayer") {
     playerOScore++;
     iconCircleElement.className = "turnButton-color";
-    iconCircleElement.style.height = "20px";
-    iconCircleElement.style.width = "20px";
     turnButton.innerHTML = "";
     turnButton.appendChild(iconCircleElement);
     turnButton.innerHTML += " Turn";
@@ -352,16 +326,14 @@ function selectWinner() {
     }
     if (playerSign === "x-humanPlayer" || playerSign === "x-aiPlayer") {
       iconXElement.classList.remove("turnButton-color");
-      iconXElement.style.height = "64px";
-      iconXElement.style.width = "64px";
       iconXElement.style.verticalAlign = "middle";
       headerLarge.innerHTML = "";
       headerLarge.appendChild(iconXElement);
       headerLarge.innerHTML += " takes the round";
       headerLarge.style.color = "#31c3bd";
       if (isSmallScreen) {
-        iconXElement.style.height = "32px";
-        iconXElement.style.width = "32px";
+        // iconXElement.style.height = "32px";
+        // iconXElement.style.width = "32px";
         iconXElement.style.verticalAlign = "sub";
         headerLarge.innerHTML = "";
         headerLarge.appendChild(iconXElement);
@@ -370,16 +342,14 @@ function selectWinner() {
       }
     } else {
       iconCircleElement.classList.remove("turnButton-color");
-      iconCircleElement.style.height = "64px";
-      iconCircleElement.style.width = "64px";
       iconCircleElement.style.verticalAlign = "middle";
       headerLarge.innerHTML = "";
       headerLarge.appendChild(iconCircleElement);
       headerLarge.innerHTML += " takes the round";
       headerLarge.style.color = "#f2b137";
       if (isSmallScreen) {
-        iconCircleElement.style.height = "32px";
-        iconCircleElement.style.width = "32px";
+        // iconCircleElement.style.height = "32px";
+        // iconCircleElement.style.width = "32px";
         iconCircleElement.style.verticalAlign = "sub";
         headerLarge.innerHTML = "";
         headerLarge.appendChild(iconCircleElement);
