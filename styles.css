@@ -506,6 +506,7 @@ button.restart-button {
 
   .turn-button {
     width: 96px;
+    height: 40px;
     font-weight: normal;
   }
 
