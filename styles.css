@@ -508,6 +508,7 @@ button.restart-button {
     width: 96px;
     height: 40px;
     font-weight: normal;
+    font-size: 14px;
   }
 
   .game-board-grid span {
