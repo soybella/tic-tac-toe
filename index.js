@@ -1,6 +1,6 @@
 const selectBox = document.querySelector(".game-start-menu"),
   selectPlayerX = selectBox.querySelector(".pick-players .icon-x"),
-  selectPlayerO = selectBox.querySelector(".pick-players .icon-o"),
+  selectPlayerCircle = selectBox.querySelector(".pick-players .icon-circle"),
   gameBoard = document.querySelector("#game-board"),
   players = document.querySelector(".pick-players"),
   playerButton = document.querySelectorAll(".pick-player-button"),
@@ -28,10 +28,12 @@ nextRoundTiedButton.addEventListener("click", nextRound);
 restartButton.addEventListener("click", restartGame);
 window.addEventListener("resize", centerMainContent);
 let playerXScore = 0;
-let playerOScore = 0;
+let playerCircleScore = 0;
 let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
+
+// FINAL STEPS: create new game with another human player and clean code and element names
 
 const isSmallScreen = window.innerWidth <= 600;
 
@@ -85,7 +87,7 @@ selectPlayerX.onclick = () => {
   playerDisplay.innerHTML = "You chose X.";
   playerDisplay.style.display = "block";
   selectPlayerX.classList.add("light-background");
-  selectPlayerO.classList.remove("light-background");
+  selectPlayerCircle.classList.remove("light-background");
   iconXElement.className = "turnButton-color";
   turnButton.innerHTML = "";
   turnButton.appendChild(iconXElement);
@@ -95,11 +97,11 @@ selectPlayerX.onclick = () => {
   document.getElementById("player-two").innerHTML = "O (CPU)";
 };
 
-selectPlayerO.onclick = () => {
+selectPlayerCircle.onclick = () => {
   playerDisplay.innerHTML = "You chose O.";
   playerDisplay.style.display = "block";
   selectPlayerX.classList.remove("light-background");
-  selectPlayerO.classList.add("light-background");
+  selectPlayerCircle.classList.add("light-background");
   players.setAttribute(
     "class",
     "third-container pick-players players active player"
@@ -179,7 +181,7 @@ function clickedBox(element) {
   selectWinner();
   gameBoard.style.pointerEvents = "none";
 
-  let randomTimeDelay = Math.floor(Math.random() * 300 + 200); // Use Math.floor to get an integer
+  let randomTimeDelay = Math.floor(Math.random() * 300 + 200);
   setTimeout(() => {
     aiPlayer(runAi);
   }, randomTimeDelay);
@@ -226,10 +228,12 @@ function restartGame() {
   confirmRestartButton.addEventListener("click", () => {
     restartGameMessage.classList.remove("show");
     playerXScore = 0;
-    playerOScore = 0;
+    playerCircleScore = 0;
     tiesScore = 0;
     document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
-    document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
+    document.getElementById(
+      "playerCircleScore"
+    ).innerHTML = `${playerCircleScore}`;
     document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
     nextRound();
   });
@@ -266,10 +270,8 @@ if (isSmallScreen) {
   });
 }
 
-//figure out how to make img 16x16 after next rounds
-
 function updateScores(playerSign) {
-  if (playerSign === "x-humanPlayer") {
+  if (playerSign === "x-humanPlayer" || playerSign === "x-aiPlayer") {
     playerXScore++;
     iconXElement.className = "turnButton-color";
     turnButton.innerHTML = "";
@@ -277,20 +279,19 @@ function updateScores(playerSign) {
     turnButton.innerHTML += " Turn";
     turnButton.style.color = "#a8bfc9";
     document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
-  } else if (playerSign === "circle-humanPlayer") {
-    playerOScore++;
+  } else if (
+    playerSign === "circle-humanPlayer" ||
+    playerSign === "circle-aiPlayer"
+  ) {
+    playerCircleScore++;
     iconCircleElement.className = "turnButton-color";
     turnButton.innerHTML = "";
     turnButton.appendChild(iconCircleElement);
     turnButton.innerHTML += " Turn";
     turnButton.style.color = "#a8bfc9";
-    document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
-  } else if (playerSign === "x-aiPlayer") {
-    playerXScore++;
-    document.getElementById("playerXScore").innerHTML = `${playerXScore}`;
-  } else if (playerSign === "circle-aiPlayer") {
-    playerOScore++;
-    document.getElementById("playerOScore").innerHTML = `${playerOScore}`;
+    document.getElementById(
+      "playerCircleScore"
+    ).innerHTML = `${playerCircleScore}`;
   }
 }
 
@@ -332,8 +333,6 @@ function selectWinner() {
       headerLarge.innerHTML += " takes the round";
       headerLarge.style.color = "#31c3bd";
       if (isSmallScreen) {
-        // iconXElement.style.height = "32px";
-        // iconXElement.style.width = "32px";
         iconXElement.style.verticalAlign = "sub";
         headerLarge.innerHTML = "";
         headerLarge.appendChild(iconXElement);
@@ -348,8 +347,6 @@ function selectWinner() {
       headerLarge.innerHTML += " takes the round";
       headerLarge.style.color = "#f2b137";
       if (isSmallScreen) {
-        // iconCircleElement.style.height = "32px";
-        // iconCircleElement.style.width = "32px";
         iconCircleElement.style.verticalAlign = "sub";
         headerLarge.innerHTML = "";
         headerLarge.appendChild(iconCircleElement);
@@ -387,6 +384,14 @@ function selectWinner() {
         headerLarge.style.color = "#A8BFC9";
         tiesScore++;
         document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
+        console.log(playerSign);
+        if (playerSign === "x-humanPlayer") {
+          iconXElement.className = "turnButton-color";
+          turnButton.innerHTML = "";
+          turnButton.appendChild(iconXElement);
+          turnButton.innerHTML += " Turn";
+          turnButton.style.color = "#a8bfc9";
+        }
       }, 700);
     }
   }
