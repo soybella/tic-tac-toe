@@ -27,6 +27,7 @@ nextRoundButton.addEventListener("click", nextRound);
 nextRoundTiedButton.addEventListener("click", nextRound);
 restartButton.addEventListener("click", restartGame);
 window.addEventListener("resize", centerMainContent);
+const isSmallScreen = window.innerWidth <= 600;
 let playerXScore = 0;
 let playerCircleScore = 0;
 let tiesScore = 0;
@@ -35,7 +36,20 @@ runAi = true;
 
 // FINAL STEPS: create new game with another human player and clean code and element names
 
-const isSmallScreen = window.innerWidth <= 600;
+window.addEventListener("resize", function () {
+  // console.log("Window width:", window.innerWidth);
+  const isSmallScreen = window.innerWidth <= 600;
+  if (isSmallScreen) {
+    cellElements.forEach((element) => {
+      element.removeEventListener("mouseover", handleMouseOver);
+    });
+  } else {
+    cellElements.forEach((element) => {
+      element.addEventListener("mouseover", handleMouseOver);
+    });
+  }
+  // isSmallScreen ? console.log("yes small screen") : console.log("big screen");
+});
 
 window.onload = () => {
   for (let i = 0; i < cellElements.length; i++) {
@@ -43,6 +57,17 @@ window.onload = () => {
   }
   playerDisplay.style.display = "none";
 };
+
+function centerMainContent() {
+  let centeredContent = document.querySelector("body");
+  let windowHeight = window.innerHeight;
+  let contentHeight = centeredContent.offsetHeight;
+
+  let marginTop = (windowHeight - contentHeight) / 2;
+
+  centeredContent.style.marginTop = marginTop + "px";
+}
+centerMainContent();
 
 const iconX = new Image();
 iconX.src = "./images/icon-x.svg";
@@ -65,17 +90,6 @@ iconCircleElement.alt = iconCircle.alt;
 iconCircleElement.style.cssText = "";
 iconCircleElement.style.verticalAlign = "middle";
 iconCircleElement.style.marginRight = "10px";
-
-function centerMainContent() {
-  let centeredContent = document.querySelector("body");
-  let windowHeight = window.innerHeight;
-  let contentHeight = centeredContent.offsetHeight;
-
-  let marginTop = (windowHeight - contentHeight) / 2;
-
-  centeredContent.style.marginTop = marginTop + "px";
-}
-centerMainContent();
 
 playerButton.forEach((button) => {
   button.addEventListener("click", function () {
@@ -124,9 +138,9 @@ function handleMouseOver() {
   }
 }
 
-cellElements.forEach((element) => {
-  element.addEventListener("mouseover", handleMouseOver);
-});
+// cellElements.forEach((element) => {
+//   element.addEventListener("mouseover", handleMouseOver);
+// });
 
 function handleMouseOut() {
   this.style = "none";
@@ -252,13 +266,13 @@ function nextRound() {
     element.addEventListener("click", () => {
       element.style.pointerEvents = "none";
     });
-    if (isSmallScreen) {
-      cellElements.forEach((element) => {
-        element.removeEventListener("mouseover", handleMouseOver);
-      });
-    } else {
-      element.addEventListener("mouseover", handleMouseOver);
-    }
+    // if (isSmallScreen) {
+    //   cellElements.forEach((element) => {
+    //     element.removeEventListener("mouseover", handleMouseOver);
+    //   });
+    // } else {
+    //   element.addEventListener("mouseover", handleMouseOver);
+    // }
   });
   if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
     aiPlayer();
@@ -266,11 +280,11 @@ function nextRound() {
   gameBoard.style.pointerEvents = "auto";
 }
 
-if (isSmallScreen) {
-  cellElements.forEach((element) => {
-    element.removeEventListener("mouseover", handleMouseOver);
-  });
-}
+// if (isSmallScreen) {
+//   cellElements.forEach((element) => {
+//     element.removeEventListener("mouseover", handleMouseOver);
+//   });
+// }
 
 function updateScores(playerSign) {
   if (playerSign === "x-humanPlayer" || playerSign === "x-aiPlayer") {
@@ -329,13 +343,13 @@ function selectWinner() {
       headerLarge.appendChild(iconXElement);
       headerLarge.innerHTML += " takes the round";
       headerLarge.style.color = "#31c3bd";
-      if (isSmallScreen) {
-        iconXElement.style.verticalAlign = "sub";
-        headerLarge.innerHTML = "";
-        headerLarge.appendChild(iconXElement);
-        headerLarge.innerHTML += " takes the round";
-        headerLarge.style.color = "#31c3bd";
-      }
+      // if (isSmallScreen) {
+      //   iconXElement.style.verticalAlign = "sub";
+      //   headerLarge.innerHTML = "";
+      //   headerLarge.appendChild(iconXElement);
+      //   headerLarge.innerHTML += " takes the round";
+      //   headerLarge.style.color = "#31c3bd";
+      // }
     } else {
       iconCircleElement.classList.remove("turnButton-color");
       iconCircleElement.style.verticalAlign = "middle";
@@ -343,13 +357,13 @@ function selectWinner() {
       headerLarge.appendChild(iconCircleElement);
       headerLarge.innerHTML += " takes the round";
       headerLarge.style.color = "#f2b137";
-      if (isSmallScreen) {
-        iconCircleElement.style.verticalAlign = "sub";
-        headerLarge.innerHTML = "";
-        headerLarge.appendChild(iconCircleElement);
-        headerLarge.innerHTML += " takes the round";
-        headerLarge.style.color = "#f2b137";
-      }
+      // if (isSmallScreen) {
+      //   iconCircleElement.style.verticalAlign = "sub";
+      //   headerLarge.innerHTML = "";
+      //   headerLarge.appendChild(iconCircleElement);
+      //   headerLarge.innerHTML += " takes the round";
+      //   headerLarge.style.color = "#f2b137";
+      // }
     }
 
     runAi = false;
