@@ -106,6 +106,7 @@ selectPlayerCircle.onclick = () => {
     "class",
     "third-container pick-players players active player"
   );
+
   document.getElementById("player-two").innerHTML = "O (You)";
   document.getElementById("player-one").innerHTML = "X (CPU)";
   aiPlayer(runAi);
@@ -248,7 +249,6 @@ function nextRound() {
     element.removeAttribute("id");
     element.classList.remove("x", "circle");
     element.style.pointerEvents = "auto";
-    element.addEventListener("mouseover", handleMouseOver);
     element.addEventListener("click", () => {
       element.style.pointerEvents = "none";
     });
@@ -256,6 +256,8 @@ function nextRound() {
       cellElements.forEach((element) => {
         element.removeEventListener("mouseover", handleMouseOver);
       });
+    } else {
+      element.addEventListener("mouseover", handleMouseOver);
     }
   });
   if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
@@ -284,11 +286,6 @@ function updateScores(playerSign) {
     playerSign === "circle-aiPlayer"
   ) {
     playerCircleScore++;
-    iconCircleElement.className = "turnButton-color";
-    turnButton.innerHTML = "";
-    turnButton.appendChild(iconCircleElement);
-    turnButton.innerHTML += " Turn";
-    turnButton.style.color = "#a8bfc9";
     document.getElementById(
       "playerCircleScore"
     ).innerHTML = `${playerCircleScore}`;
@@ -385,13 +382,6 @@ function selectWinner() {
         tiesScore++;
         document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
         console.log(playerSign);
-        if (playerSign === "x-humanPlayer") {
-          iconXElement.className = "turnButton-color";
-          turnButton.innerHTML = "";
-          turnButton.appendChild(iconXElement);
-          turnButton.innerHTML += " Turn";
-          turnButton.style.color = "#a8bfc9";
-        }
       }, 700);
     }
   }
