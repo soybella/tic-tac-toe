@@ -8,6 +8,9 @@ const selectBox = document.querySelector(".game-start-menu"),
   gameEndMessage = document.querySelector("#game-end-message"),
   restartGameMessage = document.querySelector(".restart-game-message"),
   gameTiedMessage = document.querySelector("#game-tied-message"),
+  newGameVsPlayer = document.querySelector("#new-game-multiplayer"),
+  newGameVsPlayerAlert = document.querySelector("#new-game-vs-player-alert"),
+  backButton = document.querySelector(".back-button"),
   restartButton = document.querySelector(".restart-button"),
   quitButton = document.querySelector(".quit-button"),
   quitTiedButton = document.querySelector(".quit-tied-button"),
@@ -21,23 +24,28 @@ const selectBox = document.querySelector(".game-start-menu"),
   headerSmall = document.querySelector(".game-end-header-small"),
   turnButton = document.querySelector(".turn-button");
 newGameButton.addEventListener("click", startGame);
+newGameVsPlayer.addEventListener("click", startGameVsPlayer);
 quitButton.addEventListener("click", quitGame);
 quitTiedButton.addEventListener("click", quitGame);
 nextRoundButton.addEventListener("click", nextRound);
 nextRoundTiedButton.addEventListener("click", nextRound);
+backButton.addEventListener("click", handleBackButton);
 restartButton.addEventListener("click", restartGame);
+// restartButton.addEventListener("mouseover", restartButtonHoverEffect);
+// restartButton.addEventListener("mouseout", () => {
+//   restartButton.classList.add("");
+// });
 window.addEventListener("resize", centerMainContent);
-const isSmallScreen = window.innerWidth <= 600;
 let playerXScore = 0;
 let playerCircleScore = 0;
 let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
-// FINAL STEPS: create new game with another human player and clean code and element names
+// FINAL STEPS: create alert of development with another human player and clean code and element names
 
 window.addEventListener("resize", function () {
-  // console.log("Window width:", window.innerWidth);
+  console.log("Window width:", window.innerWidth);
   const isSmallScreen = window.innerWidth <= 600;
   if (isSmallScreen) {
     cellElements.forEach((element) => {
@@ -48,7 +56,7 @@ window.addEventListener("resize", function () {
       element.addEventListener("mouseover", handleMouseOver);
     });
   }
-  // isSmallScreen ? console.log("yes small screen") : console.log("big screen");
+  isSmallScreen ? console.log("yes small screen") : console.log("big screen");
 });
 
 window.onload = () => {
@@ -90,6 +98,15 @@ iconCircleElement.alt = iconCircle.alt;
 iconCircleElement.style.cssText = "";
 iconCircleElement.style.verticalAlign = "middle";
 iconCircleElement.style.marginRight = "10px";
+
+// const restartButtonHover = new Image();
+// restartButtonHover.src = "./images/restart-button-hover.svg";
+
+// const restartButtonHoverElement = document.createElement("img");
+// restartButtonHoverElement.src = restartButtonHover.src;
+// restartButtonHoverElement.style.cssText = "";
+// restartButtonHoverElement.style.border = "1px solid red";
+// restartButtonHoverElement.style.height = "65px";
 
 playerButton.forEach((button) => {
   button.addEventListener("click", function () {
@@ -138,13 +155,14 @@ function handleMouseOver() {
   }
 }
 
-// cellElements.forEach((element) => {
-//   element.addEventListener("mouseover", handleMouseOver);
-// });
-
 function handleMouseOut() {
   this.style = "none";
 }
+
+// function restartButtonHoverEffect() {
+//   restartButton.innerHTML = "";
+//   restartButton.appendChild(restartButtonHoverElement);
+// }
 
 cellElements.forEach((element) =>
   element.addEventListener("mouseout", handleMouseOut)
@@ -157,6 +175,14 @@ function startGame() {
     selectBox.classList.add("hide");
     gameBoard.classList.remove("hide");
   }
+}
+
+function startGameVsPlayer() {
+  newGameVsPlayerAlert.classList.add("show");
+}
+
+function handleBackButton() {
+  newGameVsPlayerAlert.classList.remove("show");
 }
 
 function quitGame() {
@@ -266,25 +292,12 @@ function nextRound() {
     element.addEventListener("click", () => {
       element.style.pointerEvents = "none";
     });
-    // if (isSmallScreen) {
-    //   cellElements.forEach((element) => {
-    //     element.removeEventListener("mouseover", handleMouseOver);
-    //   });
-    // } else {
-    //   element.addEventListener("mouseover", handleMouseOver);
-    // }
   });
   if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
     aiPlayer();
   }
   gameBoard.style.pointerEvents = "auto";
 }
-
-// if (isSmallScreen) {
-//   cellElements.forEach((element) => {
-//     element.removeEventListener("mouseover", handleMouseOver);
-//   });
-// }
 
 function updateScores(playerSign) {
   if (playerSign === "x-humanPlayer" || playerSign === "x-aiPlayer") {
@@ -343,13 +356,6 @@ function selectWinner() {
       headerLarge.appendChild(iconXElement);
       headerLarge.innerHTML += " takes the round";
       headerLarge.style.color = "#31c3bd";
-      // if (isSmallScreen) {
-      //   iconXElement.style.verticalAlign = "sub";
-      //   headerLarge.innerHTML = "";
-      //   headerLarge.appendChild(iconXElement);
-      //   headerLarge.innerHTML += " takes the round";
-      //   headerLarge.style.color = "#31c3bd";
-      // }
     } else {
       iconCircleElement.classList.remove("turnButton-color");
       iconCircleElement.style.verticalAlign = "middle";
@@ -357,13 +363,6 @@ function selectWinner() {
       headerLarge.appendChild(iconCircleElement);
       headerLarge.innerHTML += " takes the round";
       headerLarge.style.color = "#f2b137";
-      // if (isSmallScreen) {
-      //   iconCircleElement.style.verticalAlign = "sub";
-      //   headerLarge.innerHTML = "";
-      //   headerLarge.appendChild(iconCircleElement);
-      //   headerLarge.innerHTML += " takes the round";
-      //   headerLarge.style.color = "#f2b137";
-      // }
     }
 
     runAi = false;

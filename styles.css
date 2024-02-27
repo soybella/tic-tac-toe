@@ -2,6 +2,7 @@
   --Dark-navy: #1a2a33;
   --Semi-dark-navy: #1f3641;
   --Silver: #a8bfc9;
+  --Silver-hover: #dbe8ed;
   --Light-yellow: #f2b137;
   --Light-blue: #31c3bd;
   --Light-yellow-hover: #ffc860;
@@ -57,7 +58,8 @@ button.restart-button {
 
 #game-end-message.show,
 #restart-game-message.show,
-#game-tied-message.show {
+#game-tied-message.show,
+#new-game-vs-player-alert.show {
   display: flex;
 }
 
@@ -131,6 +133,11 @@ button.restart-button {
   font-size: 40px;
   color: var(--Silver);
   transition: var(--On-hover-transition);
+}
+
+.icon-x:hover,
+.icon-circle:hover {
+  background: var(--Silver-hover);
 }
 
 .light-background {
@@ -269,25 +276,41 @@ button.restart-button {
   text-transform: uppercase;
 }
 
+.restart {
+  display: flex;
+  justify-content: end;
+}
+
 .restart-button {
-  width: 100%;
+  width: 52px;
   height: 52px;
-  text-align: end;
-  background: var(--Dark-navy);
+  /* text-align: end; */
+  /* background: var(--Dark-navy); */
+  /* height: fit-content; */
+  /* cursor: pointer; */
+  /* border: 1px solid blue; */
+  background: var(--Silver);
+  border-radius: 10px;
+  box-shadow: 0px -4px 0px 0px #6b8997 inset;
+  transition: var(--On-hover-transition);
 }
 
 .restart-button:hover {
-  cursor: default;
+  background: var(--Silver-hover);
 }
 
-.restart-button img {
-  width: 52px;
-  height: 52px;
+.restart-button i {
+  font-size: 20px;
 }
 
-.restart-button img:hover {
+/* img#restart-button-icon:hover {
+  transition: var(--On-hover-transition);
   cursor: pointer;
-}
+} */
+
+/* .restart-button img:hover {
+  cursor: pointer;
+} */
 
 .score-board-item {
   display: flex;
@@ -337,7 +360,8 @@ button.restart-button {
 
 .game-end-message,
 .restart-game-message,
-.game-tied-message {
+.game-tied-message,
+.new-game-vs-player-alert {
   display: none;
   position: fixed;
   top: 0;
@@ -352,7 +376,8 @@ button.restart-button {
 
 .game-end-container,
 .restart-game-container,
-.game-tied-container {
+.game-tied-container,
+.new-game-vs-player-alert-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -383,7 +408,8 @@ button.restart-button {
   text-transform: uppercase;
 }
 
-.restart-game-container h1 {
+.restart-game-container h1,
+.new-game-vs-player-alert h1 {
   color: var(--Silver);
   font-size: 40px;
   font-weight: 700;
@@ -421,7 +447,8 @@ button.restart-button {
   box-shadow: 0px -4px 0px 0px #6b8997 inset;
 }
 
-.cancel-restart-button {
+.cancel-restart-button,
+.back-button {
   width: 139px;
   height: 52px;
   border-radius: 10px;
@@ -434,6 +461,11 @@ button.restart-button {
   text-transform: uppercase;
   margin-right: 16px;
   box-shadow: 0px -4px 0px 0px #6b8997 inset;
+}
+
+.cancel-restart-button:hover,
+.back-button:hover {
+  background: var(--Silver-hover);
 }
 
 .next-round-button,
