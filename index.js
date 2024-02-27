@@ -302,6 +302,13 @@ function updateScores(playerSign) {
       "playerCircleScore"
     ).innerHTML = `${playerCircleScore}`;
   }
+  if (playerSign === "circle-aiPlayer") {
+    iconXElement.className = "turnButton-color";
+    turnButton.innerHTML = "";
+    turnButton.appendChild(iconXElement);
+    turnButton.innerHTML += " Turn";
+    turnButton.style.color = "#a8bfc9";
+  }
 }
 
 function getIdValue(className) {
