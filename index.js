@@ -31,10 +31,6 @@ nextRoundButton.addEventListener("click", nextRound);
 nextRoundTiedButton.addEventListener("click", nextRound);
 backButton.addEventListener("click", handleBackButton);
 restartButton.addEventListener("click", restartGame);
-// restartButton.addEventListener("mouseover", restartButtonHoverEffect);
-// restartButton.addEventListener("mouseout", () => {
-//   restartButton.classList.add("");
-// });
 window.addEventListener("resize", centerMainContent);
 let playerXScore = 0;
 let playerCircleScore = 0;
@@ -45,7 +41,6 @@ runAi = true;
 // FINAL STEPS: create alert of development with another human player and clean code and element names
 
 window.addEventListener("resize", function () {
-  console.log("Window width:", window.innerWidth);
   const isSmallScreen = window.innerWidth <= 600;
   if (isSmallScreen) {
     cellElements.forEach((element) => {
@@ -56,7 +51,6 @@ window.addEventListener("resize", function () {
       element.addEventListener("mouseover", handleMouseOver);
     });
   }
-  isSmallScreen ? console.log("yes small screen") : console.log("big screen");
 });
 
 window.onload = () => {
@@ -98,15 +92,6 @@ iconCircleElement.alt = iconCircle.alt;
 iconCircleElement.style.cssText = "";
 iconCircleElement.style.verticalAlign = "middle";
 iconCircleElement.style.marginRight = "10px";
-
-// const restartButtonHover = new Image();
-// restartButtonHover.src = "./images/restart-button-hover.svg";
-
-// const restartButtonHoverElement = document.createElement("img");
-// restartButtonHoverElement.src = restartButtonHover.src;
-// restartButtonHoverElement.style.cssText = "";
-// restartButtonHoverElement.style.border = "1px solid red";
-// restartButtonHoverElement.style.height = "65px";
 
 playerButton.forEach((button) => {
   button.addEventListener("click", function () {
@@ -158,11 +143,6 @@ function handleMouseOver() {
 function handleMouseOut() {
   this.style = "none";
 }
-
-// function restartButtonHoverEffect() {
-//   restartButton.innerHTML = "";
-//   restartButton.appendChild(restartButtonHoverElement);
-// }
 
 cellElements.forEach((element) =>
   element.addEventListener("mouseout", handleMouseOut)

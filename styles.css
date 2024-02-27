@@ -52,10 +52,6 @@ button {
   cursor: pointer;
 }
 
-button.restart-button {
-  padding: 0;
-}
-
 #game-end-message.show,
 #restart-game-message.show,
 #game-tied-message.show,
@@ -150,13 +146,6 @@ button.restart-button {
   color: var(--Silver);
 }
 
-.turnButton-color {
-  filter: brightness(0) saturate(100%) invert(80%) sepia(17%) saturate(264%)
-    hue-rotate(153deg) brightness(91%) contrast(92%);
-  width: 20px;
-  height: 20px;
-}
-
 .icon-x:hover:not(.light-background),
 .icon-circle:hover:not(.light-background) {
   background: var(--Semi-dark-navy);
@@ -223,10 +212,6 @@ button.restart-button {
   gap: 20px;
 }
 
-.score-board {
-  margin: 0 0 20px 0;
-}
-
 .game-board-grid span {
   display: flex;
   width: var(--Cell-size);
@@ -246,6 +231,13 @@ button.restart-button {
   display: flex;
   text-align: start;
   align-items: center;
+}
+
+.turnButton-color {
+  filter: brightness(0) saturate(100%) invert(80%) sepia(17%) saturate(264%)
+    hue-rotate(153deg) brightness(91%) contrast(92%);
+  width: 20px;
+  height: 20px;
 }
 
 .turn-icon {
@@ -284,11 +276,6 @@ button.restart-button {
 .restart-button {
   width: 52px;
   height: 52px;
-  /* text-align: end; */
-  /* background: var(--Dark-navy); */
-  /* height: fit-content; */
-  /* cursor: pointer; */
-  /* border: 1px solid blue; */
   background: var(--Silver);
   border-radius: 10px;
   box-shadow: 0px -4px 0px 0px #6b8997 inset;
@@ -303,14 +290,9 @@ button.restart-button {
   font-size: 20px;
 }
 
-/* img#restart-button-icon:hover {
-  transition: var(--On-hover-transition);
-  cursor: pointer;
-} */
-
-/* .restart-button img:hover {
-  cursor: pointer;
-} */
+.score-board {
+  margin: 0 0 20px 0;
+}
 
 .score-board-item {
   display: flex;
@@ -400,32 +382,43 @@ button.restart-button {
   margin: 0;
 }
 
-.game-end-container h1 {
-  color: var(--Light-yellow);
+.game-end-container h1,
+.restart-game-container h1,
+.new-game-vs-player-alert h1,
+.game-tied-container h1 {
   font-size: 40px;
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
+}
+
+.game-end-container h1 {
+  color: var(--Light-yellow);
+  /* font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase; */
 }
 
 .restart-game-container h1,
-.new-game-vs-player-alert h1 {
+.new-game-vs-player-alert h1,
+.game-tied-container h1 {
   color: var(--Silver);
-  font-size: 40px;
+  /* font-size: 40px;
   font-weight: 700;
   letter-spacing: 2.5px;
-  text-transform: uppercase;
+  text-transform: uppercase; */
   margin: 23px 0 31px 0;
 }
 
-.game-tied-container h1 {
-  color: var(--Silver);
-  font-size: 40px;
+/* .game-tied-container h1 { */
+/* color: var(--Silver); */
+/* font-size: 40px;
   font-weight: 700;
   letter-spacing: 2.5px;
-  text-transform: uppercase;
-  margin: 23px 0 31px 0;
-}
+  text-transform: uppercase; */
+/* margin: 23px 0 31px 0; */
+/* } */
 
 .game-end-buttons {
   display: flex;
@@ -573,9 +566,13 @@ button.restart-button {
     background-size: 40px 40px;
   }
 
-  .restart-button img {
+  .restart-button {
     width: 40px;
     height: 40px;
+  }
+
+  .restart-button i {
+    font-size: 15.5px;
   }
 
   .turnButton-color {
