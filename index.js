@@ -1,6 +1,6 @@
 const selectBox = document.querySelector(".game-start-menu"),
-  selectPlayerX = document.querySelector(".pick-players .icon-x"),
-  selectPlayerCircle = document.querySelector(".pick-players .icon-circle"),
+  selectPlayerX = document.querySelector(".icon-x"),
+  selectPlayerCircle = document.querySelector(".icon-circle"),
   gameBoard = document.querySelector("#game-board"),
   players = document.querySelector(".pick-players"),
   playerButton = document.querySelectorAll(".pick-player-button"),
@@ -140,13 +140,17 @@ function handleMouseOver() {
   }
 }
 
-function handleMouseOut() {
-  this.style = "none";
-}
+cellElements.forEach((element) => {
+  element.addEventListener("mouseover", handleMouseOver);
+});
 
 cellElements.forEach((element) =>
   element.addEventListener("mouseout", handleMouseOut)
 );
+
+function handleMouseOut() {
+  this.style = "none";
+}
 
 function startGame() {
   if (!playerButtonClicked) {
@@ -272,7 +276,7 @@ function nextRound() {
     element.addEventListener("click", () => {
       element.style.pointerEvents = "none";
     });
-    // element.addEventListener("mouseover", handleMouseOver);
+    element.addEventListener("mouseover", handleMouseOver);
   });
   if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
     aiPlayer();
