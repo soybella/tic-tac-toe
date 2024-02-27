@@ -1,6 +1,6 @@
 const selectBox = document.querySelector(".game-start-menu"),
-  selectPlayerX = selectBox.querySelector(".pick-players .icon-x"),
-  selectPlayerCircle = selectBox.querySelector(".pick-players .icon-circle"),
+  selectPlayerX = document.querySelector(".pick-players .icon-x"),
+  selectPlayerCircle = document.querySelector(".pick-players .icon-circle"),
   gameBoard = document.querySelector("#game-board"),
   players = document.querySelector(".pick-players"),
   playerButton = document.querySelectorAll(".pick-player-button"),
@@ -38,8 +38,6 @@ let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
-// FINAL STEPS: create alert of development with another human player and clean code and element names
-
 window.addEventListener("resize", function () {
   const isSmallScreen = window.innerWidth <= 600;
   if (isSmallScreen) {
@@ -55,7 +53,9 @@ window.addEventListener("resize", function () {
 
 window.onload = () => {
   for (let i = 0; i < cellElements.length; i++) {
-    cellElements[i].setAttribute("onclick", "clickedBox(this)");
+    cellElements[i].addEventListener("click", function () {
+      clickedBox(this);
+    });
   }
   playerDisplay.style.display = "none";
 };
@@ -99,7 +99,7 @@ playerButton.forEach((button) => {
   });
 });
 
-selectPlayerX.onclick = () => {
+selectPlayerX.addEventListener("click", function () {
   playerDisplay.innerHTML = "You chose X.";
   playerDisplay.style.display = "block";
   selectPlayerX.classList.add("light-background");
@@ -111,9 +111,9 @@ selectPlayerX.onclick = () => {
   turnButton.style.color = "#a8bfc9";
   document.getElementById("player-one").innerHTML = "X (You)";
   document.getElementById("player-two").innerHTML = "O (CPU)";
-};
+});
 
-selectPlayerCircle.onclick = () => {
+selectPlayerCircle.addEventListener("click", function () {
   playerDisplay.innerHTML = "You chose O.";
   playerDisplay.style.display = "block";
   selectPlayerX.classList.remove("light-background");
@@ -126,7 +126,7 @@ selectPlayerCircle.onclick = () => {
   document.getElementById("player-two").innerHTML = "O (You)";
   document.getElementById("player-one").innerHTML = "X (CPU)";
   aiPlayer(runAi);
-};
+});
 
 function handleMouseOver() {
   if (players.classList.contains("active")) {
@@ -272,6 +272,7 @@ function nextRound() {
     element.addEventListener("click", () => {
       element.style.pointerEvents = "none";
     });
+    // element.addEventListener("mouseover", handleMouseOver);
   });
   if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
     aiPlayer();
@@ -374,7 +375,6 @@ function selectWinner() {
         headerLarge.style.color = "#A8BFC9";
         tiesScore++;
         document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
-        console.log(playerSign);
       }, 700);
     }
   }
