@@ -206,7 +206,7 @@ function clickedBox(element) {
   selectWinner();
   gameBoard.style.pointerEvents = "none";
 
-  let randomTimeDelay = Math.floor(Math.random() * 300 + 200);
+  let randomTimeDelay = Math.floor(Math.random() * 100 + 200);
   setTimeout(() => {
     aiPlayer(runAi);
   }, randomTimeDelay);
@@ -377,6 +377,8 @@ function selectWinner() {
       getIdValue(8) != "" &&
       getIdValue(9) != ""
     ) {
+      if (playerSign === "x-humanPlayer") {
+      }
       runAi = false;
       aiPlayer(runAi);
 
@@ -386,6 +388,7 @@ function selectWinner() {
         headerLarge.style.color = "#A8BFC9";
         tiesScore++;
         document.getElementById("tiesScore").innerHTML = `${tiesScore}`;
+        updateScores(playerSign);
       }, 700);
     }
   }
