@@ -38,19 +38,6 @@ let tiesScore = 0;
 let playerButtonClicked = false;
 runAi = true;
 
-window.addEventListener("resize", function () {
-  const isSmallScreen = window.innerWidth <= 600;
-  if (isSmallScreen) {
-    cellElements.forEach((element) => {
-      element.removeEventListener("mouseover", handleMouseOver);
-    });
-  } else {
-    cellElements.forEach((element) => {
-      element.addEventListener("mouseover", handleMouseOver);
-    });
-  }
-});
-
 window.onload = () => {
   for (let i = 0; i < cellElements.length; i++) {
     cellElements[i].addEventListener("click", function () {
@@ -140,9 +127,23 @@ function handleMouseOver() {
   }
 }
 
-cellElements.forEach((element) => {
-  element.addEventListener("mouseover", handleMouseOver);
-});
+function checkScreenSize() {
+  const isSmallScreen = window.innerWidth <= 600;
+
+  if (isSmallScreen) {
+    cellElements.forEach((element) => {
+      element.removeEventListener("mouseover", handleMouseOver);
+    });
+  } else {
+    cellElements.forEach((element) => {
+      element.addEventListener("mouseover", handleMouseOver);
+    });
+  }
+}
+
+checkScreenSize();
+
+window.addEventListener("resize", checkScreenSize);
 
 cellElements.forEach((element) =>
   element.addEventListener("mouseout", handleMouseOut)
@@ -277,6 +278,7 @@ function nextRound() {
       element.style.pointerEvents = "none";
     });
     element.addEventListener("mouseover", handleMouseOver);
+    checkScreenSize();
   });
   if (playerSign === "circle-humanPlayer" || playerSign === "x-aiPlayer") {
     aiPlayer();
