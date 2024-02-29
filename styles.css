@@ -9,11 +9,12 @@
   --Light-blue-hover: #65e9e4;
   --On-hover-transition: 250ms ease-in-out;
   --Cell-size: 140px;
-  --Mark-size: calc(var(--Cell-size) * 0.7);
   --X-mark: url(./images/icon-x.svg);
   --X-mark-hover: url(./images/icon-x-outline.svg);
   --Circle-mark: url(./images/icon-o.svg);
   --Circle-mark-hover: url(./images/icon-o-outline.svg);
+  --Box-shadow-large-button: 0px -8px 0px 0px #10212a inset;
+  --Box-shadow-light: 0px -8px 0px 0px #6b8997 inset;
 }
 
 *,
@@ -373,12 +374,7 @@ button {
 .game-end-container p,
 .restart-game-container p,
 .game-tied-container p {
-  font-size: 16px;
   color: var(--Silver);
-  text-align: center;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   margin: 0;
 }
 
@@ -392,33 +388,16 @@ button {
   text-transform: uppercase;
 }
 
-.game-end-container h1 {
-  color: var(--Light-yellow);
-  /* font-size: 40px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase; */
-}
-
 .restart-game-container h1,
 .new-game-vs-player-alert h1,
 .game-tied-container h1 {
   color: var(--Silver);
-  /* font-size: 40px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase; */
   margin: 23px 0 31px 0;
 }
 
-/* .game-tied-container h1 { */
-/* color: var(--Silver); */
-/* font-size: 40px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase; */
-/* margin: 23px 0 31px 0; */
-/* } */
+.game-end-container h1 {
+  color: var(--Light-yellow);
+}
 
 .game-end-buttons {
   display: flex;
@@ -428,30 +407,36 @@ button {
 .quit-tied-button {
   width: 76px;
   height: 52px;
-  border-radius: 10px;
   background: var(--Silver);
   color: var(--Dark-navy);
-  text-align: center;
+  margin-right: 16px;
+  box-shadow: 0px -4px 0px 0px #6b8997 inset;
+}
+
+.cancel-restart-button,
+.back-button,
+.next-round-button,
+.next-round-tied-button,
+.confirm-restart-button,
+.game-end-container p,
+.restart-game-container p,
+.game-tied-container p,
+.quit-button,
+.quit-tied-button {
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-right: 16px;
-  box-shadow: 0px -4px 0px 0px #6b8997 inset;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .cancel-restart-button,
 .back-button {
   width: 139px;
   height: 52px;
-  border-radius: 10px;
   background: var(--Silver);
   color: var(--Dark-navy);
-  text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   margin-right: 16px;
   box-shadow: 0px -4px 0px 0px #6b8997 inset;
 }
@@ -466,15 +451,9 @@ button {
 .confirm-restart-button {
   width: 146px;
   height: 52px;
-  border-radius: 10px;
   background: var(--Light-yellow);
   box-shadow: 0px -4px 0px 0px #cc8b13 inset;
   color: var(--Dark-navy);
-  text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
 }
 
 #x-aiPlayer,
@@ -585,8 +564,3 @@ button {
     height: 32px;
   }
 }
-/* @media screen and (min-width: 600px) and (orientation: landscape) {
-  body {
-    color: blue;
-  }
-} */
